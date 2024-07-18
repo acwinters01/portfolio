@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="/CSS/html_styles.css" rel="stylesheet"/>
+    <title>HTML Cheat Sheet</title>
+   
+    <div id="heading">
+        <h1>WEB DEVELOPMENT CHEAT SHEET</h1>
+        <nav class="navigation">
+            <div class="current"></div>
+            <a href="#"><h3>HTML</h3></a>
+    
+            <a href="css_index.html" title="CSS Cheat Sheet"><h3>CSS</h3></a>
+            <a href="javascript_index.html" title="JavaScript Cheat Sheet"><h3>JavaScript</h3></a>
+        </nav>  
+    </div>
+    <h2>HTML</h2>
+</head>
+
+<body>
+    <div class="beginning-text">
+        
+        <h3>What is HTML?</h3>
+                <p>
+                    It is the skeleton of all web pages. It provides structure to the content on a website, 
+                    including text, images, buttons, videos, and more.
+                    It stands for <span id="bold">H</span>yper<span id="bold">T</span>ext <span id="bold">M</span>arkup <span id="bold">L</span>anguage.
+                </p>
+        <h3>HTML Markup</h3>
+            <p>
+                The <span id="italics">ML</span> in HTML stands for Markup language
+                Markup refers to a way of annotating text that is distinguishable from the text itself. 
+                In a way, HTML annotates the content within a web page.
+             </p>
+        <h3>HTML Elements</h3>
+             <ul>
+                <li>
+                    HTML tags are the <span id="italics">“markup”</span> for HTML. They are annotations that provide information about 
+                    the type of content they contain.
+               </li>
+                <li>
+                    <span id="bold">HTML element</span> - a unit of content in an HTML document formed by HTML tags and the text or media it contains.
+                </li>
+                <li>
+                    <span id="bold">Opening Tag</span> - the element name used to start an html element. The tag type is surrounded by 
+                    opening and closing angle brackets.
+                </li>
+                <li>
+                    <span id="bold">Content</span> - The information (text or other elements) contained between the opening and closing tags 
+                    of an HTML element.
+                </li>
+                <li>
+                    <span id="bold">Closing tag</span> - the second HTML tag used to end an HTML element. Closing tags have a forward slash (/) 
+                    inside of them, directly after the left angle bracket.
+                </li> 
+             </ul>
+    </div>
+    <div id="table-content">
+        <table>
+            <thead id="table-heading">
+                <tr>
+                    <th scope="col"><h2>TAGS</h2></th>
+                    <th scope="col"><h2>SYNTAX</h2></th>
+                    <th scope="col"><h2>DESCRIPTION</h2></th>
+                </tr>
+            </thead>
+            <tbody> 
+                <!--a Tag-->
+                <tr>
+                    <th scope="row"><h3>anchor</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;a</span> href="This is the url of the webpage&gt;
+                            This is the text that will show.<span id="bold">&lt;/a&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id="bold">&lt;a&gt;</span> tag defines a hyperlink, which is used to link from one page to another.
+                            The most important attribute of the <span id="bold">&lt;a&gt;</span> element is the href attribute, which 
+                            indicates the link's destination.
+                        </p>
+                        <p>
+                            By default, links will appear as follows in all browsers:
+                            <ul>
+                                <li>An unvisited link is underlined and blue</li>
+                                <li>A visited link is underlined and purple</li>
+                                <li>An active link is underlined and red</li>
+                            </ul>
+                        </p>
+                    </td>
+                </tr>
+                <!--Header Attribute-->
+                <tr>
+                    <th scope="row"><h3>header</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;header&gt;</span>This is a sentence<span id="bold">&lt;/header&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            A header is a container usually for either navigation 
+                            links or introductory content containing <span id="bold">&lt;h1&gt;</span> to <span id="bold">&lt;h6&gt;</span> headings.
+                        </p>
+                    </td>
+                </tr>
+                <!--Nav Attribute-->
+                <tr>
+                    <th scope="row"><h3>nav</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;nav&gt;</span>You would place a menu or table of contents here.<span id="bold">&lt;/nav&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;nav&gt;</span> is used to define a block of navigation link such as menus and tables 
+                            of contents. It is important to note that <span id="bold">&lt;nav&gt;</span> can be used inside of the 
+                            <span id="bold">&lt;header&gt;</span> element but can also be used on its own.
+                        </p>
+                    </td>
+                </tr>
+                <!--Main Attribute-->
+                <tr>
+                    <th scope="row"><h3>main</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;main&gt;</span><br>
+                               <span class="indent-once">&lt;header&gt;</span><br>
+                               <span class="indent-twice">&lt;h1&gt;Types of Sports&lt;/h1&gt;</span><br>
+                               <span class="indent-once">&lt;header&gt;</span><br>
+                               <span class="indent-once">&lt;article&gt;</span><br>
+                               <span class="indent-twice">&lt;h3&gt;Baseball&lt;/h3&gt;</span><br>
+                               <span class="indent-twice">&lt;p&gt;</span><br>
+                               <span class="indent-thrice">The first game of baseball was played in Cooperstown, New York in the summer of 1839.</span><br>
+                               <span class="indent-twice">&lt;p&gt;</span><br>
+                            <span class="indent-once">&lt;article&gt;</span><br>
+                            <span id="bold">&lt;/main&gt;</span><br>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The element <span id="bold">&lt;main&gt;</span> is used to encapsulate the dominant content within a web page. 
+                            This tag is separate from the &lt;footer&gt; and the &lt;nav&gt; of a web page since these elements don’t 
+                            contain the principal content. 
+                        </p>
+                    </td>
+                </tr> 
+                <!--Section Attribute-->
+                <tr>
+                    <th scope="row"><h3>section</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;section&gt;</span><br>
+                            <span class="indent-once">&lt;h2&gt;Fun Facts About Cricket&lt;/h2&gt;</span><br>
+                            <span id="bold">&lt;/section&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;section&gt;</span> defines elements in a document, such as chapters, headings, or any other 
+                            area of the document with the same theme.
+                        </p>
+                    </td>
+                </tr>
+                <!--Article Attribute-->
+                <tr>
+                    <th scope="row"><h3>article</h3></th>
+                    <td>
+                        <p>
+                            &lt;section&gt;
+                                <span class="indent-once">&lt;h2&gt;Fun Facts About Cricket&lt;/h2&gt;</span><br>
+                                <span class='indent-once' id="bold">&lt;article&gt;</span><br>
+                                <span class="indent-twice">&lt;p&gt;A single match of cricket can last up to 5 days.&lt;/p&gt;</span><br>
+                                <span class="indent-once" id="bold">&lt;/article&gt;</span><br>
+                            &lt;/section&gt;
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id="bold">&lt;article&gt;</span> element holds content that makes sense on its own. <span id="bold">&lt;article&gt;</span> can hold 
+                            content such as articles, blogs, comments, magazines, etc.
+                        </p> 
+                    </td>
+                </tr>
+                <!--Aside Attribute-->
+                <tr>
+                    <th scope="row"><h3>aside</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;aside&gt;</span><br>
+                            <span class="indent-once">&lt;p&gt;Babe Ruth once stated, “Heroes get remembered, but legends never die.”&lt;p&gt;</span><br>
+                            <span id="bold">&lt;/aside&gt;</span><br>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id="bold">&lt;aside&gt;</span> element is used to mark additional information that can enhance another 
+                            element but isn’t required in order to understand the main content. The element can be used alongside 
+                            other elements such as &lt;article&gt; or &lt;section&gt;.
+                        </p>
+                        <ul>
+                            <li>Bibliographies</li>
+                            <li>Endnotes</li>
+                            <li>Comments</li>
+                            <li>Pull Quotes</li>
+                            <li>Editorial sidebars</li>
+                            <li>Additional information</li>
+                        </ul>
+                    </td>
+                </tr>
+                <!--Figure Tag-->
+                <tr>
+                    <th scope="row"><h3>figure</h3></td>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;figure&gt;</span><br>
+                            <span class="indent-once">&lt;img src="This is the location of an image&gt;</span><br>
+                            <span id="bold">&lt;/figure&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;figure&gt;</span> is an element used to encapsulate 
+                            media such as an image, illustration, diagram, code snippet, 
+                            etc, which is referenced in the main flow of the document.
+                        </p>
+                    </td>
+                </tr>
+                <!--Figcaption Tag-->
+                <tr>
+                    <th scope="row"><h3>figcaption</h3></th>
+                    <td>
+                        <p>
+                            &lt;figure&gt;<br>
+                            <span class="indent-once">&lt;img src="This is the location of an image&gt;</span><br>
+                            <span class="indent-once"><span id="bold">&lt;figcaption&gt;</span>This picture shows characters from Overwatch
+                            <span id="bold">&lt;/figcaption&gt;</span></span><br>
+                            &lt;/figure&gt;
+                        </p>
+                    </td>
+
+                    <td>
+                        <p>
+                            <span id="bold">&lt;/figcaption&gt;</span> is an element used to describe the media in the &lt;figure&gt; tag. <br>
+                            Usually, <span id="bold">&lt;/figcaption&gt;</span> will go inside &lt;figure&gt;.  This is different than using a 
+                            &lt;p&gt; element to describe the content; if we decide to change the location of 
+                            &lt;figure&gt;, the paragraph tag may get displaced from the figure while a 
+                            <span id="bold">&lt;/figcaption&gt;</span> will move with the figure. this is useful for grouping 
+                            an image with a caption.
+                        </p>
+                    </td>
+                </tr>
+                <!--Audio Tag-->
+                <tr>
+                    <th scope="row"><h3>audio</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;audio&gt;</span><br>
+                            <span class="indent-once">&lt;source src=“iAmAnAudioFile.mp3” type=“audio/mp3”></span><br>
+                            <span id="bold">&lt;/audio&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The  <span id="bold">&lt;audio&gt;</span> element is used to embed audio content a document. 
+                            Like &lt;video&gt;,  <span id="bold">&lt;audio&gt;</span> uses src to link the audio source.
+                        </p>
+                    </td>
+                </tr>
+                <!--Span Tag-->
+                <tr>
+                    <th scope="row"><h3>span</h3></th>
+                    <td>
+                        <p>
+                            &lt;p&gt;This is a sentence where the word <span id="bold">&lt;span style="color:blue"&gt;blue&lt;/span&gt;</span>is 'blue'.&lt;/p&gt;
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The  <span id="bold">&lt;span&gt;</span> tag is an inline container used to mark up a part of a text, 
+                            or a part of a document.
+                        </p>
+                        <p>
+                            The <span id="bold">&lt;span&gt;</span> tag is easily styled by CSS or manipulated with 
+                            JavaScript using the class or id attribute.
+                        </p>
+                    </td>
+                </tr>
+                <!--Line Break Tag-->
+                <tr>
+                    <th scope="row"><h3>line break</h3></th>
+                    <td>
+                        <p>
+                            This is the first sentence. I want the third sentence to be on a new line.<br>
+                            <span id="bold">&lt;br&gt;</span> By using the line break attribute you can do that like this. <span id="bold">&lt;br&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id="bold">&lt;br&gt;</span> tag inserts a single line break. <br>
+                            The <span id="bold">&lt;br&gt;</span> tag is useful for writing addresses or poems. <br>
+                            The <span id="bold">&lt;br&gt;</span> tag is an empty tag which means that it has no end tag. <br>
+                        </p>
+                    </td>
+                </tr>
+                <!--Image Tag-->
+                <tr>
+                    <th scope="row"><h3>image</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;img src=</span>"This is the location of the image<span id="bold">/&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id="bold">&lt;img&gt;</span> tag is used to embed an image in an HTML page.<br>
+                            Images are not technically inserted into a web page; images are linked to web pages. 
+                            The <span id="bold">&lt;img&gt;</span> tag creates a holding space for the referenced image.
+                        </p>
+                        <p>
+                            The <span id="bold">&lt;img&gt;</span> tag has two required attributes:
+                            <ul>
+                                <li>src - Specifies the path to the image</li>
+                                <li>alt - Specifies an alternate text for the image, 
+                                if the image for some reason cannot be displayed</li>
+                            </ul>
+                        </p>
+                    </td>
+                </tr>
+                <!--Strong Tag-->
+                <tr>
+                    <th scope="row"><h3>strong</h3></td>
+                    <td>
+                        <p class="bold">
+                            <span id="bold">&lt;strong&gt;</span>This sentence is in bold.<span id="bold">&lt;/strong&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            You can also style text using HTML tags.
+                            <span id="bold">&lt;strong&gt;</span> tag will generally render as bold emphasis
+                        </p>
+                    </td>
+                </tr>
+                <!--Italic Tag-->
+                <tr>
+                    <th scope="row"><h3>italic</h3></td>
+                    <td>
+                        <p class="italicize">
+                            <span id="bold">&lt;em&gt;</span>This sentence is in italics.<span id="bold">&lt;/em&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            You can also style text using HTML tags.
+                            <span id="bold">&lt;em&gt;</span> tag will generally render as italic emphasis
+                        </p>
+                    </td>
+                </tr>
+                <!--Video Tag-->
+                <tr>
+                    <th scope="row"><h3>video</h3></th>
+                    <td>
+                        <p>
+                            <span id="bold">&lt;video src=</span>"This is the location of the video" 
+                            width=100 height="200" controls&gt;
+                            This text will show if the link doesn't work<span id="bold">&lt;/video&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            By using a <span id="bold">&lt;video&gt;</span> element, we can add videos to our website. The <span id="bold">&lt;video&gt;</span>
+                            element makes it clear that a developer is attempting to display a video to the user.<br>
+                            Some attributes that can alter a video playback include:
+                        </p>
+
+                        <ul>
+                            <li>controls: when added in, a play/pause button will be added onto the video along 
+                            with volume control and a fullscreen option.</li>
+                            <li>autoplay: The attribute which results in a video automatically playing as soon as the page is loaded.</li>
+                            <li>loop: This attribute results in the video continuously playing on repeat.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <!--Embed Tag-->
+                <tr>
+                    <th scope="row"><h3>embed</h3></th>
+                    <td>
+                        <p>
+                            <span id='bold'>&lt;embed </span>src=“download.gif<span id="bold">/&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            Another tag that can be used to incorporate media content into a page is the <span id='bold'>&lt;embed</span>
+                            tag, which can embed any media content including videos, audio files, and gifs from an external source. 
+                            This means that websites that have an embed button have some form of media content that can be added to other websites. 
+                        </p>
+                        <p>
+                            The <span id='bold'>&lt;embed</span> tag is a self-closing tag, unlike the &lt;video&gt; element. Note that <span id='bold'>&lt;embed</span> is a deprecated 
+                            tag and other alternatives, such as &lt;video&gt;, &lt;audio&gt; and &lt;img&gt;, should be used in its place, but is being taught 
+                            for legacy purposes.
+                                
+                        </p>
+                    </td>
+                </tr>
+                <!--Footer Attribute-->
+                <tr>
+                    <th scope="row"><h3>footer</h3></th>
+                    <td>
+                        <p>
+                            <span id='bold'>&lt;footer&gt;</span>This is text that will be in a footer which is at the bottom of the HTML<span id='bold'>&lt;/footer&gt;</span>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            The <span id='bold'>&lt;footer&gt;</span> contains information such as as:
+                        </p>
+                        <ul>
+                            <li>Contact information</li>
+                            <li>Copyright information</li>
+                            <li>Terms of use</li>
+                            <li>Site Map</li>
+                            <li>Reference to top of page links</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    
+</body>
+
+<div>   
+    <div class="decoration-circle"></div>
+    <div class="decoration-circle2"></div>
+    <div class="decoration-circle3"></div>
+    <div class="decoration-circle4"></div>
+</div> 
+
+<footer>
+    <div id="contact">
+        <p><span id='bold'>Designed by:</span> Alexandra Winters</p>
+        <p><span id='bold'>Email:</span> acwinters03@gmail.com</p>
+        <p><span id='bold'>Website:</span> TBA</p>
+    </div>
+</footer>
+</html>

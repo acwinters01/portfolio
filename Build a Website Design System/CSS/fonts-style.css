@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    /*border: 1px solid black;*/
+    box-sizing: border-box;
+    
+}
+
+body {
+    background-color: #161B33;
+    min-height: 2100px;
+    height: 100%;
+    position: relative;
+}
+  
+
+/* Media */
+img {
+    position: fixed;
+    width: 100%;
+    right: 40%;
+    z-index: -15;
+    height: 100%;
+    -webkit-mask-image:-webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+} 
+
+#logo {
+    height: 50px;
+    width: 50px;
+    background-color: #F4EDED;
+    border-radius: 50%;
+    position: absolute;
+    top: 1em;
+}
+
+/* Fonts */
+.all-font {
+    position: absolute; 
+    background-color: #CD533B;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border: 5px solid #161B33;
+    top: 10%;
+    left: 45%;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    flex-wrap: wrap;
+}
+
+.font1, .font2, .font3, .font4, .font5, .font6 {
+    margin: 25px;
+}
+
+#head-title h1 {
+    font-family: "Abril FatFace", serif;
+    font-size: 36px;
+    letter-spacing: 4px;
+    z-index: 6;
+    background-color: #F4EDED;
+    text-align: right;
+    padding: 15px;
+    border-bottom: 4px solid #161B33;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    text-indent: 0px !important;
+
+}
+
+p:not(nav p) {
+    font-size: 18px;
+    text-indent: 15px
+}
+
+p:not(nav p)::before {
+    content: "- ";
+}
+
+/* Navigation */
+.header-border {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    height: 80px;
+    width: 100%;
+    background-image: linear-gradient(to right, #f4eded5c , #161B33);
+    border-bottom: 5px solid #161B33;
+    padding: 30px;
+}
+
+nav {
+    text-align: right;
+}
+
+nav p {
+    width: 100px;
+    background-color: #F4EDED;
+    font-size: 14px;
+    border-radius: 10px;
+    display: inline;
+    padding: 5px 20px;
+    margin: 0 auto; 
+    font-family: 'Sans Expanded', sans-serif;
+}
+
+nav p:hover {
+    background-color: #556F7A;
+}
+
+nav a {
+    text-decoration: none;
+    color: #161B33;
+}
+
+nav a:active {
+    color:#F4EDED;
+}
+
+nav p:active {
+    border: 3px solid white;
+}
+
+
+/* Fonts */
+.all-font h3 {
+    font-size: 30px;
+    text-decoration: underline;
+    margin-bottom: 15px;
+}
+
+.font1 h3 {
+    font-size: 36px;
+}
+
+.font1 {
+    font-family: "Style Script", cursive;
+    background-color: #F4EDED;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding: 20px;
+    border: 3px dashed #161B33;
+}
+
+.font1 p {
+    font-size: 24px;
+}
+
+.font2 {
+    font-family: "Abril FatFace", serif;
+    background-color: #F4EDED;
+    margin-bottom: 20px;
+    padding: 20px;
+    line-height: 2em;
+    border: 3px dashed #161B33;
+}
+
+.font3 {
+    font-family: "IBM Plex Mono", monospace; 
+    background-color: #F4EDED; 
+    margin-bottom: 20px;
+    padding: 20px;
+    line-height: 1.7em;
+    border: 3px dashed #161B33;
+}
+
+.font3 p {
+    font-size: 20px;
+}
+
+.font4 {
+    font-family: "Yanone Kaffeesatz", sans-serif; 
+    background-color: #F4EDED; 
+    margin-bottom: 20px;
+    padding: 20px; 
+    line-height: 2em;
+    border: 3px dashed #161B33;
+}
+
+.font4 p {
+    font-size: 22px;
+}
+
+.font5 {
+    font-family: "Playfair Display", serif;  
+    background-color: #F4EDED; 
+    margin-bottom: 20px;
+    padding: 20px; 
+    line-height: 2em;
+    border: 3px dashed #161B33;
+}
+
+.font6 {
+    font-family: "Bodoni Moda";  
+    background-color: #F4EDED; 
+    margin-bottom: 20px;
+    padding: 20px; 
+    border: 3px dashed #161B33;
+}
+
+/* Font Styles */
+#bold {
+    font-weight: 900;
+}
+
+#italics {
+    font-style: italic;
+}
+
+.spacer {
+    margin:0;
+}
+
+
+/*@media screen and (max-width: 1500px){
+    body {
+        min-height: 1200;
+    }
+    
+}
+
+@media screen and (max-width: 1150px) {
+    .spacer {
+        margin-top: 700px;
+    }  
+    img {
+        top:0%;
+    }
+}*/
+
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: #161B33;
+    border-top: 4px solid #556F7A;
+    padding: 40px;
+    
+}

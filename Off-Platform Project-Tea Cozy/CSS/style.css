@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding:0;
+}
+
+body {
+    background-color: black;
+    font-family: Helvetica;
+    color: seashell;
+}
+
+.main {
+    position: absolute;
+    top: 69px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin: 0 20px;
+    
+}
+
+.mission-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 69px;
+    width: 100%;
+    border-bottom: 1px solid seashell;
+    background-color: black;
+}
+
+.links {
+    display: flex;
+    flex-shrink: 2;
+}
+
+.links a {
+    padding: 10px;
+    color: seashell;
+}
+
+.navigation img {
+    height: 45px;
+    margin: 10px;
+}
+
+.banner {
+    background-image: url(/Resources/Images/img-mission-background.webp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 700px;
+    width: 100%;
+    margin: 20px;
+}
+
+.banner-contents {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    min-width: 1200px;
+}
+
+.banner-title {
+    margin: 10px;
+}
+
+
+
+/* Types of Tea Sections*/
+.tea-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.tea-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+}
+
+.tea-header h2 {
+    margin: 20px;
+}
+
+.types-tea {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    text-align: center;
+    margin: 20px;
+    margin-top: 0;
+}
+
+.types-tea h4 {
+    padding: 10px;
+}
+
+.types-tea img {
+    height: 200px;
+    width: 300px;
+    margin: 10px;
+}
+
+
+/* Locations Section */
+
+.location-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.location-image {
+    display: flex;
+    background-image: url(/Resources/Images/img-locations-background.webp);
+    background-size: cover;
+    justify-content: center;
+    min-width: 1200px;
+    height: 500px;
+}
+
+.locations h3, h4 {
+    padding: 20px 0;
+}
+
+.location-text {
+    display: inline-flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.locations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.downtown, .bayside, .oakdale {
+    background-color: black;
+    margin: 20px;
+    min-width: 300px;
+
+}
+
+
+
+/* Footer Contact Information */
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+}
+.contact {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.copywrite {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}

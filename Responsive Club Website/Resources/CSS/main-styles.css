@@ -1,0 +1,38 @@
+/* Main Styles */
+
+html {
+    font-size: 16px;
+}
+
+body {
+     overflow-x: hidden;
+     font-family: sans-serif;
+     font-family: Raleway;
+}
+
+.header {
+    max-width: 100%;
+}
+
+.headliner {
+    border-bottom: 2px solid lightgray;
+    background-color: white;
+}
+
+nav#mobile {
+    display: none;
+}
+
+.logo img {
+    max-width: 30%;
+    margin: 1rem;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+

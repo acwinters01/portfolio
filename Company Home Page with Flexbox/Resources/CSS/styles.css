@@ -1,0 +1,919 @@
+/* Universal Rulesets */
+
+@font-face {
+    font-family: "Benne";
+    src: url(/Company\ Home\ Page\ with\ Flexbox/Resources/Font/Benne.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Besley";
+    src: url(/Company\ Home\ Page\ with\ Flexbox/Resources/Font/Besley.ttf) format("truetype");
+}
+
+html {
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Besley;
+}
+
+.divider {
+    margin:0;
+    width: 20rem;
+}
+
+.divider img {
+    max-width: 100%;
+}
+
+h1 {
+    font-family: Benne;
+    font-size: 2.5rem;
+    padding: .3125rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: Benne;
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+.left-margin {
+    position: fixed;
+    top: 0%;
+    z-index: 010;
+    background-image: url(/Company\ Home\ Page\ with\ Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg);
+    background-size: cover;
+    background-position: 25rem;
+    border-right: .125rem solid #97CAF5;
+    width: 4rem;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.right-margin {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    z-index: 10;
+    background-image: url(/Company\ Home\ Page\ with\ Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg);
+    background-size: cover;
+    background-position: right;
+    border-left: .125rem solid #E147C1;
+    width: 4rem;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.main-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    margin: 0 4rem;
+    padding-top: 5rem;
+    overflow-x: hidden;
+}
+
+
+/* Mobile version of Universal Rulsets */
+
+@media only screen and (max-width: 650px) {
+    html {
+        font-size: 13px;
+    }
+
+    .left-margin, .right-margin {
+        width: .75rem;
+    }
+
+    .main-content {
+        margin: 0 .75rem;
+        margin-top: 1.5rem;
+    }
+
+    .divider {
+        margin: 0;
+    }
+}
+
+/* Tablet version of Universal Rulsets */
+@media only screen and (max-width: 895px) {
+    .left-margin, .right-margin {
+        width: 2.75rem;
+    }
+
+    .main-content {
+        margin: 0 2.75rem;
+        margin-top: 1.5rem;
+    }
+}
+
+
+/* Navigation */
+.header {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+nav {
+    position: sticky;
+    width: 100%;
+    top: 0rem;
+    height: 5rem;
+    z-index: 100;
+    display: flex; 
+    justify-content: center;
+    align-items: stretch;
+    background-color: white;
+    border-bottom: 3px solid #885aba;
+}
+
+.mobile {
+    display: none;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0% 1.5rem;
+    padding: 1.25rem;
+    width: 10rem;
+}
+
+nav a:hover:not(.button) {
+    background-color: #97CAF5;
+    color: white;
+    font-style: italic;
+}
+
+nav a:active:not(.button) {
+    color: #E147C1;
+    background-color: #633379;
+}
+
+
+/* Navigation for Mobile*/
+
+@media only screen and (max-width: 670px) {
+
+    nav {
+        max-width: 100%;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        margin: 0;
+        padding: 1.25rem .125rem;
+        max-width: 100%;
+    }
+
+    nav a {
+        
+        width: 1.7rem;
+        padding: .125rem;
+        margin: 0 1.25rem;
+    }
+
+    .mobile img {
+        height: 1.8rem;
+    }
+}
+
+/* Navigation for Tablet */
+
+@media only screen and (max-width: 895px) {
+    .button {
+        margin: .5rem 2rem .5rem 0px;
+    }
+}
+
+
+/* Banner */
+.banner-container {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/Company\ Home\ Page\ with\ Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    height: 100vh;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.img-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.img-banner img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 1rem;
+}
+
+
+/* Button */
+.button {
+    align-self: center;
+    background-color: #266bbe;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0px 3rem;
+    padding: .75rem;
+    height: 1rem;
+    width: 5rem;
+}
+
+.button:hover {
+    background-color: #885aba;
+}
+
+.button:active {
+    background-color: #8b8b8b;
+    box-shadow: inset .3125rem .3125rem #393939;
+}
+
+.button h4 {
+    color: white;
+}
+
+
+/* Mobile Version of Banner */
+
+@media only screen and (max-width: 600px) {
+
+    .banner-container {
+        height: 90vh;
+    }
+    nav {
+        height: 6vh;
+    }
+    
+}
+
+
+/* Mission Statement*/
+
+.mission-statement {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.statement-content {
+    margin: 1rem 6rem;
+    padding: 1rem;
+    line-height: 1.7rem;
+    text-align: center;
+}
+
+.statement-content p {
+    margin: 1rem;
+}
+
+
+/* Mobile Version of Mission Statement */
+
+@media only screen and (max-width: 600px) {
+    .statement-content {
+        margin: 0px 1rem;
+        padding: .5rem .5rem;
+    }
+
+    .statement-content {
+        margin: .25rem 2rem;
+    }
+
+}
+
+/* Tablet Version of Mission Statement */
+
+@media only screen and (max-width: 895px) {
+    .statement-content {
+        margin: 0px 3.5rem;
+        padding: 0px 1rem;
+    }
+
+}
+
+
+/* Projects */
+.projects-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 0;
+}
+
+.projects-container h1 {
+    margin: 1rem;
+    text-align: center;
+}
+
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.projects h2 {
+    color: white;
+    padding-top: 1rem;
+    width: 100%;
+    background-image: linear-gradient(to right, rgba(38, 107, 190,0), rgba(38, 107, 190, 1), #97CAF5);
+}
+
+.projects h3 {
+    padding-bottom: .75rem;
+    margin: 1.25rem 0rem;
+    border-bottom: 2px solid #266bbe;
+}
+
+#fragments p, #synthetic-dusk p, #reflection p {
+    align-items: stretch;
+    background-color: white;
+    border: 2px solid #633379;
+    padding: 1.5rem;
+    min-height: 45rem;
+}
+
+#stellar-ascension p, #echoes-veil p, #awakening p {
+    align-items: stretch;
+    background-color: white;
+    border: 2px solid #633379;
+    padding: 1.5rem;
+    min-height: 34rem;
+    
+}
+
+#fragments h2, #synthetic-dusk h2 {
+    padding-bottom: 1.8rem;
+}
+
+.projects img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border: .125rem solid #633379;
+}
+
+#stellar-ascension, #echoes-veil, #awakening, #reflection,
+#fragments, #synthetic-dusk {
+    background-color: #97CAF5;
+    border: .25rem solid #266bbe;
+    max-width: 25rem;
+    max-height: 100%;
+    margin: 1rem;
+    padding: 1.5rem;
+    line-height: 1.8em;
+}
+
+
+/* Project Mobile */
+
+@media only screen and (max-width: 1025px) {
+    .projects-container {
+        margin: 1.5rem 0;
+    }
+
+    .projects-container h1 {
+        margin: .5rem;
+    }
+    #stellar-ascension, #echoes-veil, #awakening, #reflection,
+    #fragments, #synthetic-dusk {
+        background-color: white;
+        border: none;
+        max-width: 40rem;
+        margin: 2rem;
+    }
+
+    #stellar-ascension p, #echoes-veil p, #awakening p {
+        min-height: 15rem;
+    }
+
+    #fragments p, #synthetic-dusk p, #reflection p {
+        min-height: 20rem;
+    }
+
+    .projects h2 {
+        color: black;
+        background-image: linear-gradient(to right, rgba(38, 107, 190,0), rgba(38, 107, 190, 1), white);
+    }
+}
+
+
+
+/* Adjustments on smaller windows for Projects */
+
+@media only screen and (min-width: 1026px) and (max-width: 1184px) {
+    #stellar-ascension, #echoes-veil, #awakening, #reflection,
+    #fragments, #synthetic-dusk {
+        max-width: 23rem;
+        margin: .75rem;
+        padding: .75;
+    }
+
+    #awakening h2 {
+        padding-bottom: 1.8rem;
+    }
+    #fragments h2, #synthetic-dusk h2 {
+        padding-bottom: 0;
+    }
+    #stellar-ascension p, #echoes-veil p {
+        min-height: 38rem;
+    }
+    #awakening p, #reflection p {
+        min-height: 42rem;
+    }
+    #fragments p, #synthetic-dusk p {
+        min-height: 51rem;
+    }
+}
+
+@media only screen and (min-width: 1185px) and (max-width: 1399px) {
+    .projects-container {
+        margin: 1.75rem 0;
+    }
+    #stellar-ascension, #echoes-veil, #awakening, #reflection,
+    #fragments, #synthetic-dusk {
+        max-width: 28rem;
+        margin: .75rem;
+    }
+    .projects p {
+        font-size: 1rem;
+    }
+
+    #stellar-ascension p, #echoes-veil p {
+        min-height: 30rem;
+    }
+    #stellar-ascension h2, #echoes-veil h2 {
+        padding-bottom: 0;
+    }
+    #awakening p, #reflection p {
+        min-height: 35rem;
+    }
+    #fragments p, #synthetic-dusk p {
+        min-height: 35rem;
+    }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1590px) {
+    .projects p {
+        font-size: .85rem;
+    }
+    #stellar-ascension, #echoes-veil, #awakening, #reflection,
+    #fragments, #synthetic-dusk {
+        max-width: 21rem;
+        margin: 1rem;
+    }
+
+    #stellar-ascension p, #echoes-veil p, #awakening p {
+        min-height: 36rem;
+    }
+
+    #fragments p, #synthetic-dusk p, #reflection p {
+        min-height: 46rem;
+    }
+
+    #stellar-ascension h2, #echoes-veil h2 {
+        padding-bottom: 1.8rem;
+    }
+
+    #fragments h2 {
+        padding-bottom: 0;
+    }
+
+    #synthetic-dusk h2 {
+        padding-bottom: 1.8rem;
+    }
+
+    .projects h3 {
+        font-size: 1.2rem;
+    }
+}
+
+
+/* Awards */
+
+.awards-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 1rem;
+ 
+}
+
+.awards {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 1rem;
+    padding-bottom: 2rem;
+}
+
+#gdc, #joystick, #ps-blog, #dice, #bafta {
+    border: .1875rem solid white;
+    background-color: #885aba;
+    width: 21rem;
+    max-height: 100%;
+    margin: 1rem;
+    padding: 1.5rem;
+    line-height: 1.8em;
+    
+}
+
+.awards-container h1 {
+    width: 100%;
+    background-color: black;
+    margin: 0;
+    color: white;
+    padding: 1rem;
+    padding-top: 2rem;
+}
+
+.awards h2 {
+    color: white;
+    background-image: linear-gradient(to right, rgba(99, 51, 121, 0), rgba(99, 51, 121,1), #885aba);
+    padding-top: 1rem;
+    width: 100%; 
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.8rem;
+}
+
+.awards #gdc h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.awards h3 {
+    color: white;
+    padding-bottom: .75rem;
+    margin: 1.25rem 0rem;
+    border-bottom: 2px solid black;
+    text-align: center;
+}
+
+.awards img {
+    border: .0625rem solid white;
+    width: 100%;
+    zoom: 90%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.awards ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    border: 3px solid black;
+    min-height: 10rem;
+    margin: .75rem 0px;
+}
+
+.awards li {
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+
+/* Dice Awards Focus */
+.awards #dice img {
+    max-height: 18.25rem;
+    zoom: 98%;
+    object-fit: cover;
+}
+
+.awards #dice #desktop{
+    display: none;
+}
+
+
+/* Mobile Version of Awards*/
+@media only screen and (max-width: 940px) {
+    .awards-container {
+        margin: 0rem;
+    }
+
+    #gdc, #joystick, #ps-blog, #dice, #bafta {
+        width: 28rem;
+        margin: .5rem;
+        padding: .75rem;
+        background-color: black;
+        border: none;
+    }
+
+    .awards h2 {
+        background-image: linear-gradient(to right, rgba(99, 51, 121, 0), rgba(99, 51, 121,1), black);
+    }
+
+    .awards h3 {
+        border-bottom: 2px solid white;
+    }
+
+    #bafta img {
+        zoom: 80%;
+    }
+
+    .awards img {
+        border: .125rem solid #885aba;
+    }
+
+    .awards ul {
+        border: .3rem solid #885aba;
+    }
+
+    .awards #dice #desktop {
+        display: visible;
+    }
+
+    .awards #dice #mobile {
+        display: inline-block;
+    }
+
+    .awards ul {
+        padding: .5rem;
+    }
+}
+
+/* Adjustments on smaller windows for Awards */
+@media only screen and (max-width: 1005px) {
+    #gdc, #joystick, #ps-blog, #dice, #bafta {
+        margin: .5rem;
+        padding: 1rem;
+    }
+}
+
+@media only screen and (min-width: 1006px) and (max-width: 1395px) {
+    #gdc, #joystick, #ps-blog, #dice, #bafta {
+        margin: .5rem;
+        padding: 1rem;
+        padding-bottom: 2rem;
+        
+        
+    }
+}
+
+@media only screen and (min-width: 1396px) and (max-width: 1590px) {
+
+    .awards #dice #desktop {
+        display: none;
+    }
+
+    .awards #dice #mobile {
+        max-height: 18.25rem;
+    }
+
+    .awards ul {
+        height: 11rem;
+    }
+
+    #gdc, #joystick, #ps-blog, #dice, #bafta {
+        width: 21rem; 
+        margin: 1rem .5rem;
+    }
+
+    .awards img {
+        zoom: 90%;
+    }
+
+    #ps-blog img {
+        object-position: top;
+      
+    }
+    #bafta img{
+        object-position: left;
+    }
+}
+
+
+/* Meet the Team */
+.meet-team {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.meet-team h2 {
+    padding-top: 1rem;
+    border-bottom: .125rem solid #633379;
+    background-image: linear-gradient(to right, rgba(99, 51, 121, 0), rgba(225, 71, 193, .50), white);
+}
+
+.meet-team h3 {
+    font-size: 1rem;
+    padding: .75rem 0px;
+    font-style: italic;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 3rem 0px;
+    margin-top: .25rem;
+    max-width: 100%;
+}
+
+.team-members img {
+    align-self: center;
+    max-width: 100%;
+    height: 25rem;
+    padding: .5rem;
+    margin: 1rem 0px;
+    border: .3125rem solid #97CAF5;
+    box-shadow: .1875rem .1875rem #E147C1;
+}
+
+.member {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: .5rem;
+    padding: 1rem;
+}
+
+
+/* Meet the Leads Mobile */
+@media only screen and (max-width: 600px) {
+    .team-members img { 
+        height: 34.6rem;
+    }
+
+    .member {
+        margin: .25rem;
+    }
+
+    .member h2 {
+        padding: .5rem;
+        font-size: 2.4rem;
+    }
+
+    .member h3 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+/* Group Picture */
+
+.meet-team .group-picture img {
+    max-width: 100%;
+    border: .3125rem solid #97CAF5;
+    box-shadow: .1875rem .1875rem #E147C1;
+}
+
+.group-picture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 5rem;
+    margin-top: 2.5rem
+}
+
+.group-picture h2 {
+    align-self: center;
+    margin: 2rem 0px 1rem 0px;
+    padding: 1rem;
+    font-size: 2.5rem;
+}
+
+.group-picture h4 {
+    margin-bottom: 1.5rem;
+    line-height: 1.8em;
+    padding: 1.5rem;
+    padding-top: .75rem;
+}
+
+
+/* Join Us Mobile */
+@media only screen and (max-width: 600px) {
+
+    .group-picture {
+        margin: 2rem;
+        margin-top: 3rem;
+    }
+    .group-picture h4 {
+        padding: .5rem;
+    }
+
+    .meet-team .group-picture img {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (min-width: 973px) {
+   .meet-team .group-picture img {
+        max-width: 60%;
+    }
+    .group-picture h2, .group-picture h4 {
+      margin: 1rem 5rem 0 5rem;
+      text-align: center;
+    }
+}
+
+
+/* Apply Now Button */
+
+.group-picture .button {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 10rem;
+    margin: 1.5rem;
+}
+
+.group-picture .button:hover {
+    background-color: #885aba;
+}
+
+.group-picture .button:active {
+    background-color: #8b8b8b;
+    box-shadow: inset .3125rem .3125rem #393939;
+}
+
+.group-picture .button p {
+    color: white;
+}
+
+
+/* Footer */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    bottom: 90%;
+    z-index: 100;
+    background-color: black;
+    height: 4rem;
+    font-family: Besley;
+    font-size: .75rem;
+    border-top: .1875rem solid #633379;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    max-width: 100%;
+    margin: 0px 2rem;
+}
+
+.footer-content p {
+    padding: .5rem;
+}

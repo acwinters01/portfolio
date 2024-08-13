@@ -6,18 +6,24 @@
     
 }
 
+html {
+    font-size: 16px;
+}
+
 body {
     background-color: #161B33;
-    min-height: 2100px;
+    min-height: 140rem;
     height: 100%;
     position: relative;
+
 }
   
 
 /* Media */
-img {
+.bg-image img {
     position: fixed;
     width: 100%;
+    top: 0;
     right: 40%;
     z-index: -15;
     height: 100%;
@@ -26,24 +32,29 @@ img {
 } 
 
 #logo {
-    height: 50px;
-    width: 50px;
-    background-color: #F4EDED;
-    border-radius: 50%;
+    z-index: 100;
     position: absolute;
-    top: 1em;
+    top: .25rem;
+    cursor: pointer;
+    background-image: url(/Build-a-Website-Design-System/Resources/Logo/designflux-studio-favicon-white.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 4rem;
+    height: 4rem;
+
 }
 
 /* Fonts */
 .all-font {
     position: absolute; 
     background-color: #CD533B;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border: 5px solid #161B33;
+    border-top-left-radius: 1.5625rem;
+    border-top-right-radius: 1.5625rem;
+    border: 0.3125rem solid #161B33;
     top: 10%;
-    left: 45%;
-    width: 600px;
+    right: 4rem;
+    width: 40rem;
     display: flex;
     flex-direction: column;
     justify-content: center;  
@@ -51,62 +62,96 @@ img {
 }
 
 .font1, .font2, .font3, .font4, .font5, .font6 {
-    margin: 25px;
+    margin: 1.5625rem;
 }
 
 #head-title h1 {
     font-family: "Abril FatFace", serif;
     font-size: 36px;
-    letter-spacing: 4px;
+    letter-spacing: .25rem;
     z-index: 6;
     background-color: #F4EDED;
     text-align: right;
-    padding: 15px;
-    border-bottom: 4px solid #161B33;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    padding: 0.9375rem;
+    border-bottom: .25rem solid #161B33;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
     text-indent: 0px !important;
 
 }
 
-p:not(nav p) {
-    font-size: 18px;
-    text-indent: 15px
+/* List Styling */
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: inside;
+    list-style-type: square;
+    padding: 0;
 }
 
-p:not(nav p)::before {
-    content: "- ";
+li:not(nav li) {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    line-height: 2rem;
 }
+
+.list-item-icon {
+    position: relative;
+    display: flex;
+    padding: 1rem;
+}
+
+.list-item-icon#icon img {
+    width: .85rem;
+    display: inline-block;
+}
+
+
 
 /* Navigation */
 .header-border {
     position: fixed;
     top: 0;
+    display: flex;
+    justify-content: flex-end;
     z-index: 10;
-    height: 80px;
+    height: 5rem;
     width: 100%;
     background-image: linear-gradient(to right, #f4eded5c , #161B33);
-    border-bottom: 5px solid #161B33;
-    padding: 30px;
+    border-bottom: 0.3125rem solid #161B33;
+    padding: 1.875rem;
 }
 
 nav {
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
 }
 
 nav p {
     width: 100px;
     background-color: #F4EDED;
     font-size: 14px;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     display: inline;
-    padding: 5px 20px;
+    padding: 0.3125rem 1.25rem;
     margin: 0 auto; 
     font-family: 'Sans Expanded', sans-serif;
 }
 
 nav p:hover {
     background-color: #556F7A;
+    border: 0.1875rem dashed white;
 }
 
 nav a {
@@ -119,15 +164,15 @@ nav a:active {
 }
 
 nav p:active {
-    border: 3px solid white;
+    border: 0.1875rem solid white;
 }
 
 
 /* Fonts */
 .all-font h3 {
-    font-size: 30px;
+    font-size: 1.875rem;
     text-decoration: underline;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
 }
 
 .font1 h3 {
@@ -137,21 +182,22 @@ nav p:active {
 .font1 {
     font-family: "Style Script", cursive;
     background-color: #F4EDED;
-    margin-bottom: 20px;
-    margin-top: 25px;
-    padding: 20px;
-    border: 3px dashed #161B33;
+    margin-bottom: 1.25rem;
+    margin-top: 1.5625rem;
+    padding: 1.25rem;
+    border: 0.1875rem dashed #161B33;
+    font-weight: 300;
 }
 
-.font1 p {
+.font1 li {
     font-size: 24px;
 }
 
 .font2 {
     font-family: "Abril FatFace", serif;
     background-color: #F4EDED;
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
     line-height: 2em;
     border: 3px dashed #161B33;
 }
@@ -159,44 +205,44 @@ nav p:active {
 .font3 {
     font-family: "IBM Plex Mono", monospace; 
     background-color: #F4EDED; 
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
     line-height: 1.7em;
-    border: 3px dashed #161B33;
+    border: 0.1875rem dashed #161B33;
 }
 
-.font3 p {
+.font3 li {
     font-size: 20px;
 }
 
 .font4 {
     font-family: "Yanone Kaffeesatz", sans-serif; 
     background-color: #F4EDED; 
-    margin-bottom: 20px;
-    padding: 20px; 
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
     line-height: 2em;
-    border: 3px dashed #161B33;
+    border: 0.1875rem dashed #161B33;
 }
 
-.font4 p {
+.font4 li {
     font-size: 22px;
 }
 
 .font5 {
     font-family: "Playfair Display", serif;  
     background-color: #F4EDED; 
-    margin-bottom: 20px;
-    padding: 20px; 
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
     line-height: 2em;
-    border: 3px dashed #161B33;
+    border: 0.1875rem dashed #161B33;
 }
 
 .font6 {
     font-family: "Bodoni Moda";  
     background-color: #F4EDED; 
-    margin-bottom: 20px;
-    padding: 20px; 
-    border: 3px dashed #161B33;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    border: 0.1875rem dashed #161B33;
 }
 
 /* Font Styles */
@@ -209,33 +255,16 @@ nav p:active {
 }
 
 .spacer {
-    margin:0;
+    margin: 0;
 }
-
-
-/*@media screen and (max-width: 1500px){
-    body {
-        min-height: 1200;
-    }
-    
-}
-
-@media screen and (max-width: 1150px) {
-    .spacer {
-        margin-top: 700px;
-    }  
-    img {
-        top:0%;
-    }
-}*/
-
 
 footer {
     position: fixed;
+    z-index: 10;
     bottom: 0px;
     width: 100%;
     background-color: #161B33;
-    border-top: 4px solid #556F7A;
-    padding: 40px;
+    border-top: 0.25rem solid #556F7A;
+    padding: 2.5rem;
     
 }

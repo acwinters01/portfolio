@@ -1,0 +1,42 @@
+@media only screen and (max-width: 665px) {
+
+    body {
+        min-height: 130rem;
+    }
+
+    .all-font {
+        right: 0px;
+        width: 100%;
+        border-radius: 0px;
+    }
+
+    #head-title h1 {
+        border-radius: 0px;
+    }
+}
+
+@media only screen and (max-width: 735px) {
+    .all-font {
+        position: relative;
+        top: 15rem;
+        right: 0px;
+        margin: 0 auto;
+        background-color: rgba(205, 83, 59, 0.6);
+    }
+}
+
+
+/* Focus on Links */
+@media only screen and (max-width: 785px) {
+    .main-nav {
+        width: 80%;
+    }
+    nav p {
+        font-size: 14px;
+        width: 8rem;
+    }
+
+    footer { 
+        display: none;
+    }
+}

@@ -6,34 +6,47 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Sans Expanded";
+    src: url(/Build-a-Website-Design-System/Resources/Fonts/EncodeSansExpanded-Regular.ttf) format('typeface');
+}
 
+html {
+    font-size: 16px;
+}
 
 body {
     background-color: #161B33;
-    min-height: 2000px;
+    min-height: 140rem;
     height: 100%;
     position: relative;
 }
 
-img {
+.bg-image img {
     position: fixed;
     width: 100%;
-    right: 30%;
+    top: 0;
+    right: 40%;
     z-index: -15;
     height: 100%;
     -webkit-mask-image:-webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
     mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+    overflow-x: hidden;
 }
 
 #logo {
-    height: 50px;
-    width: 50px;
-    background-color: #F4EDED;
-    border-radius: 50%;
+    z-index: 100;
     position: absolute;
-    top: 1em;
-}
+    top: .25rem;
+    cursor: pointer;
+    background-image: url(/Build-a-Website-Design-System/Resources/Logo/designflux-studio-favicon-white.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 4rem;
+    height: 4rem;
 
+}
 
 
 .all-styles {
@@ -43,7 +56,7 @@ img {
     border-top-right-radius: 25px;
     border: 5px solid #161B33;
     top: 10%;
-    left: 50%;
+    right: 4rem;
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -78,6 +91,8 @@ img {
 .header-border {
     position: fixed;
     top: 0;
+    display: flex;
+    justify-content: flex-end;
     z-index: 10;
     height: 80px;
     width: 100%;
@@ -88,6 +103,15 @@ img {
 
 nav {
     text-align: right;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
 }
 
 nav p {
@@ -103,6 +127,7 @@ nav p {
 
 nav p:hover {
     background-color: #556F7A;
+    border: 3px dashed white;
 }
 
 nav a {
@@ -121,13 +146,37 @@ nav p:active {
 
 h1, h2, #p-title {
     text-decoration: underline;
+    padding-bottom: 1rem;
 }
 
-p:not(#p-title, nav p){
-    text-indent: 15px;
+/* List Styling */
+
+ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    list-style: inside;
+    list-style-type: square;
+    padding: 0;
 }
-p:not(#p-title, nav p)::before {
-    content: "-";
+
+.list-item-icon {
+    position: relative;
+    display: flex;
+    padding: 1rem;
+}
+
+li {
+    font-size: 18px;
+    font-family: "Sans Expanded";
+    display: flex;
+    align-items: center;
+}
+
+.list-item-icon#icon img {
+    width: .85rem;
+    display: inline-block;
 }
 
 .font-style1 .main-heading, .sub-heading {

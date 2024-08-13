@@ -55,7 +55,7 @@ body {
 }
 
 .banner {
-    background-image: url(/Off-Platform\ Project-Tea\ Cozy/Resources/Images/img-mission-background.webp);
+    background-image: url(/Off-Platform-Project-Tea-Cozy/Resources/Images/img-mission-background.webp);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,7 +131,7 @@ body {
 
 .location-image {
     display: flex;
-    background-image: url(/Off-Platform\ Project-Tea\ Cozy/Resources/Images/img-locations-background.webp);
+    background-image: url(/Off-Platform-Project-Tea-Cozy/Resources/Images/img-locations-background.webp);
     background-size: cover;
     justify-content: center;
     min-width: 1200px;

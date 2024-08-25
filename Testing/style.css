@@ -1,0 +1,50 @@
+
+
+
+
+
+.projects img {
+    max-width: 100%;
+}
+
+.loading-screen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+
+
+@keyframes fall {
+    0% {
+        top: var(--start-top);
+        left: var(--start-left);
+        opacity: 0;
+
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        top: var(--end-top);
+        left: var(--end-left);
+        opacity: 0;
+       
+    }
+}
+
+.star {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: cyan;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation: fall 1s linear infinite;
+    transform: rotate(45deg); 
+}
+
+main {
+    display: none;
+}

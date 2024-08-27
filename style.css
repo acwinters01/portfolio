@@ -1,7 +1,236 @@
+/* Fonts */
+
+@font-face {
+    font-family: "Alex Brush";
+    src: url('/z_Resources/Font/AlexBrush-Regular.ttf') format('truetype');
+}
+
 html {
     font-size: 16px;
 }
 
-.projects img {
-    max-width: 100%;;
+body {
+    font-family: "Courier Prime";
+    background-color: black;
+    color: white;
 }
+
+/* Main Title */
+
+header {
+    background-image: url();
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+
+}
+
+.title-display {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title { 
+    max-width: 100%; 
+}
+
+.title h1 {
+    color: white;
+    font-family: "Alex Brush";
+    font-size: 90px;
+}
+
+
+/* Navigation */
+
+nav {
+    position: sticky;
+    top: 0px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 4rem;
+    background-color: #192A51;
+    z-index: 5;
+}
+
+#links {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#links a {
+    color: white;
+}
+
+
+/* Projects */
+
+.project {
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin: 5rem auto;
+}
+
+#num1 {
+    margin-top: 3rem;
+}
+
+#num2 {
+    flex-direction: row-reverse;
+    padding-bottom: 2rem;
+    max-height: 40rem;
+}
+
+.all-projects {
+    margin-top: 2rem;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+
+}
+
+.project-content a {
+    background-color: #8B939C;
+    border-radius: 5px;
+    padding: .5rem 2rem;
+    color: white;
+}
+
+#button {
+    margin-top: 1rem; 
+}
+
+.project-title-text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   
+}
+
+.project-text {
+    align-self: center;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 10px;
+    min-height: 25rem;
+    background-color: #192A51;
+}
+ 
+h3 {
+    font-size: 1.75rem;
+    margin: 2rem;
+    margin-top: 4rem;
+}
+
+h4 {
+    margin-top: 1rem;
+    font-weight: 900;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+p {
+    margin-top: 1rem;
+    line-height: 1.8rem;
+    
+}
+
+/* Projects Image */
+
+.project img {
+    max-width: 40%;
+    margin: .75rem;
+    margin-left: 1.5rem;
+    border: 5px solid #E54F6D;
+    border-radius: 5px;
+    object-fit: cover;
+    
+}
+
+#num1 img, #num3 img {
+    border-color: #192A51;
+    object-position: top;
+}
+
+
+
+
+/* Decorations */
+
+.decoration-title-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.decoration-title {
+    position: absolute;
+    left: 3.5rem;
+    bottom: 2.25rem;
+    height: .75rem;
+    width: 20%;
+    background-color: #E54F6D; 
+    z-index: -1;
+}
+
+/* Project Item title decor */
+#decoration-box {
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    align-self: center;
+    height: .75rem;
+    width: 75%;
+    background-color: #E54F6D; 
+    z-index: 0;
+    
+}
+
+/* Divider Decor */
+.decoration-container {
+    position: absolute;
+    bottom: -40px;
+    display: flex;
+    justify-content: start;
+    width: 100%; 
+}
+
+.decoration-box2 {
+    height: .125rem;
+    width: 60%;
+    background-color: #8B939C; 
+    border-radius: 5px;
+}
+
+#container2 {
+    justify-content: end;
+}
+
+#box2 {
+    background-color: #192A51;
+}
+
+#container3 {
+    bottom: -60px;
+    justify-content: start;
+}
+
+#box3 {
+    background-color: #E54F6D; 
+}
+

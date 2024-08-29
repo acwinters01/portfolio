@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    font-family: "Courier Prime";
+    font-family: "SUSE";
     background-color: black;
     color: white;
 }
@@ -23,11 +23,10 @@ header {
     background-attachment: fixed;
     background-position: center;
     color: white;
-
 }
 
 .title-display {
-    max-width: 100%;
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -40,8 +39,9 @@ header {
 
 .title h1 {
     color: white;
-    font-family: "Alex Brush", "Courier Prime", sans serif;
+    font-family: "Alex Brush", "SUSE", sans-serif;
     font-size: 90px;
+    
 }
 
 
@@ -55,7 +55,10 @@ nav {
     align-items: center;
     height: 4rem;
     background-color: #192A51;
+    border-bottom: 3px solid #8B939C;
+    box-shadow: 0px 5px 15px black;
     z-index: 5;
+
 }
 
 #links {
@@ -68,6 +71,10 @@ nav {
     color: white;
 }
 
+a:active {
+    color: #E54F6D;
+}
+
 
 /* Projects */
 
@@ -75,7 +82,11 @@ nav {
     position: relative;
     width: 100%;
     display: flex;
-    margin: 5rem auto;
+    margin: 14rem auto;
+}
+
+#mobile {
+    display: none;
 }
 
 #num1 {
@@ -84,19 +95,22 @@ nav {
 
 #num2 {
     flex-direction: row-reverse;
-    padding-bottom: 2rem;
-    max-height: 40rem;
+    margin: 0rem auto;
 }
 
 .all-projects {
     margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    align-items: center;
     width: 100%;
 
 }
@@ -109,7 +123,7 @@ nav {
 }
 
 #button {
-    margin-top: 1rem; 
+    margin-top: 2rem; 
 }
 
 .project-title-text {
@@ -121,16 +135,18 @@ nav {
 }
 
 .project-text {
-    align-self: center;
+    display: flex;
+    flex-direction: column;
     margin: 2rem;
     padding: 2rem;
     border-radius: 10px;
     min-height: 25rem;
     background-color: #192A51;
+   
 }
  
 h3 {
-    font-size: 1.75rem;
+    font-size: 2.5rem;
     margin: 2rem;
     margin-top: 4rem;
 }
@@ -144,8 +160,11 @@ h4 {
 
 p {
     margin-top: 1rem;
-    line-height: 1.8rem;
-    
+    line-height: 2.3rem; 
+    font-size: 1.15rem;
+    text-align: justify;
+    text-justify: inter-word;
+
 }
 
 /* Projects Image */
@@ -156,8 +175,7 @@ p {
     margin-left: 1.5rem;
     border: 5px solid #E54F6D;
     border-radius: 5px;
-    object-fit: cover;
-    
+    object-fit: cover;  
 }
 
 #num1 img, #num3 img {
@@ -166,6 +184,90 @@ p {
 }
 
 
+/* About Section*/
+
+.aboutme {
+    margin: 3.5rem auto;
+
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.about-text {
+    max-width: 40%;
+    margin-right: 1.5rem;
+    padding: 1.5rem;
+    padding-top: 0px;
+}
+
+.about-text p {
+    font-size: 1.25rem;
+    line-height: 2rem;
+
+}
+
+.aboutme h3 {
+    margin-left: 2rem;
+    padding-left: 0px;
+    
+}
+
+img#profile-image {
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+/* Skills Section */
+
+
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.allskills {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    padding: 1rem;   
+}
+
+.skill p {
+    font-size: 1.5rem;
+}
+
+
+#github img { 
+    background-color: white;
+}
+
+
+.allskills img {
+    width: 100px;
+}
+
+/* Footer */
+footer p {
+    font-size: .75rem;
+    padding: .5rem;
+}
 
 
 /* Decorations */
@@ -188,7 +290,7 @@ p {
     z-index: -1;
 }
 
-/* Project Item title decor */
+
 #decoration-box {
     position: absolute;
     bottom: 0px;
@@ -201,8 +303,9 @@ p {
     
 }
 
+
 /* Divider Decor */
-.decoration-container {
+.decoration-divider {
     position: absolute;
     bottom: -40px;
     display: flex;
@@ -210,62 +313,30 @@ p {
     width: 100%; 
 }
 
-.decoration-box2 {
+.decoration-divider1 {
     height: .125rem;
     width: 60%;
     background-color: #8B939C; 
     border-radius: 5px;
 }
 
-#container2 {
+
+#divider-container2 {
+    bottom: -10rem;
     justify-content: end;
 }
 
-#box2 {
+#divider2 {
     background-color: #192A51;
 }
 
-#container3 {
+
+#divider-container3 {
     bottom: -60px;
     justify-content: start;
 }
 
-#box3 {
+#divider3 {
     background-color: #E54F6D; 
 }
 
-
-/* About Section*/
-
-.aboutme {
-    margin: 15rem auto;
-}
-.about-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-}
-
-.about-text {
-    max-width: 40%;
-    border: 1px solid red;
-    margin-right: 1.5rem;
-    padding: 1.5rem;
-    padding-top: 0px;
-}
-
-.about-text h3 {
-    margin-left: 0px;
-    padding-left: 0px;
-}
-
-.profile-container {
-
-}
-
-img#profile-image {
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center;
-}

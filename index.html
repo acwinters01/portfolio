@@ -5,9 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-        <link href="./reset.css" rel="stylesheet">
-        <link href="./style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap" rel="stylesheet">
+        <link href="./z_Resources/CSS/reset.css" rel="stylesheet">
+        <link href="./z_Resources/CSS/style.css" rel="stylesheet">
+        <link href="./z_Resources/CSS/mobile_css.css" rel="stylesheet">
         <title>Alexandra Winters</title>
     </head>
     <body>
@@ -24,15 +25,18 @@
 
                 <nav>
                     <div id="links">
-                        <a href="">About Me</a>
-                        <a href="#">Projects</a>
-                        <a href="">Skills</a>
+                        <a href="./contactme.html">About Me</a>
+                        <a href="#projects">Projects</a>
+                        <a href="./contactme.html#skills-container">Skills</a>
+                        <a href="/contactme.html#contactme">Contact Me</a>
+                    </div>
+                    <div id="mobile">
+                        <img src="/z_Resources/Icons/menu-bar-icon.svg">
                     </div>
                 </nav>
                 
-            
 
-            <section class="projects-container">
+            <section class="projects-container" id="projects">
 
                 <section class="all-projects">
                     <div class="decoration-title-container">
@@ -41,7 +45,7 @@
                     </div>
 
                     <div class="project" id="num1">
-                        <img src="/z_Resources/SkatingClub_BG-Image.png">
+                        <img src="/z_Resources/Images/SkatingClub_BG-Image.png">
                         <div class="project-content">
                             <div class="project-text">
                                 <div class="project-title">
@@ -61,20 +65,20 @@
                                     animations to create a visually engaging user experience.</p>
                             
                                 <div id="button">
-                                    <a href="/Responsive-Club-Website/ResponsiveClub.html">Link</a>
+                                    <a href="/Responsive-Club-Website/ResponsiveClub.html">View Demo</a>
                                 </div>
                             </div>
                             
                         </div>
-                        <div class="decoration-container">
-                            <div class="decoration-box2"></div>
+                        <div class="decoration-divider">
+                            <div class="decoration-divider1"></div>
                         </div>
 
                     </div>
 
                     <div class="project" id="num2">
 
-                        <img src="/z_Resources/MythicEchoInteractive_BG-Image.png">
+                        <img src="/z_Resources/Images/MythicEchoInteractive_BG-Image.png">
 
                         <div class="project-content">
                             <div class="project-text">
@@ -98,17 +102,17 @@
                                     understanding of CSS and responsive web design principles, while also allowing 
                                     me to explore the creative aspects of branding and visual storytelling.</p>
                                 <div id="button">
-                                    <a href="/Company-Home-Page-with-Flexbox/CompanyHomePage.html">Link</a>
+                                    <a href="/Company-Home-Page-with-Flexbox/CompanyHomePage.html">View Demo</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="decoration-container" id="container2">
-                            <div class="decoration-box2" id="box2"></div>
+                        <div class="decoration-divider" id="divider-container2">
+                            <div class="decoration-divider1" id="divider2"></div>
                         </div>
                     </div>
                     
                     <div class="project" id="num3">
-                        <img src="/z_Resources/DesignFluxDtudio_BG-Image.png">
+                        <img src="/z_Resources/Images/DesignFluxDtudio_BG-Image.png">
                         <div class="project-content">
                             <div class="project-text">
                                 <div class="project-title">
@@ -129,12 +133,12 @@
                                     detail, setting the foundation for my future work in web development.</p>
                                     
                                 <div id="button">
-                                    <a href="/Build-a-Website-Design-System/main.html">Link</a>
+                                    <a href="/Build-a-Website-Design-System/main.html">View Demo</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="decoration-container" id="container3">
-                            <div class="decoration-box2" id="box3"></div>
+                        <div class="decoration-divider" id="divider-container3">
+                            <div class="decoration-divider1" id="divider3"></div>
                         </div>
                     </div>
 
@@ -146,33 +150,7 @@
                 </section>
             </section>
 
-            <section class="aboutme">
-                <div class="about-container">
-                    <div class="profile-container">
-                        <img src="/z_Resources/WIP_RenderFrontView2.png" id="profile-image"/>
-                    </div>
-                    <div class="about-text">
-                        <h3>About Me: </h3>
-                        <p>Hi, I'm Alexandra, or Alex for short, a passionate Front-End Developer with a love 
-                            for creating clean, responsive, and user-friendly websites. I specialize 
-                            in HTML, CSS, and, Python, JavaScript, with experience in frameworks like 
-                            React and a strong focus on responsive and accessible design. I take pride in writing code 
-                            that looks great and performs seamlessly across devices. Over the past few 
-                            years, I've worked on various projects that have challenged and sharpened 
-                            my skills, and I love turning ideas into beautiful and functional digital 
-                            experiences. When I'm not coding, you can find me playing video games like 
-                            Dragon Dogma or Ori Will of the Wisps or enjoying a frappe while working on 
-                            my next creative project. I'm always open to new opportunities, so feel free 
-                            to reach out if you'd like to collaborate!</p>
-                     </div>
-                </div>
-            </section>
 
-            <section class="contact-me">
-                <h3>Contact Me</h3>
-                <p>Email:  acwinters03@gmail.com</p>
-                <p>GitHub: <a href="https://github.com/acwinters01">https://github.com/acwinters01</a></p>
-            </section>
         </main>
         <footer>
             <p>Created by: Alexandra Winters</p>

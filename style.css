@@ -234,3 +234,38 @@ p {
     background-color: #E54F6D; 
 }
 
+
+/* About Section*/
+
+.aboutme {
+    margin: 15rem auto;
+}
+.about-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+}
+
+.about-text {
+    max-width: 40%;
+    border: 1px solid red;
+    margin-right: 1.5rem;
+    padding: 1.5rem;
+    padding-top: 0px;
+}
+
+.about-text h3 {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.profile-container {
+
+}
+
+img#profile-image {
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}

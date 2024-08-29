@@ -23,7 +23,6 @@ header {
     background-attachment: fixed;
     background-position: center;
     color: white;
-
 }
 
 .title-display {
@@ -40,7 +39,7 @@ header {
 
 .title h1 {
     color: white;
-    font-family: "Alex Brush", "Courier Prime", sans serif;
+    font-family: "Alex Brush", "Courier Prime", sans-serif;
     font-size: 90px;
 }
 
@@ -96,7 +95,6 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     width: 100%;
 
 }
@@ -144,8 +142,7 @@ h4 {
 
 p {
     margin-top: 1rem;
-    line-height: 1.8rem;
-    
+    line-height: 1.8rem; 
 }
 
 /* Projects Image */
@@ -156,13 +153,80 @@ p {
     margin-left: 1.5rem;
     border: 5px solid #E54F6D;
     border-radius: 5px;
-    object-fit: cover;
-    
+    object-fit: cover;  
 }
 
 #num1 img, #num3 img {
     border-color: #192A51;
     object-position: top;
+}
+
+
+/* About Section*/
+
+.aboutme {
+    margin: 3.5rem auto;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.about-text {
+    max-width: 40%;
+    margin-right: 1.5rem;
+    padding: 1.5rem;
+    padding-top: 0px;
+}
+
+.about-text h3 {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+img#profile-image {
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+/* Skills Section */
+
+
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.allskills {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    padding: 1rem;   
+}
+
+
+#github img { 
+    background-color: white;
+}
+
+
+.allskills img {
+    width: 100px;
 }
 
 
@@ -188,7 +252,7 @@ p {
     z-index: -1;
 }
 
-/* Project Item title decor */
+
 #decoration-box {
     position: absolute;
     bottom: 0px;
@@ -201,8 +265,9 @@ p {
     
 }
 
+
 /* Divider Decor */
-.decoration-container {
+.decoration-divider {
     position: absolute;
     bottom: -40px;
     display: flex;
@@ -210,62 +275,29 @@ p {
     width: 100%; 
 }
 
-.decoration-box2 {
+.decoration-divider1 {
     height: .125rem;
     width: 60%;
     background-color: #8B939C; 
     border-radius: 5px;
 }
 
-#container2 {
+
+#divider-container2 {
     justify-content: end;
 }
 
-#box2 {
+#divider2 {
     background-color: #192A51;
 }
 
-#container3 {
+
+#divider-container3 {
     bottom: -60px;
     justify-content: start;
 }
 
-#box3 {
+#divider3 {
     background-color: #E54F6D; 
 }
 
-
-/* About Section*/
-
-.aboutme {
-    margin: 15rem auto;
-}
-.about-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-}
-
-.about-text {
-    max-width: 40%;
-    border: 1px solid red;
-    margin-right: 1.5rem;
-    padding: 1.5rem;
-    padding-top: 0px;
-}
-
-.about-text h3 {
-    margin-left: 0px;
-    padding-left: 0px;
-}
-
-.profile-container {
-
-}
-
-img#profile-image {
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center;
-}

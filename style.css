@@ -39,7 +39,7 @@ header {
 
 .title h1 {
     color: white;
-    font-family: "Alex Brush", "Courier Prime", sans serif;
+    font-family: "Alex Brush", "Courier Prime", sans-serif;
     font-size: 90px;
 }
 
@@ -165,7 +165,7 @@ p {
 /* About Section*/
 
 .aboutme {
-    margin: 5rem auto;
+    margin: 3.5rem auto;
 }
 
 .about-container {
@@ -253,7 +253,6 @@ img#profile-image {
 }
 
 
-/* Item title decor */
 #decoration-box {
     position: absolute;
     bottom: 0px;

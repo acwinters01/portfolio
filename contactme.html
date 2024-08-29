@@ -8,6 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link href="./reset.css" rel="stylesheet">
         <link href="./style.css" rel="stylesheet">
+        <link href="./form-styling.css" rel="stylesheet">
         <title>Contact Me</title>
     </head>
     <body>
@@ -95,19 +96,22 @@
 
             <section class="contact-me-container">
                 <div class="contactme">
-                
                     <div class="form-container">
                         <h3>Contact Me</h3>
-                        <form>
+                        
+                        <form action="./info.html" method="POST">
                             <label for="name" id="name">Name: </label>
                             <input type="text" name="fullname" id="name" min="3" value="Your name">
+                            <br>
                             <br>
                             <label for="email" id="email">Email: </label>
 
                             <input type="text" name="email" id="email" min="7" value="Your email">
                             <br>
+                            <br>
 
                             <textarea id="message" name="message" rows="8" cols="30" min="10">Message</textarea>
+                            <br>
                             <br>
                             <input type="submit" value="Send">
 

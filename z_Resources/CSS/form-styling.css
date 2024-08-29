@@ -1,0 +1,45 @@
+
+/* Form Styling */
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 8rem auto;
+    padding: 0px 1.5rem;
+    padding-bottom: 4rem;
+    border-radius: 5px;
+    background-color: rgba(25, 42, 81, .5);
+    border: 1px solid #8B939C;
+
+}
+
+form {
+    margin-left: -1.25rem;
+    width: 65%;
+}
+
+
+input[type=text], textarea {
+    width: 100%;
+    color: #8B939C;
+    padding: 10px;
+    margin-top: .5rem;
+
+
+}
+
+input[type=submit] {
+    font-size: 1.1rem;
+    width: 100%;
+    background-color: #E54F6D;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    margin: 0 auto;
+    margin-left: .5rem;
+    cursor: pointer;
+    
+}

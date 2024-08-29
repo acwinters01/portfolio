@@ -1,0 +1,168 @@
+
+/* Smaller Web Screens */
+
+@media only screen and (max-width: 1320px) {
+    .project-title-text h4 {
+        font-size: 1.5rem;
+    }
+
+    .project-text p {
+        font-size: 1.2rem;
+    }
+
+    .project-text {
+        min-height: 30rem;
+    }
+
+    #num2 .project-text {
+        min-height: 35rem;
+    }
+}
+
+
+/* Tablet Screens */
+
+@media only screen and (min-width: 1011px) and (max-width: 1785px) {
+    .project img {
+        max-width: 30%;
+    }
+
+}
+
+
+/* Mobile Screens */
+
+@media only screen and (max-width: 1010px) {
+
+    /* Mobile Title Screen Responsive */
+   .title {
+        text-align: center;
+   }
+
+
+    /* Mobile Responsive Projects */
+    .project {
+        flex-direction: column !important;
+        max-width: 100%;
+        min-height: 65rem;
+    }
+    
+    .project-text {
+        justify-content: center;
+    }
+
+    .project img {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+
+    #num2 img {
+        max-width: 50%;
+    }
+
+    #num3 img {
+        max-width: 60%;
+    }
+
+    .project h4 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    /* Mobile Response Decor */
+
+    .decoration-title {
+        height: .65rem;
+        width: 30%;
+    }
+
+    #decoration-box {
+        height: 1rem;
+    }
+
+    /* Mobile About Me Responsive */
+    .about-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .about-text {
+        max-width: 100%;
+        margin: 1.5rem 3rem;
+    }
+
+    .about-text p {
+        line-height: 2.5rem;
+    }
+
+    img#profile-image {
+        max-width: 80%;
+    }
+
+    .profile-container {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+
+
+@media only screen and (min-width: 750px) and (max-width: 900px) {
+
+    /* Mobile Navigation Responsive */
+    nav {
+        justify-content: center;
+    }
+
+    #links {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    #links a {
+        font-size: 1.25rem;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 749px) {
+    /* Creating a dropdown list w/ mobile*/
+    nav {
+        height: 5rem;
+    }
+
+    #links {
+        display: none;
+    }
+    #mobile {
+        display: block;
+    }
+
+    #mobile img {
+        width: 65px;
+        margin-right: 1rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    #num1 img {
+        max-width: 80%;
+    }
+
+    #num2 img {
+        max-width: 70%;
+    }
+
+    #num3 img {
+        max-width: 80%;
+    }
+
+    .about-text {
+        margin: 1.5rem 1.75rem;
+    }
+
+}

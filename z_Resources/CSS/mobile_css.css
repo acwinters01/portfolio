@@ -26,7 +26,6 @@
     .project img {
         max-width: 40%;
     }
-
 }
 
 
@@ -137,11 +136,60 @@
     #links {
         display: none;
     }
-    #mobile {
+
+    nav img {
         display: block;
     }
 
-    #mobile img {
+    #mobile {
+        position: relative;
+    }
+
+    img#pink {
+        display: none;
+    }
+
+    #mobile ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        position: absolute;
+        background-color: #8B939C;
+        border: 2px solid white;
+        border-right: none;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        top: 2.5rem;
+        right: 0rem;
+        width: 14.5rem;
+        height: 18.75rem;
+        
+    }
+
+    #mobile li {
+        height: 100%;
+        padding: 1rem;  
+    }
+
+    #mobile a {
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        color: white;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    #mobile a:active {
+      font-weight: 700;
+    }
+
+    li:active {
+        background-color: #E54F6D;
+    }
+
+    nav img {
         width: 65px;
         margin-right: 1rem;
     }

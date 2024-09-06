@@ -9,18 +9,25 @@
         <link href="./z_Resources/CSS/reset.css" rel="stylesheet">
         <link href="./z_Resources/CSS/style.css" rel="stylesheet">
         <link href="./z_Resources/CSS/mobile_css.css" rel="stylesheet">
+        <link href="./z_Resources/CSS/canvas.css" rel="stylesheet">
+
         <title>Alexandra Winters</title>
     </head>
     <body>
 
         <main>
             <header>
-                <div class="title-display">
+                
+                <div id="canvas-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+
+                <!-- <div class="title-display">
                     <div class="title">
                         <h1>Alexandra Winters</h1>
                         <h2>Front-End Developer</h2>
                     </div>
-                </div>
+                </div> -->
             </header>
 
                 <nav>
@@ -30,8 +37,23 @@
                         <a href="./contactme.html#skills-container">Skills</a>
                         <a href="./contactme.html#contactme">Contact Me</a>
                     </div>
+                    <img src="z_Resources/Icons/menu-bar-icon.svg">
+                    <img id="pink" src="z_Resources/Icons/menu-bar-icon-active.svg">
                     <div id="mobile">
-                        <img src="z_Resources/Icons/menu-bar-icon.svg">
+                        <ul>
+                            <li>
+                                <a href="./contactme.html">About Me</a>
+                            </li>
+                            <li>
+                                <a href="#projects">Projects</a>
+                            </li>
+                            <li>
+                                <a href="./contactme.html#skills-container">Skills</a>
+                            </li>
+                            <li>
+                                <a href="./contactme.html#contactme">Contact Me</a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
                 
@@ -155,6 +177,7 @@
         <footer>
             <p>Created by: Alexandra Winters</p>
         </footer>
-        <script src="main.js"></script>
+        <script src="z_Resources/Scripts/main.js" defer></script>
+        <script src="z_Resources/Scripts/menu-popup.js"></script>
     </body>
 </html>

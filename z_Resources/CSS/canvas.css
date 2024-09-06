@@ -1,0 +1,6 @@
+header {
+    display:block;
+    background: black;
+    overflow: hidden;
+    z-index: -5;
+}

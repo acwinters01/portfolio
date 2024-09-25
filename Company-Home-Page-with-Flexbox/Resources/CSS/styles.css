@@ -215,7 +215,7 @@ nav a:active:not(.button) {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(/Company-Home-Page-with-Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg);
+    background-image: url(./Company-Home-Page-with-Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg);
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;

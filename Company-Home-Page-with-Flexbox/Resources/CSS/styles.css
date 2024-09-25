@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: "Benne";
-    src: url("./Company-Home-Page-with-Flexbox/Resources/Font/Benne.ttf") format("truetype");
+    src: url("../Font/Benne.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Besley";
-    src: url("./Company-Home-Page-with-Flexbox/Resources/Font/Besley.ttf") format("truetype");
+    src: url("../Font/Besley.ttf") format("truetype");
 }
 
 html {
@@ -49,7 +49,7 @@ h3 {
     position: fixed;
     top: 0%;
     z-index: 010;
-    background-image: url("./Company-Home-Page-with-Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
+    background-image: url("../Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
     background-size: cover;
     background-position: 25rem;
     border-right: .125rem solid #97CAF5;
@@ -63,7 +63,7 @@ h3 {
     top: 0%;
     right: 0%;
     z-index: 10;
-    background-image: url("./Company-Home-Page-with-Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
+    background-image: url("../Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
     background-size: cover;
     background-position: right;
     border-left: .125rem solid #E147C1;
@@ -215,7 +215,7 @@ nav a:active:not(.button) {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./Company-Home-Page-with-Flexbox/Resources/Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
+    background-image: url("../Images/brecht-corbeel-8TttTCQLUKw-unsplash.jpg");
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;

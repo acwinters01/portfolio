@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: "Sans Expanded";
-    src: url("./Build-a-Website-Design-System/Resources/Fonts/EncodeSansExpanded-Regular.ttf") format('typeface');
+    src: url("../Resources/Fonts/EncodeSansExpanded-Regular.ttf") format('typeface');
 }
 
 html {
@@ -39,7 +39,7 @@ body {
     position: absolute;
     top: .25rem;
     cursor: pointer;
-    background-image: url("./Build-a-Website-Design-System/Resources/Logo/designflux-studio-favicon-white.png");
+    background-image: url("../Resources/Logo/designflux-studio-favicon-white.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

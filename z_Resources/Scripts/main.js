@@ -145,30 +145,27 @@ const animation = () => {
         let adjustedLineHeight = baseLineHeight;
 
         // Adding Text on top of Canvas
-        document.fonts.load('90px "Alex Brush"').then(() => {
+       
+        ctx.font = 'normal 90px "Alex Brush"';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = "center";
+        ctx.textBaseline = 'middle';
 
-            ctx.font = 'normal 90px "Alex Brush"';
-            ctx.fillStyle = 'white';
-            ctx.textAlign = "center";
-            ctx.textBaseline = 'middle';
+        const maxTextWidth = w * 0.8;
 
-            const maxTextWidth = w * 0.8;
+        // Draw Text
+        const firstTextY = h / 2 - adjustedLineHeight / 2;
+        wrapText(ctx, 'Alexandra Winters', w / 2, firstTextY, maxTextWidth, adjustedLineHeight);
 
-            // Draw Text
-            const firstTextY = h / 2 - adjustedLineHeight / 2;
-            wrapText(ctx, 'Alexandra Winters', w / 2, firstTextY, maxTextWidth, adjustedLineHeight);
+        ctx.font = 'normal 16px "SUSE"';
 
-            ctx.font = 'normal 16px "SUSE"';
-
-            let secondTextY = 0;
-            if (w < 845) {
-                secondTextY = firstTextY + adjustedLineHeight + 40;
-            } else {
-                secondTextY = firstTextY + adjustedLineHeight
-            }
-            wrapText(ctx, 'Front-End Developer', w / 2, secondTextY, maxTextWidth, adjustedLineHeight);
-
-        });
+        let secondTextY = 0;
+        if (w < 845) {
+            secondTextY = firstTextY + adjustedLineHeight + 40;
+        } else {
+            secondTextY = firstTextY + adjustedLineHeight
+        }
+        wrapText(ctx, 'Front-End Developer', w / 2, secondTextY, maxTextWidth, adjustedLineHeight);
         
         ctx.globalCompositeOperation = 'lighter';
         for (var i = 1, x = stars.length; i < x; i++) {

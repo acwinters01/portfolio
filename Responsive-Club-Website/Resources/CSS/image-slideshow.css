@@ -75,47 +75,47 @@
 }
 
 .image-slideshow #image-1 {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/Brentwood-IceRink.jpeg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/Brentwood-IceRink.jpeg");
 
 }
 
 .image-slideshow li:nth-child(2) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/ice-ice-rink-background-4022209.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/ice-ice-rink-background-4022209.jpg");
     animation-delay: 16s;  
 }
 
 .image-slideshow li:nth-child(3) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/figure-skating-runner-figure-skater-3198861.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/figure-skating-runner-figure-skater-3198861.jpg");
     animation-delay: 24s;
 }
 
 .image-slideshow li:nth-child(4) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/share-athlete-competition-3143765-e1657585317450.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/share-athlete-competition-3143765-e1657585317450.jpg");
     animation-delay: 32s; 
 }
 
 .image-slideshow li:nth-child(5) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/skates-figure-skating-artificial-ice-2176562.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/skates-figure-skating-artificial-ice-2176562.jpg");
     animation-delay: 40s;
 }
 
 .image-slideshow li:nth-child(6) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/winter-cold-surface-2054297.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/winter-cold-surface-2054297.jpg");
     animation-delay: 48s; 
 }
 
 .image-slideshow li:nth-child(7) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/skates-figure-skating-artificial-ice-4199003.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/skates-figure-skating-artificial-ice-4199003.jpg");
     animation-delay: 56s;
 }
 
 .image-slideshow li:nth-child(8) span {
-    background-image: url(./Responsive-Club-Websitee/Resources/Images/Background-transitions/skates-figure-skating-ride-2001797.jpg);
+    background-image: url("./Responsive-Club-Websitee/Resources/Images/Background-transitions/skates-figure-skating-ride-2001797.jpg");
     animation-delay: 64s;  
 }
 
 .image-slideshow li:nth-child(9) span {
-    background-image: url(./Responsive-Club-Website/Resources/Images/Background-transitions/home_history.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Background-transitions/home_history.jpg");
     animation-delay: 72s;
 }
 

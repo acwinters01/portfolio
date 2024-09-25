@@ -121,7 +121,7 @@
 
 .search-bar-container button .search-icon {
     display: inline-block;
-    background-image: url(/Responsive-Club-Website/Resources/Images/Logos/search-icon.svg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Logos/search-icon.svg");
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
     background-position: center center;

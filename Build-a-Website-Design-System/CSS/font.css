@@ -36,7 +36,7 @@ body {
     position: absolute;
     top: .25rem;
     cursor: pointer;
-    background-image: url(./Build-a-Website-Design-System/Resources/Logo/designflux-studio-favicon-white.png);
+    background-image: url("./Build-a-Website-Design-System/Resources/Logo/designflux-studio-favicon-white.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

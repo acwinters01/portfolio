@@ -123,8 +123,11 @@
         font-size: 1.25rem;
     }
 
-}
+    nav img {
+        display: none;
+    }
 
+}
 
 
 @media only screen and (max-width: 749px) {
@@ -137,16 +140,8 @@
         display: none;
     }
 
-    nav img {
-        display: block;
-    }
-
     #mobile {
         position: relative;
-    }
-
-    img#pink {
-        display: none;
     }
 
     #mobile ul {
@@ -189,7 +184,12 @@
         background-color: #E54F6D;
     }
 
+    img#pink {
+        display: none;
+    }
+
     nav img {
+        display: block;
         width: 65px;
         margin-right: 1rem;
     }

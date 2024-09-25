@@ -14,7 +14,7 @@
     left: 0;
     width: 100%;
     height: 95%;
-    background-image: url(/Responsive-Club-Website/Resources/Images/Overlays/ice-ice-rink-background_2.jpg);
+    background-image: url("./Responsive-Club-Website/Resources/Images/Overlays/ice-ice-rink-background_2.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;

@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "Alex Brush";
-    src: url('/z_Resources/Font/AlexBrush-Regular.ttf') format('truetype');
+    src: url(/z_Resources/Font/AlexBrush-Regular.ttf) format('truetype');
 }
 
 html {

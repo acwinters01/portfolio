@@ -1,10 +1,5 @@
 /* Fonts */
 
-@font-face {
-    font-family: "Alex Brush";
-    src: url(./z_Resources/Font/AlexBrush-Regular.ttf) format('truetype');
-}
-
 html {
     font-size: 16px;
 }
@@ -73,18 +68,6 @@ nav {
 
 a:active {
     color: #E54F6D;
-}
-
-nav img {
-    display: none;
-}
-
-img#pink {
-    display: none;
-}
-
-#mobile {
-    display: none;
 }
 
 

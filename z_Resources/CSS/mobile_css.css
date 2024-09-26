@@ -1,4 +1,19 @@
 
+/* Default  */
+
+nav img {
+    display: none;
+}
+
+img#pink {
+    display: none;
+}
+
+#mobile {
+    position: relative;
+    display: none;
+}
+
 /* Smaller Web Screens */
 
 @media only screen and (max-width: 1320px) {
@@ -68,7 +83,7 @@
         text-align: center;
     }
 
-    /* Mobile Response Decor */
+    /* Mobile Responsivee Decor */
 
     .decoration-title {
         height: .65rem;
@@ -123,12 +138,15 @@
         font-size: 1.25rem;
     }
 
-    nav img, img#pink {
-        display: none !important;
+}
+
+
+@media only screen and (min-width: 750px) {
+    nav img, img#pink, #mobile {
+        display: none;
     }
 
 }
-
 
 @media only screen and (max-width: 749px) {
     /* Creating a dropdown list w/ mobile*/
@@ -138,10 +156,6 @@
 
     #links {
         display: none;
-    }
-
-    #mobile {
-        position: relative;
     }
 
     #mobile ul {
@@ -186,27 +200,25 @@
 
     img#pink {
         display: none;
+        width: 65px;
     }
 
     nav img {
         display: block;
         width: 65px;
+        cursor: pointer;
         margin-right: 1rem;
     }
 }
 
 @media only screen and (max-width: 500px) {
 
-    #num1 img {
+    #num1 img, #num3 img {
         max-width: 80%;
     }
 
     #num2 img {
         max-width: 70%;
-    }
-
-    #num3 img {
-        max-width: 80%;
     }
 
     .about-text {

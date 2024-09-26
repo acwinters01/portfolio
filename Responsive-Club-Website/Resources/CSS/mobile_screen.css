@@ -1,0 +1,355 @@
+/* Mobile/Tablet Screens */
+
+
+/* Main Edits for Tablet */
+@media only screen and (max-width: 1010px) {
+    html {
+        font-size: 14px;
+    }
+
+    .banner-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .main-content h1 {
+        margin-bottom: 1rem;
+    }
+
+    /* About Us */
+
+    .quote {
+        margin-bottom: 1rem;
+    }
+
+    .about-text h2 {
+        font-size: 2.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-text h4 {
+        font-size: 1.25rem
+    }
+
+    .about-text p {
+        font-size: .85rem;
+        margin-bottom: 1rem;
+    }
+
+    #divider { 
+        height: 9rem;
+    }
+
+    .about-text .button {
+        margin-top: 0rem
+    }
+
+    /* USFSA */
+
+    .usfsa-info h2 {
+        font-size: 1.75rem;
+    }
+
+    .usfsa-info .button {
+        font-size: .85rem;
+    }
+
+    /* Get Started Now */
+
+    .get-started-now h2 {
+        font-size: 2rem
+    }
+
+    .ready-to-join h2 {
+        font-size: 1.75rem
+    }
+
+    .bottom-section {
+        padding-right: 8rem;
+    }
+
+    /* Contact Us */
+
+    .contact-image {
+        max-width: 60%;
+    }
+
+    .main-contact-section, 
+    .club-schedule-section, 
+    .quicklinks-section {
+        width: 25%;
+    }
+
+    .contact-elements-sections p {
+        font-size: .85rem;
+    }
+
+    .link-desktop {
+        display: none;
+    }
+
+    .link-mobile {
+        display: flex;
+        max-width: 100%;
+    }
+
+    .link-mobile img {
+        max-width: 25%;
+        margin: 0 auto;
+    }
+
+}
+
+/* Adjustments to the About Us and USFSA at Tablet Screens*/
+@media only screen and (min-width: 728px) and (max-width: 800px) {
+    .usfsa-testing img {
+        margin-top: 4rem;
+    }
+
+    .usfsa-testing p {
+        text-align: center;
+    }
+    #divider {
+        height: 6.2rem;
+        transform: translateY(-2%);
+    }
+
+    .about-text h2 {
+        font-size: 2.25rem;
+        margin: 1.25rem 0px;
+    }
+
+    .about-text h4 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .about-text p {
+        margin-bottom: .75rem;
+    }
+
+   
+    .usfsa-testing .button {
+        line-height: 1rem !important; 
+        padding: .75rem 1.5rem;
+
+    }
+
+    .main-contact-section h3, 
+    .quicklinks-section h3 {
+        padding-bottom: 2rem;
+    }
+}
+
+/* Main Edits for Mobile*/
+@media only screen and (max-width: 730px) {
+    nav#index1.desktop, nav#index2.desktop {
+        display: none;
+    }
+
+    .headliner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo img {
+        max-width: 40%;
+    }
+
+   .headliner #mobile {
+        display: inline-block;
+        max-width: 100%;
+    }
+    
+    nav#mobile img {
+        width: 3rem;
+        height: auto;
+        margin: 0 1.5rem;
+    }
+
+    .banner#desktop {
+        display: none;
+    }
+
+    .banner#mobile {
+        display: inline-block;
+    }
+
+    .banner-content {
+        border-top: 3px solid white;
+        border-bottom: 3px solid lightgray;
+        opacity: 100%;
+        max-width: 100%;
+        margin: 0;
+        margin-top: -7rem;
+        margin-bottom: 5rem;
+        padding-top: 1rem;
+        border-radius: 0px;
+        flex: 1 2;
+    }
+
+    .banner-content h1 {
+        border: none;
+        margin-top: .75rem;
+        margin-bottom: 0;
+    }
+
+    .banner-content p {
+        margin-top: .5rem;
+    }
+
+    .quote {
+        margin-right: 25%;
+    }
+
+    #divider {
+        z-index: 10;
+        height: 5rem;
+        transform: translateY(-5%)
+    }
+
+    .usfsa-info {
+        flex-direction: column;
+        margin-top: 5rem;
+        box-shadow: 0px .5rem 1rem rgba(0, 0, 0, .25);
+    }
+
+    .usfsa-testing {
+        align-self: normal;
+    }
+
+    p#tag {
+        font-size: 1.1rem;
+    }
+
+    .usfsa-info p {
+        font-size: 1.2rem;
+    }
+
+    .usfsa-info .button {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .image-cubes {
+        flex-direction: column;
+    }
+
+    .private-instruction, 
+    .club-ice, 
+    .scholarship-fund, 
+    .since-1894 {
+        max-width: 100%;
+    }
+    .option-container.private,
+    .club-ice .option-container.club,
+    .scholarship-fund .option-container.fund,
+    .since-1894 .option-container.history {
+ 
+        transform: translateY(-1rem);
+    }
+
+    .get-started-content {
+        flex-direction: column;
+    }
+
+    .get-started-now {
+        max-width: 100%;
+    }
+    
+    .ready-to-join {
+        max-width: 100%;
+    }
+
+    .contact-elements-sections {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-contact-section, .club-schedule-section, 
+    .quicklinks-section {
+        max-width: 100%;
+        margin: 1rem;
+    }
+
+    .club-schedule-section .button {
+        margin-top: 1.5rem;
+    }
+
+    .contact-elements-sections#desktop {
+        display: none;
+    }
+
+    .contact-elements-sections#mobile {
+        display: block;
+    }
+
+    .section-elements-main {
+        display: flex;
+    }
+
+    .contact-image {
+        max-width: 25%;
+        margin: 0 auto;
+        margin-bottom: 1rem;;
+    }
+}
+
+/* Adjustments on the Events Row for smaller screens */
+@media only screen and (max-width: 755px) {
+    .event-container {
+        width: 100%;
+    }
+
+    .event-container img {
+        margin: 1rem;
+        width: 80%;
+        max-width: 32rem;
+        height: auto;
+    }
+
+    
+    .event-content {
+        flex-direction: column;
+        padding: 0;
+        margin: 1.25rem 0px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #indent {
+        text-indent: 0;
+    }
+    
+    #indent::before {
+        content: ""
+    }
+}
+
+/* Adjustments on the About Us Row for smaller screens */
+@media only screen and (max-width: 685px) {
+    .about-text#desktop {
+        display: none;
+    }
+
+    .about-text-container#mobile {
+        display: flex;
+
+    }
+    .about-text-container {
+        display: flex;
+    }
+    .element-container-about-us {
+        justify-content: center;
+    }
+    .about-us {
+        flex-direction: column;
+    }
+    .about-img-container {
+        width: 100%;
+    }
+    .about-text {
+        width: 100%;
+        padding: 2rem 3rem;
+        margin: 0 auto;
+    }
+}

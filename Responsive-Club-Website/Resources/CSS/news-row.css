@@ -1,0 +1,42 @@
+/* Latest News */
+
+.latest-news-container {
+    margin-top: 4rem;
+    width: 100%;
+}
+
+.latest-news {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 3px solid #e1c02d;
+    border-bottom: 3px solid #e1c02d;
+    padding: 4rem 0px;
+}
+
+.latest-news h2 {
+    font-size: 2.5rem;
+    letter-spacing: .0625rem;
+    border-bottom: 3px solid red;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.latest-news p {
+    margin: 1rem;
+}
+
+.latest-news .button {
+    background-color: #1c74bb;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.latest-news .button:hover {
+    background-color: #e1c02d;
+}
+
+

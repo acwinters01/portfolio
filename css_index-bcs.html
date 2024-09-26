@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="./Build-Your-Own-Cheat-Sheet/CSS/css_styles.css" rel="stylesheet"/>
+    <title>CSS Cheat Sheet</title>
+    
+    <div id="heading">
+        <h1>WEB DEVELOPMENT CHEAT SHEET</h1>
+        <nav class="navigation">
+            <a href="./html_index-bcs.html"><h3>HTML</h3></a>
+            <a href="#"><h3>CSS</h3></a>
+            <a href="./javascript_index-bcs.html"><h3>JavaScript</h3></a>
+        </nav>
+    </div>
+    <h2>CSS</h2>
+</head>
+<body>
+    <div class="beginning-text">
+        <div class="what-is-css">
+            <h3>What is CSS?</h3>
+                <p>
+                    <span id="bold">C</span>ascading <span id="bold">S</span>tyle <span id="bold">S</span>heets or CSS
+                    is a language web developers use to style the HTML content on a web page.
+                    If you’re interested in modifying colors, font types, font sizes, images, element positioning, and more, 
+                    CSS is the tool for the job. 
+                </p>
+            <h3>CSS Anatomy</h3>
+                <p>
+                    Declarations are the <span id="bold">core</span> of CSS. They apply a style to the selected element. 
+                    Understanding that a declaration is used to style a selected element is key to learning 
+                    how to style HTML documents with CSS. The terms below explain each of the labels in the diagram on the right. 
+                </p>
+            <h3>Rulset Terms:</h3>
+                <ul>
+                    <li><span id="bold">Selector</span> - The beginning of the rules used to target the element that will be styled.</li>
+                    <li><span id="bold">Declaration Block</span> - The code in-between (and including) the curly braces 
+                        ({  }) that contains the CSS declaration(s).</li>
+                    <li><span id="bold">Declaration</span> - The group name for a property and value pair that applies a style to the selected element.</li>
+                    <li><span id="bold">Property</span> - The first part of the declaration that signifies what visual characteristic of the element is to be modified</li>
+                    <li><span id="bold">Value</span> - The second part of the declaration that signifies the value of the property</li>
+
+                </ul>
+        </div>
+        <div class="flexbox"></div>
+            <div class="css-styles-list">
+                <div class="inline">
+                    <h3>Inline Styles</h3>
+                        <p>
+                            Although CSS is a different language than HTML, 
+                            it’s possible to write CSS code directly within HTML code using inline styles.<br><br>
+                        </p>
+                        
+                        <p>
+                            To style an HTML element, you can add the style attribute directly to the opening tag. 
+                            After you add the attribute, you can set it equal to the CSS style(s) you’d like applied to that element.<br>
+                        </p>
+                        <ul>
+                            <li class="indent-once">&lt;p<span id="bold"> style=‘color:blue;’&gt;</span>Hello World!&lt;/p&gt;</li>
+                        </ul>
+                        <p>
+                            You can add more than one style with inline styles, simply keep adding to the style attribute. 
+                            Make sure to end the styles with a semicolon.
+                        </p>
+                        <ul>
+                            <li class="indent-once">&lt;p<span id="bold"> style=‘color:blue; font-size:20px;’&gt;</span>Hello World!&lt;/p&gt;</li>
+                        </ul>
+                </div>
+                
+                <div class="internal">
+                    <h3>Internal Stylesheet</h3>
+                    <p>
+                        If you wanted to style, for example, multiple &lt;h1&gt; elements, you would have to add inline 
+                        styling to each element manually. In addition, you would also have to maintain the HTML 
+                        code when additional &lt;h1&gt; elements are added.<br><br>
+                    </p>
+                    <p>
+                        HTML allows you to write CSS code in its own dedicated section with a 
+                        &lt;style&gt; element nested inside of the &lt;head&gt; element.  The CSS code inside the &lt;style&gt; element 
+                        is often referred to as an internal stylesheet.<br><br>
+                    </p>
+                    <p>
+                        To create an internal stylesheet, a &lt;style&gt; element must be placed inside of the &lt;head&gt; element.
+                    </p>
+                    <ul>
+                        &lt;head&gt;<br>
+                            <span class="indent-once" id="bold">&lt;style&gt;</span><br>
+                            <span class="indent-twice">p {</span><br>
+                            <span class="indent-thrice">color: red;</span><br>
+                            <span class="indent-thrice">font-size: 20px;</span><br>
+                            <span class="indent-twice">}</span><br>
+                            <span class="indent-once" id="bold">&lt;/style&gt;</span><br>
+                        &lt;/head&gt;
+                    </ul>
+                </div>
+
+                <div class="external">   
+                    <h3>External Stylesheet</h3>
+                    <p>
+                        Developers avoid mixing code by storing HTML and CSS code in separate files (HTML files contain 
+                        only HTML code, and CSS files contain only CSS code).<br><br>
+                    </p>
+                    <p>
+                        You can create an external stylesheet by using the .css file name extension, like so: <br>
+                        <span class="indent-once" id="bold">style.css</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        
+    <div id="table-content">
+        <table>
+            <thead id="table-heading">
+                <tr>
+                    <th scope="col"><h2>SELECTORS</h2></th>
+                    <th scope="col"><h2>SYNTAX</h2></th>
+                    <th scope="col"><h2>DESCRIPTION</h2></th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</body>
+
+<div>  
+    <div class="decoration-circle"></div>
+    <div class="decoration-circle2"></div>
+    <div class="decoration-circle3"></div>
+    <div class="decoration-circle4"></div>
+</div>
+<footer>
+    <div id="contact">
+        <p><span id='bold'>Designed by:</span> Alexandra Winters</p>
+        <p><span id='bold'>Email:</span> acwinters03@gmail.com</p>
+        <p><span id='bold'>Website:</span> TBA</p>
+    </div>
+</footer>
+</html>

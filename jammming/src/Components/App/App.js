@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Tracklist from '../Tracklist/Tracklist';
-import test from '../../test.json';
+
 
 
 function App() {

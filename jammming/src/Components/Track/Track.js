@@ -1,14 +1,21 @@
-import React, { useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 
+export default function Track({props}) {
 
-export default function Track({ name, artist, album }) {
-
-   return (
+    const addTrack = useEffect((event) => {
+        props.onAdd(props.track)
+    }, 
+    [props.onAdd, props.track]
+    );
+  
+    return (
         <div>
-            <p><strong>{name}</strong></p>
-            <p>{artist}</p>
-            <p>{album}</p>
+            <button onClick={props.addTrack}>+</button>
+            <div>
+                <p><strong>{props.name}</strong></p>
+                <p>{props.artist}</p>
+                <p>{props.album}</p>
+            </div>
         </div>
-   );
- 
+    );
 }

@@ -1,24 +1,18 @@
 import React from 'react';
 import Track from '../Track/Track';
 
-
-const Tracklist = ({tracks}) => {
+const TrackList = (props) => {
     return (
         <div>
             <h2>Tracklist</h2>
-            {tracks.map(track => (
+            {props.tracks.map(track => (
                 <Track
-                   key= {track.id}
-                   name= {track.name}
-                   artist= {track.artist}
-                   album= {track.album}
+                   key={track.id}  // Pass id as a normal prop
+                   track={track.name}
                 />
             ))}
         </div>
-    )
-}
+    );
+};
 
-
-
-
-export default Tracklist;
+export default TrackList;

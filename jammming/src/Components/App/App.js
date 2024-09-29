@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Tracklist from '../Tracklist/Tracklist';
+import Playlist from '../Playlist/Playlist';
 
 
 
@@ -10,10 +11,31 @@ function App() {
     { name: 'Song 3', artist: 'Artist 3', album: 'Album 3', id: 3 }
   ]);
 
+  const [playlist, setPlaylist] = useState([
+    {playlist: 'Happiness', tracks: []},
+    {playlist: 'Sadness', tracks: []},
+    {playlist: 'Holiness', tracks: []}
+  ]);
+
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [playlistName, setPlaylistName] = useState('');
+
+  const updatePlaylistName = (event) => {
+    setPlaylistName(event.target.value);
+  }
+
   return (
     <div>
       <h1>Jammming</h1>
       <Tracklist tracks={searchResults} />
+
+      <h2>Playlists</h2>
+      <Playlist 
+        playlistName={playlistName} 
+        playlistTracks={playlistTracks}
+        onNameChange={updatePlaylistName}
+
+      />
     </div>
   );
 }

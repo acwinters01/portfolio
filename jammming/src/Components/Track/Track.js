@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 
-export default function Track({props}) {
+const Track = (props) => {
 
-    const addTrack = useEffect((event) => {
-        props.onAdd(props.track)
-    }, 
-    [props.onAdd, props.track]
+    const addTrack = useCallback(
+        () => {
+            const track = {
+                id: props.id,
+                name: props.name,
+                artist: props.artist,
+                album: props.album,
+            }
+            props.onAdd(track);
+        }, 
+        [props]
     );
   
     return (
         <div>
-            <button onClick={props.addTrack}>+</button>
+            <button onClick={addTrack}>+</button>
             <div>
                 <p><strong>{props.name}</strong></p>
                 <p>{props.artist}</p>
@@ -19,3 +26,5 @@ export default function Track({props}) {
         </div>
     );
 }
+
+export default Track;

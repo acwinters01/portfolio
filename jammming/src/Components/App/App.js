@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Tracklist from '../Tracklist/Tracklist';
 import Playlist from '../Playlist/Playlist';
 
@@ -11,29 +11,54 @@ function App() {
     { name: 'Song 3', artist: 'Artist 3', album: 'Album 3', id: 3 }
   ]);
 
-  const [playlist, setPlaylist] = useState([
-    {playlist: 'Happiness', tracks: []},
-    {playlist: 'Sadness', tracks: []},
-    {playlist: 'Holiness', tracks: []}
+  const [existingPlaylist, setExistingPlaylist] = useState([
+    { playlistName: 'New Verbose', tracks: [{name: 'Song 1', artist: 'Artist 1'}, {name: 'Song 2', artist: 'Artist 2'}] }
   ]);
 
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
 
-  const updatePlaylistName = (event) => {
-    setPlaylistName(event.target.value);
-  }
+  const addTrack = useCallback(
+    (track) => {
+      if (playlistTracks.some((savedTrack) => savedTrack.id === track.id))
+        return;
+
+      setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+    },
+    [playlistTracks]
+  );
+
+
+  const updatePlaylistName = useCallback((name) => {
+    setPlaylistName(name);
+  },[])
+
+  const savePlaylist = useCallback(() => {
+    if (!playlistName || playlistTracks.length === 0) return;
+
+    const newPlaylist = {
+      playlistName: playlistName,
+      tracks: playlistTracks
+    };
+
+    setExistingPlaylist((prevPlaylists) => [...prevPlaylists, newPlaylist]);
+    setPlaylistName('');
+    setPlaylistTracks([]);
+
+  }, [playlistName, playlistTracks]);
 
   return (
     <div>
       <h1>Jammming</h1>
-      <Tracklist tracks={searchResults} />
+      <Tracklist tracks={searchResults} onAdd={addTrack}/>
 
       <h2>Playlists</h2>
       <Playlist 
         playlistName={playlistName} 
         playlistTracks={playlistTracks}
         onNameChange={updatePlaylistName}
+        existingPlaylist={existingPlaylist}
+        onSave={savePlaylist}
 
       />
     </div>

@@ -1,66 +1,38 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import TrackList from '../Tracklist/Tracklist';
 
 export default function Playlist(props) {
-    
-    const [savedName, setSavedName] = useState('');
-    const [savedTracks, setSavedTracks] = useState([]);
-    const [showInput, setShowInput] = useState(false);
 
-    const handlePlaylistNameChange = (event) => {
-        props.onNameChange(event.target.value);
-    };
-
-    const handleButtonClick = (event) => {
-        event.preventDefault();
-        setShowInput((prev) => !prev);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setSavedName(playlistName);
-        setShowInput(false);
-    };
-
-    const addTrackToPlaylist = (selectedTrack) => {
-        setSavedTracks((prevTracks) => [...prevTracks, selectedTrack]);
-    };
+    const handleNameChange = useCallback(
+        (event) => {
+            props.onNameChange(event.target.value);
+        }, 
+        [props.onNameChange]
+    );
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <button onClick={handleButtonClick}>Create New Playlist</button>
-
-                {showInput && (
-                    <div>
-                        <label>Name of Playlist:</label>
-                        <input
-                            type="text"
-                            value={playlistName}
-                            onChange={handlePlaylistNameChange}
-                            placeholder="Type name here"
-                        />
-
-                        <button type="submit">✅</button>
-                        <button onClick={handleButtonClick}>Cancel</button>
-                    </div>
-                )}
-            </form>
-
-            {savedName && <label>Playlist Name: {savedName}</label>}
-
-            <TrackList tracks={savedTracks} addTrackToPlaylist={addTrackToPlaylist} />
-
-            {savedTracks.length > 0 && (
-                <div>
-                    <h4>Tracks in Playlist:</h4>
-                    {savedTracks.map((track) => (
-                        <div key={track.id}>
-                            <p>{track.name} by {track.artist} from the album {track.album}</p>
-                        </div>
-                    ))}
+            <input 
+                onChange={handleNameChange} 
+                defaultValue={"New Playlist"}/>
+            <button onClick={props.onSave}>Save Playlist</button>
+            <TrackList
+                tracks={props.playlistTracks}
+                onAdd={props.onAdd}
+            />
+            <div>
+            {props.existingPlaylist.map((playlist, index) => (
+                <div key={index}>
+                    <h4>{playlist.playlistName}</h4>
+                    <ul>
+                        {playlist.tracks.map((track, i) => (
+                            <li key={i}>{track.name} by {track.artist}</li>
+                        ))}
+                    </ul>
                 </div>
-            )}
+            ))}
+            </div>
         </div>
+            
     );
 }

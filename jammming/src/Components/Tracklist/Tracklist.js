@@ -2,14 +2,23 @@ import React from 'react';
 import Track from '../Track/Track';
 
 const TrackList = (props) => {
+    // Ensure tracks array is not undefined or null
+    if (!props.tracks || props.tracks.length === 0) {
+        return <div>No tracks found</div>;
+    }
+
     return (
         <div>
             <h2>Tracklist</h2>
             {props.tracks.map(track => (
-                <Track
-                   key={track.id}  // Pass id as a normal prop
-                   track={track.name}
-                />
+            <Track
+                key={track.id}
+                id={track.id}  // Pass id as a normal prop
+                name={track.name}
+                artist={track.artist}
+                album={track.album}
+                onAdd={props.onAdd}
+            />
             ))}
         </div>
     );

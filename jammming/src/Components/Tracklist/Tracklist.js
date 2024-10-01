@@ -7,10 +7,13 @@ const TrackList = (props) => {
         return <div>No tracks found</div>;
     }
 
+    const isSelected = (track) => {
+        return props.playlistTracks.some((playlistTrack) => playlistTrack.id === track.id)
+    }
+
     return (
         <div>
-            <h2>Tracklist</h2>
-            {props.tracks.map(track => (
+            {props.tracks.map((track) => (
             <Track
                 key={track.id}
                 id={track.id}  // Pass id as a normal prop
@@ -18,6 +21,8 @@ const TrackList = (props) => {
                 artist={track.artist}
                 album={track.album}
                 onAdd={props.onAdd}
+                onRemove={props.onRemove}
+                isSelected={isSelected}
             />
             ))}
         </div>

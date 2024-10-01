@@ -8,57 +8,85 @@ function App() {
   const [searchResults, setSearchResults] = useState([
     { name: 'Song 1', artist: 'Artist 1', album: 'Album 1', id: 1 },
     { name: 'Song 2', artist: 'Artist 2', album: 'Album 2', id: 2 },
-    { name: 'Song 3', artist: 'Artist 3', album: 'Album 3', id: 3 }
+    { name: 'Song 3', artist: 'Artist 3', album: 'Album 3', id: 3 },
+    { name: 'Song 4', artist: 'Artist 4', album: 'Album 4', id: 4 }, 
+    { name: 'Song 5', artist: 'Artist 5', album: 'Album 5', id: 5 }
   ]);
 
   const [existingPlaylist, setExistingPlaylist] = useState([
-    { playlistName: 'New Verbose', tracks: [{name: 'Song 1', artist: 'Artist 1'}, {name: 'Song 2', artist: 'Artist 2'}] }
+    { playlistName: 'New Verbose', tracks: [{name: 'Song 4', artist: 'Artist 4', id: 4}, {name: 'Song 5', artist: 'Artist 5', id: 5}] }
   ]);
 
-  const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
 
   const addTrack = useCallback(
     (track) => {
-      if (playlistTracks.some((savedTrack) => savedTrack.id === track.id))
+      if (newPlaylistTracks.some((savedTrack) => savedTrack.id === track.id))
         return;
 
-      setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+      setNewPlaylistTracks((prevTracks) => [...prevTracks, track]);
     },
-    [playlistTracks]
+    [newPlaylistTracks]
   );
 
+  const removeTrack = useCallback(
+    (track) => {
+      setNewPlaylistTracks((prev) => {
+        return prev.filter((trackToRemove) => trackToRemove.id !== track.id) 
+      })
+    }, 
+    [newPlaylistTracks]
+  )
 
   const updatePlaylistName = useCallback((name) => {
     setPlaylistName(name);
   },[])
 
   const savePlaylist = useCallback(() => {
-    if (!playlistName || playlistTracks.length === 0) return;
+    if (!playlistName || newPlaylistTracks.length === 0) return;
 
     const newPlaylist = {
       playlistName: playlistName,
-      tracks: playlistTracks
+      tracks: newPlaylistTracks
     };
 
     setExistingPlaylist((prevPlaylists) => [...prevPlaylists, newPlaylist]);
     setPlaylistName('');
-    setPlaylistTracks([]);
+    setNewPlaylistTracks([]);
 
-  }, [playlistName, playlistTracks]);
+  }, [playlistName, newPlaylistTracks]);
+
+  const editExistingPlaylist = useCallback((playlistIndex, updatedTracks) => {
+    setExistingPlaylist((prevPlaylists) => {
+      const updatedPlaylist = [...prevPlaylists];
+      updatedPlaylist[playlistIndex].tracks = updatedTracks;
+      return updatedPlaylist;
+    })
+
+  },[])
 
   return (
     <div>
       <h1>Jammming</h1>
-      <Tracklist tracks={searchResults} onAdd={addTrack}/>
+      <Tracklist 
+        tracks={searchResults} 
+        onAdd={addTrack}
+        onRemove={removeTrack}
+        playlistTracks={newPlaylistTracks}
+      />
 
       <h2>Playlists</h2>
       <Playlist 
         playlistName={playlistName} 
-        playlistTracks={playlistTracks}
+        playlistTracks={newPlaylistTracks}
         onNameChange={updatePlaylistName}
         existingPlaylist={existingPlaylist}
+        tracks={searchResults}
+        onEdit={editExistingPlaylist}
         onSave={savePlaylist}
+        onRemove={removeTrack}
+        onAdd={addTrack}
 
       />
     </div>

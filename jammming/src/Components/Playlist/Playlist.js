@@ -1,21 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import TrackList from '../Tracklist/Tracklist';
+import CustomPlaylist from './CustomPlaylist';
 
 export default function Playlist(props) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [tracksEdited, setTracksEdited] = useState([]);
-    let playlistID = props.existingPlaylist.indexOf(selectedPlaylist);
 
-    const handleNameChange = useCallback(
+    const handleNewPlaylistNameChange = useCallback(
         (event) => {
-            props.onNameChange(event.target.value);
-        }, 
-        [props.onNameChange]
-    );
-
-    const handleNameEdit = useCallback(
-        (index) => {
-            
+            props.onNameChange(event.target.value, null);
         }, 
         [props.onNameChange]
     );
@@ -25,18 +18,10 @@ export default function Playlist(props) {
         setTracksEdited(props.existingPlaylist[index].tracks);
     }
 
-    const handleSavingEditedPlaylist = () => {
-        if (selectedPlaylist !== null) {
-            props.onEdit(selectedPlaylist, tracksEdited);
-            setSelectedPlaylist(null);
-            setTracksEdited([])
-        }
-    }
-
     return (
         <div>
             <input 
-                onChange={handleNameChange} 
+                onChange={handleNewPlaylistNameChange} 
                 value={props.playlistName}
                 placeholder="New Playlist"/>
 
@@ -63,20 +48,16 @@ export default function Playlist(props) {
                     </div>
                 ))}
             </div>
-
-            {selectedPlaylist !== null && (
-                <div>
-                    <h4 onClick={handleNameChange}>{props.existingPlaylist[selectedPlaylist].playlistName}</h4>
-                    <TrackList
-                        key={selectedPlaylist}
-                        tracks={props.tracks}
-                        onAdd={(track) => setTracksEdited((prev) => [...prev, track])} 
-                        onRemove={(track) => setTracksEdited((prev) => prev.filter((t) => t.id !== track.id))}
-                        playlistTracks={tracksEdited}
-                    />
-                    <button onClick={handleSavingEditedPlaylist}>Save</button>
-                </div>
-            )}
+            <CustomPlaylist 
+                selectedPlaylist={selectedPlaylist}
+                setSelectedPlaylist={setSelectedPlaylist}
+                tracks={props.tracks}
+                onNameChange = {props.onNameChange}
+                existingPlaylist={props.existingPlaylist}
+                tracksEdited={tracksEdited}
+                setTracksEdited={setTracksEdited}
+                onEdit={props.onEdit}
+                />
         </div>
             
     );

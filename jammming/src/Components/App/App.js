@@ -39,9 +39,20 @@ function App() {
     [newPlaylistTracks]
   )
 
-  const updatePlaylistName = useCallback((name) => {
-    setPlaylistName(name);
-  },[])
+  const updatePlaylistName = useCallback((newName, playlistIndex) => {
+    console.log(`Playlist is ${playlistIndex}`)
+    if (typeof playlistIndex === 'number' && playlistIndex >= 0 && playlistIndex < existingPlaylist.length) {
+        console.log(`Playlist is existing`)
+        setExistingPlaylist((prevPlaylists) => {
+          const updatedPlaylists = [...prevPlaylists];
+          updatedPlaylists[playlistIndex].playlistName =  newName;
+          return updatedPlaylists;
+        })
+    } else {
+      console.log(`Creating new Playlist with name: ${newName}`)
+      setPlaylistName(newName);
+    }
+  }, [existingPlaylist])
 
   const savePlaylist = useCallback(() => {
     if (!playlistName || newPlaylistTracks.length === 0) return;
@@ -81,6 +92,7 @@ function App() {
         playlistName={playlistName} 
         playlistTracks={newPlaylistTracks}
         onNameChange={updatePlaylistName}
+        setPlaylistName={setPlaylistName}
         existingPlaylist={existingPlaylist}
         tracks={searchResults}
         onEdit={editExistingPlaylist}

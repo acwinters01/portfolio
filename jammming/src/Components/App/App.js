@@ -1,20 +1,22 @@
 import React, {useCallback, useState} from 'react';
 import Tracklist from '../Tracklist/Tracklist';
 import Playlist from '../Playlist/Playlist';
-
+import Authorization from '../Authorization/Authorization';
 
 
 function App() {
   const [searchResults, setSearchResults] = useState([
-    { name: 'Song 1', artist: 'Artist 1', album: 'Album 1', id: 1 },
-    { name: 'Song 2', artist: 'Artist 2', album: 'Album 2', id: 2 },
-    { name: 'Song 3', artist: 'Artist 3', album: 'Album 3', id: 3 },
-    { name: 'Song 4', artist: 'Artist 4', album: 'Album 4', id: 4 }, 
-    { name: 'Song 5', artist: 'Artist 5', album: 'Album 5', id: 5 }
+    { name: 'Low', artist: 'SZA', album: 'SOS', uri: "7tYKF4w9nC0nq9CsPZTHyP", id: 1 },
+    { name: 'Spot a Fake', artist: 'Ava Max', album: 'Spot a Fake Single', uri: "1svpo8ORIHy4BdgicdyUjx", id: 2 },
+    { name: 'Espresso', artist: 'Sabrina Carpenter', album: 'Espresso Single', uri: "2qSkIjg1o9h3YT9RAgYN75", id: 3 },
+    { name: 'Forever', artist: 'Gryffin, Elley Duhë', album: 'Alive', uri: "14dLEccPdsIvZdaMfimZEt", id: 4 }, 
+    { name: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', album: 'Neva Play Single', uri: "2ZqTbIID9vFPTXaGyzbb4q", id: 5 }
   ]);
 
   const [existingPlaylist, setExistingPlaylist] = useState([
-    { playlistName: 'New Verbose', tracks: [{name: 'Song 4', artist: 'Artist 4', id: 4}, {name: 'Song 5', artist: 'Artist 5', id: 5}] }
+    { playlistName: 'New Verbose', 
+      tracks: [{name: 'Forever', artist: 'Gryffin, Elley Duhë', uri: "14dLEccPdsIvZdaMfimZEt", id: 4}, 
+               {name: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "2ZqTbIID9vFPTXaGyzbb4q", id: 5}] }
   ]);
 
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
@@ -79,6 +81,11 @@ function App() {
 
   return (
     <div>
+      <div>
+        <Authorization
+          tracks={searchResults}
+        />
+      </div>
       <h1>Jammming</h1>
       <Tracklist 
         tracks={searchResults} 

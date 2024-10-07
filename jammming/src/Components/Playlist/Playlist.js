@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import TrackList from '../Tracklist/Tracklist';
 import CustomPlaylist from './CustomPlaylist';
+import Authorization from '../Authorization/Authorization';
 
 export default function Playlist(props) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -16,6 +17,27 @@ export default function Playlist(props) {
     const handleEditTracks = (index) => {
         setSelectedPlaylist(index);
         setTracksEdited(props.existingPlaylist[index].tracks);
+    }
+
+    const transferToSpotify = () => {
+        const spotifyUris = ["7tYKF4w9nC0nq9CsPZTHyP", "1svpo8ORIHy4BdgicdyUjx", "2qSkIjg1o9h3YT9RAgYN75", 
+            "14dLEccPdsIvZdaMfimZEt", "2ZqTbIID9vFPTXaGyzbb4q"];
+            
+            <Authorization 
+                setUrlToFetch={"7tYKF4w9nC0nq9CsPZTHyP"}/>
+         // Create a Playlist --POST /users/{playlist_id}/tracks -- 
+                // (name: (input value)) 
+            
+
+         /* Add items to Playlist: --POST /playlists/{user_id}/playlists-- 
+                (playlist_id: get spotifyID of playlist, 
+                BODY
+                position(index), 
+                uris(string) - comma-separated lit of spotify uris of tracks, 
+          EX) 
+            uris=spotify:track:4iV5W9uYEdYUVa79Axb7Rh, 
+            spotify:track:1301WleyT98MSxVHPZCA6M, 
+            spotify:episode:512ojhOuo1ktJprKbVcKyQ*/ 
     }
 
     return (
@@ -47,6 +69,7 @@ export default function Playlist(props) {
                         </ul>
                     </div>
                 ))}
+                <button onClick={transferToSpotify}>Save On Spotify</button>
             </div>
             <CustomPlaylist 
                 selectedPlaylist={selectedPlaylist}

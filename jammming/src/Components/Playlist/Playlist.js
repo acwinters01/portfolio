@@ -5,9 +5,9 @@ import { makeSpotifyRequest, getPlaylistsTracks, getUserPlaylists, getUserProfil
 
 // Get User Data
 const userProfileData = await getUserProfile();
-console.log("Calling User Profile in Playlist")
+console.log(userProfileData)
+// console.log("Calling User Profile in Playlist")
 // const userPlaylistData = await getUserPlaylists(userProfileData.id);
-
 
 
 // Playlist Component
@@ -26,22 +26,42 @@ export default function Playlist(props) {
         setSelectedPlaylist(index);
         setTracksEdited(props.existingPlaylist[index].tracks);
     }
+    
+    // Grab Track Uri from App Playlist
+    const handlePlaylistTracks = async(index) => {
+        let tracksToAdd = [];
+        props.existingPlaylist[index].tracks.forEach((track) => {
+            if(track.uri) {
+                console.log(`Track URI for ${track.name}: ${track.uri}`)
+                tracksToAdd.push(track.uri);
+            } else {
+                console.warn(`Track URI missing for ${track.name}`);
+            }
+            
+            
+        });
+        console.log(`Tracks being added: ${tracksToAdd}`)
+        return tracksToAdd;
+    }
 
-    const transferToSpotify = async () => {
+    const transferToSpotify = async (index) => {
         // Hard-Coded Song URIs
-        const spotifyUris = [
-            "spotify:track:7tYKF4w9nC0nq9CsPZTHyP", 
-            "spotify:track:1svpo8ORIHy4BdgicdyUjx", 
-            "spotify:track:2qSkIjg1o9h3YT9RAgYN75", 
-            "spotify:track:14dLEccPdsIvZdaMfimZEt", 
-            "spotify:track:2ZqTbIID9vFPTXaGyzbb4q"
-        ];
+        // const spotifyUris = [
+        //     "spotify:track:7tYKF4w9nC0nq9CsPZTHyP", 
+        //     "spotify:track:1svpo8ORIHy4BdgicdyUjx", 
+        //     "spotify:track:2qSkIjg1o9h3YT9RAgYN75", 
+        //     "spotify:track:14dLEccPdsIvZdaMfimZEt", 
+        //     "spotify:track:2ZqTbIID9vFPTXaGyzbb4q"
+        // ];
             
         try {  
+            
+            const tracksToAdd = await handlePlaylistTracks(index);
+
             // Creating Playlist 
-            console.log(`Here is name: ${'', props.existingPlaylist[0].playlistName}`)
+            console.log(`Here is name: ${'', props.existingPlaylist[index].playlistName}`)
             const createPlaylistPayload = {
-                name: props.existingPlaylist[0].playlistName,
+                name: props.existingPlaylist[index].playlistName,
                 description: 'New playlist created from Jammming app',
                 public: true
             };
@@ -54,7 +74,7 @@ export default function Playlist(props) {
 
             // Adding Tracks to Playlist
             const addTracksPayload = {
-                uris: spotifyUris
+                uris: tracksToAdd
             }
             const addTracksResponse = await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload)
             console.log('Adding tracks:', addTracksResponse)
@@ -69,7 +89,7 @@ export default function Playlist(props) {
     }
 
     return (
-        <div>
+        <div className='playlistReturn'>
             <input 
                 onChange={handleNewPlaylistNameChange} 
                 value={props.playlistName}
@@ -83,7 +103,7 @@ export default function Playlist(props) {
                 onRemove={props.onRemove}
                 playlistTracks={props.playlistTracks}
             />
-            <div>
+            <div className='displayPlaylistInfo'>
                 {props.existingPlaylist.map((playlist, index) => (
                     <div key={index}>
                         <div>
@@ -95,9 +115,9 @@ export default function Playlist(props) {
                                 <li key={i}>{track.name} by {track.artist} | ID: {track.id}</li>
                             ))}
                         </ul>
+                        <button onClick={() => transferToSpotify(index)}>Save On Spotify</button>
                     </div>
                 ))}
-                <button onClick={transferToSpotify}>Save On Spotify</button>
             </div>
             <CustomPlaylist 
                 selectedPlaylist={selectedPlaylist}
@@ -108,9 +128,7 @@ export default function Playlist(props) {
                 tracksEdited={tracksEdited}
                 setTracksEdited={setTracksEdited}
                 onEdit={props.onEdit}
-                />
-
-            <button onClick={transferToSpotify}>Create Playlist in Spotify</button>
+            />
         </div>
             
     );

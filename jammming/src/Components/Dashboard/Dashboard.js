@@ -14,7 +14,7 @@ const Dashboard = () => {
 
                 // Fetch the user's playlists
                 const playlistsData = await getUserPlaylists(profileData.id);
-                console.log("Calling User Playlists in Dashboard:", playlistsData);
+                // console.log("Calling User Playlists in Dashboard:", playlistsData);
 
             } catch (err) {
                 setError("An error occurred while fetching the user profile or playlists.");

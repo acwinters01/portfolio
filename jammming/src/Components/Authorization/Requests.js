@@ -1,23 +1,83 @@
-import React from 'react';
-import Authorization from '../Authorization/Authorization'
-
-const GetAccess = async() => {
-
-    const storedToken = localStorage.getItem('access_token');
-    setAccessToken(storedToken);
-
-    if (storedToken) {
-        const response = await fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                Authorization: `Bearer ${storedToken}`
-            },
-        });
-        const data = await response.json();
-        console.log(data)
-    }
- 
-};
+import { refreshToken, isTokenExpired } from '../Authorization/Authorization';
 
 const getStoredToken = () => { 
-    
-}
+    try {
+        const token = localStorage.getItem('access_token');
+        return token
+    } catch (error) {
+        console.error('Token not here', error)
+    }
+   
+};
+
+export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => {
+    let accessToken = await getStoredToken();
+
+    if (!accessToken) {
+        throw new Error('No access token available. Please login.');
+    }
+
+    const fetchOptions = {
+        method: method,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+        }
+    };
+
+    // If the method is not GET and there is a body, add it to the fetch options
+    if (body && method !== 'GET') {
+        fetchOptions.body = JSON.stringify(body);  // Convert the body to a JSON string
+    }
+
+    try { 
+        console.log(`Sending ${method} request to endpoint: ${endpoint} with body:`, body);
+
+        const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, fetchOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Spotify API Error: ${errorData.error.message}`);
+        }
+        console.log(`Method: ${method}`,fetchOptions)
+        return await response.json();
+
+    } catch (error) {
+        console.error('Error making Spotify request:', error);
+        throw error; // Re-throw to handle the error at a higher level if needed
+    }
+};
+
+
+// Fetch the Spotify user's profile
+export const getUserProfile = async () => {
+    try {
+        const data = await makeSpotifyRequest('me');
+        console.log('Calling User Profile in Requests:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+    }
+};
+
+// Fetch the Spotify user's playlists
+export const getUserPlaylists = async () => {
+    try {
+        const data = await makeSpotifyRequest('me/playlists');
+        console.log('Calling User Playlists in Requests:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching playlists:', error);
+    }
+};
+
+// Fetch the tracks from a specific playlist
+export const getPlaylistsTracks = async (playlistId) => {
+    try { 
+        const data = await makeSpotifyRequest(`playlists/${playlistId}/tracks`);
+        console.log('Calling Playlist Tracks in Requests:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching playlist tracks:', error);
+    }
+};

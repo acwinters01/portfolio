@@ -1,5 +1,3 @@
-import { refreshToken, isTokenExpired } from '../Authorization/Authorization';
-
 const getStoredToken = () => { 
     try {
         const token = localStorage.getItem('access_token');
@@ -31,7 +29,7 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
     }
 
     try { 
-        console.log(`Sending ${method} request to endpoint: ${endpoint} with body:`, body);
+        // console.log(`Sending ${method} request to endpoint: ${endpoint} with body:`, body);
 
         const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, fetchOptions);
 
@@ -39,7 +37,7 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
             const errorData = await response.json();
             throw new Error(`Spotify API Error: ${errorData.error.message}`);
         }
-        console.log(`Method: ${method}`,fetchOptions)
+       // console.log(`Method: ${method}`,fetchOptions)
         return await response.json();
 
     } catch (error) {
@@ -53,7 +51,7 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
 export const getUserProfile = async () => {
     try {
         const data = await makeSpotifyRequest('me');
-        console.log('Calling User Profile in Requests:', data);
+        // console.log('Calling User Profile in Requests:', data);
         return data;
     } catch (error) {
         console.error('Error fetching user profile:', error);
@@ -64,7 +62,7 @@ export const getUserProfile = async () => {
 export const getUserPlaylists = async () => {
     try {
         const data = await makeSpotifyRequest('me/playlists');
-        console.log('Calling User Playlists in Requests:', data);
+       // console.log('Calling User Playlists in Requests:', data);
         return data;
     } catch (error) {
         console.error('Error fetching playlists:', error);
@@ -75,7 +73,7 @@ export const getUserPlaylists = async () => {
 export const getPlaylistsTracks = async (playlistId) => {
     try { 
         const data = await makeSpotifyRequest(`playlists/${playlistId}/tracks`);
-        console.log('Calling Playlist Tracks in Requests:', data);
+        //  console.log('Calling Playlist Tracks in Requests:', data);
         return data;
     } catch (error) {
         console.error('Error fetching playlist tracks:', error);

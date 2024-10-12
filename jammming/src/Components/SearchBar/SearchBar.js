@@ -3,6 +3,7 @@ import { getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
 
 
 const SearchBar = ({ onSearchResults }) => {
+
     const [searchInput, setSearchInput] = useState('');
 
     const handleSearchInput = useCallback(

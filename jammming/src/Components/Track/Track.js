@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 const Track = (props) => {
-    console.log('In Track component:', props);
+    // console.log('In Track component:', props);
    
     const track = {
         id: props.id,

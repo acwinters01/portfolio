@@ -2,8 +2,8 @@ import React from 'react';
 import Track from '../Track/Track';
 
 const TrackList = (props) => {
-    console.log('in tracklist')
-    console.log('Props:', props); 
+    // console.log('in tracklist')
+    // console.log('Props:', props); 
     // Ensure tracks array is not undefined or null
 
     const tracks = props.tracks; // Ensures it's an array
@@ -15,7 +15,7 @@ const TrackList = (props) => {
     const isSelected = (track) => {
         return props.playlistTracks.some((playlistTrack) => playlistTrack.id === track.id)
     }
-    console.log(`List of tracks: ${props.tracks}`)
+    // console.log(`List of tracks: ${props.tracks}`)
 
     return (
         <div>

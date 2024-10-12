@@ -25,9 +25,7 @@
 
         const handleNameSave = () => {
             setIsEditingName(false);
-        }
-
-       
+        } 
 
         return (
             <div>

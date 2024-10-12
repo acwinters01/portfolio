@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 // Request User Authorization
 const clientId = "6bc7dfe2ca024756bf79ff934bf15a0d";
 const redirectUri = 'http://localhost:3000'
-const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
+const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private';
 
 // Generate random string for code verifier
 const generateRandomString = (length) => {

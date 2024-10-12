@@ -37,7 +37,7 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
             const errorData = await response.json();
             throw new Error(`Spotify API Error: ${errorData.error.message}`);
         }
-       // console.log(`Method: ${method}`,fetchOptions)
+        // console.log(`Method: ${method}`,fetchOptions)
         return await response.json();
 
     } catch (error) {

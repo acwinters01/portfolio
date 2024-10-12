@@ -1,13 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import TrackList from '../Tracklist/Tracklist';
 import CustomPlaylist from './CustomPlaylist';
-import { makeSpotifyRequest, getUserProfile } from '../Authorization/Requests';
+import { makeSpotifyRequest } from '../Authorization/Requests';
+import PagesSetUp from './PagesSetUp';
 
-
-// Playlist Component
 export default function Playlist(props) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [tracksEdited, setTracksEdited] = useState([]);
+
+    const [playlistPages, setPlaylistPages] = useState(
+        props.existingPlaylist.map(() => 0)
+    );
+    const tracksPerPage = 10; // Number of tracks to display per page
+
+    // Ensure playlistPages has the correct length when existingPlaylist changes
+    useEffect(() => {
+        setPlaylistPages(Array(props.existingPlaylist.length).fill(0));
+    }, [props.existingPlaylist]);
 
     const handleNewPlaylistNameChange = useCallback(
         (event) => {
@@ -19,77 +28,68 @@ export default function Playlist(props) {
     const handleEditTracks = (index) => {
         setSelectedPlaylist(index);
         setTracksEdited(props.existingPlaylist[index].tracks);
-    }
-    
-    // Grab Track Uri from App Playlist
-    const handlePlaylistTracks = async(index) => {
+    };    
+
+    const handlePlaylistTracks = async (index) => {
         let tracksToAdd = [];
         props.existingPlaylist[index].tracks.forEach((track) => {
-            if(track.uri) {
-                console.log(`Track URI for ${track.name}: ${track.uri}`)
+            if (track.uri) {
+                console.log(`Track URI for ${track.name}: ${track.uri}`);
                 tracksToAdd.push(track.uri);
             } else {
                 console.warn(`Track URI missing for ${track.name}`);
             }
-            
-            
         });
-        console.log(`Tracks being added: ${tracksToAdd}`)
+        console.log(`Tracks being added: ${tracksToAdd}`);
         return tracksToAdd;
-    }
+    };
 
     const transferToSpotify = async (index) => {
-        // Hard-Coded Song URIs
-        // const spotifyUris = [
-        //     "spotify:track:7tYKF4w9nC0nq9CsPZTHyP", 
-        //     "spotify:track:1svpo8ORIHy4BdgicdyUjx", 
-        //     "spotify:track:2qSkIjg1o9h3YT9RAgYN75", 
-        //     "spotify:track:14dLEccPdsIvZdaMfimZEt", 
-        //     "spotify:track:2ZqTbIID9vFPTXaGyzbb4q"
-        // ];
-            
-        try {  
-            
+        try {
             const tracksToAdd = await handlePlaylistTracks(index);
-
-            // Creating Playlist 
-            console.log(`Here is name: ${'', props.existingPlaylist[index].playlistName}`)
             const createPlaylistPayload = {
                 name: props.existingPlaylist[index].playlistName,
                 description: 'New playlist created from Jammming app',
                 public: true
             };
-
-            const createPlaylistResponse = await makeSpotifyRequest(`me/playlists`, 'POST', createPlaylistPayload);   
-            console.log('Created Playlist:', createPlaylistResponse);
-
-            // Getting Playlist ID
+            const createPlaylistResponse = await makeSpotifyRequest(`me/playlists`, 'POST', createPlaylistPayload);
             const playlistId = createPlaylistResponse.id;
-
-            // Adding Tracks to Playlist
-            const addTracksPayload = {
-                uris: tracksToAdd
-            }
-            const addTracksResponse = await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload)
-            console.log('Adding tracks:', addTracksResponse)
-            console.log(createPlaylistResponse.tracks)
-
-            const createdPlaylist = await makeSpotifyRequest(`playlists/${playlistId}`);
-            console.log("Playlist after adding tracks:", createdPlaylist);
-
+            const addTracksPayload = { uris: tracksToAdd };
+            await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload);
         } catch (error) {
             console.error('Error transferring playlist to Spotify:', error);
         }
-    }
+    };
+
+    // Calculate the total pages and control pagination for each playlist
+    const goToNextPage = (playlistIndex) => {
+        const totalTracks = props.existingPlaylist[playlistIndex]?.tracks.length || 0;
+        const totalPages = Math.ceil(totalTracks / tracksPerPage);
+
+        if (playlistPages[playlistIndex] < totalPages - 1) {
+            setPlaylistPages((prevPages) =>
+                prevPages.map((page, idx) => (idx === playlistIndex ? page + 1 : page))
+            );
+        }
+    };
+
+    const goToPreviousPage = (playlistIndex) => {
+        if (playlistPages[playlistIndex] > 0) {
+            setPlaylistPages((prevPages) =>
+                prevPages.map((page, idx) => (idx === playlistIndex ? page - 1 : page))
+            );
+        }
+    };
 
     return (
         <div className='playlistReturn'>
             <input 
                 onChange={handleNewPlaylistNameChange} 
                 value={props.playlistName}
-                placeholder="New Playlist"/>
+                placeholder="New Playlist"
+            />
 
-            <button onClick={props.onSave}>Save Playlist</button>
+            <button onClick={props.onSave}>Save</button>
 
             <TrackList
                 tracks={props.playlistTracks}
@@ -97,35 +97,57 @@ export default function Playlist(props) {
                 onRemove={props.onRemove}
                 playlistTracks={props.playlistTracks}
             />
+
             <div className='displayPlaylistInfo'>
-                {props.existingPlaylist.map((playlist, index) => (
-                    <div key={index}>
-                        <div>
-                            <h4>{playlist.playlistName}</h4>
-                            <button onClick={() => handleEditTracks(index)}>Edit</button>
+                {props.existingPlaylist.map((playlist, playlistIndex) => {
+                    const totalTracks = playlist.tracks.length;
+                    const totalPages = totalTracks > 0 ? Math.ceil(totalTracks / tracksPerPage) : 1;
+
+                    const startIndex = playlistPages[playlistIndex] * tracksPerPage;
+                    const currentTracks = playlist.tracks.slice(startIndex, startIndex + tracksPerPage);
+
+                    return (
+                        <div key={playlistIndex}>
+                            <div>
+                                <h4>{playlist.playlistName}</h4>
+                                <button onClick={() => handleEditTracks(playlistIndex)}>Edit</button>
+                            </div>
+
+                            <ul>
+                                {currentTracks.map((track, i) => (
+                                    <li key={i}>{track.name} by {track.artist}</li>
+                                ))}
+                            </ul>
+
+                            {/* Pass necessary data to PagesSetUp */}
+                            <PagesSetUp
+                                playlistIndex={playlistIndex}
+                                playlistPages={playlistPages}
+                                totalPages={totalPages}
+                                goToNextPage={goToNextPage}
+                                goToPreviousPage={goToPreviousPage}
+                            />
+
+                            <button onClick={() => transferToSpotify(playlistIndex)}>Save On Spotify</button>
                         </div>
-                        <ul>
-                            {playlist.tracks.map((track, i) => (
-                                <li key={i}>{track.name} by {track.artist} | ID: {track.id}</li>
-                            ))}
-                        </ul>
-                        <button onClick={() => transferToSpotify(index)}>Save On Spotify</button>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
-            <div className='customPlaylistContainer'>
-                <CustomPlaylist 
-                    selectedPlaylist={selectedPlaylist}
-                    setSelectedPlaylist={setSelectedPlaylist}
-                    tracks={props.tracks}
-                    onNameChange = {props.onNameChange}
-                    existingPlaylist={props.existingPlaylist}
-                    tracksEdited={tracksEdited}
-                    setTracksEdited={setTracksEdited}
-                    onEdit={props.onEdit}
-                />
-            </div>
+
+            {selectedPlaylist !== null && (
+                <div className='customPlaylistContainer'>
+                    <CustomPlaylist 
+                        selectedPlaylist={selectedPlaylist}
+                        setSelectedPlaylist={setSelectedPlaylist}
+                        tracks={props.existingPlaylist[selectedPlaylist]?.tracks}
+                        onNameChange={props.onNameChange}
+                        existingPlaylist={props.existingPlaylist}
+                        tracksEdited={tracksEdited}
+                        setTracksEdited={setTracksEdited}
+                        onEdit={props.onEdit}
+                    />
+                </div>
+            )}
         </div>
-            
     );
 }

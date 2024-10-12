@@ -72,13 +72,17 @@ function App() {
     }
   }, [existingPlaylist])
 
-  const savePlaylist = useCallback(() => {
+  const savePlaylist = useCallback((newPlaylist={}) => {
     if (!playlistName || newPlaylistTracks.length === 0) return;
+    if (newPlaylist == {}) {
+      console.log('newPlaylist is empty')
+      newPlaylist = {
+        playlistName: playlistName,
+        tracks: newPlaylistTracks
+      };
+    }
 
-    const newPlaylist = {
-      playlistName: playlistName,
-      tracks: newPlaylistTracks
-    };
+    console.log('Saving playlist', newPlaylist)
 
     setExistingPlaylist((prevPlaylists) => [...prevPlaylists, newPlaylist]);
     setPlaylistName('');
@@ -132,7 +136,10 @@ function App() {
       </div>
       <div className='dashboardContainer'>
         <h2>Dashboard</h2>
-          <Dashboard/>
+          <Dashboard
+            setExistingPlaylist={setExistingPlaylist}
+            existingPlaylist={existingPlaylist}
+          />
       </div>
     </div>
   );

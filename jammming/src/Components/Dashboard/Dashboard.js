@@ -26,10 +26,10 @@ const Dashboard = () => {
     }, []);
 
     return(
-        <div>
+        <div className='dashboard'>
             {error && <p>Error: {error}</p>}
             {userProfile ? (
-                <div>
+                <div className='userInfo'>
                     <img src={userProfile.images[1].url}/>
                     <h2>{userProfile.display_name}</h2>
                     <p>Email: {userProfile.email}</p>

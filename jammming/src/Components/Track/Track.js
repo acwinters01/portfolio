@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 
 const Track = (props) => {
     console.log('In Track component:', props);
-
    
     const track = {
         id: props.id,
@@ -22,15 +21,17 @@ const Track = (props) => {
     }, [props, track]);
   
     return (
-        <div>
+        <div className='trackContainer'>
             <button onClick={handleTrackAction}>{props.isSelected(props) ? '-' : '+'}</button>
-            <div>
-                <div>
+            <div className='trackBlock'>
+                <div className='trackImage'>
                     <img src={props.imageUri}/>
                 </div>
-                <p><strong>{props.name}</strong></p>
-                <p>{props.artist} | {props.album}</p>
-                <p>{props.id}</p>
+                <div className='trackText'>
+                    <p><strong>{props.name}</strong></p>
+                    <p>{props.artist} | {props.album}</p>
+                    <p>{props.id}</p>
+                </div>
             </div>
         </div>
     );

@@ -1,13 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import TrackList from '../Tracklist/Tracklist';
 import CustomPlaylist from './CustomPlaylist';
-import { makeSpotifyRequest, getPlaylistsTracks, getUserPlaylists, getUserProfile } from '../Authorization/Requests';
-
-// Get User Data
-const userProfileData = await getUserProfile();
-console.log(userProfileData)
-// console.log("Calling User Profile in Playlist")
-// const userPlaylistData = await getUserPlaylists(userProfileData.id);
+import { makeSpotifyRequest, getUserProfile } from '../Authorization/Requests';
 
 
 // Playlist Component
@@ -119,16 +113,18 @@ export default function Playlist(props) {
                     </div>
                 ))}
             </div>
-            <CustomPlaylist 
-                selectedPlaylist={selectedPlaylist}
-                setSelectedPlaylist={setSelectedPlaylist}
-                tracks={props.tracks}
-                onNameChange = {props.onNameChange}
-                existingPlaylist={props.existingPlaylist}
-                tracksEdited={tracksEdited}
-                setTracksEdited={setTracksEdited}
-                onEdit={props.onEdit}
-            />
+            <div className='customPlaylistContainer'>
+                <CustomPlaylist 
+                    selectedPlaylist={selectedPlaylist}
+                    setSelectedPlaylist={setSelectedPlaylist}
+                    tracks={props.tracks}
+                    onNameChange = {props.onNameChange}
+                    existingPlaylist={props.existingPlaylist}
+                    tracksEdited={tracksEdited}
+                    setTracksEdited={setTracksEdited}
+                    onEdit={props.onEdit}
+                />
+            </div>
         </div>
             
     );

@@ -98,12 +98,12 @@ function App() {
   },[])
 
   return (
-    <div>
+    <div className='AppContainer'>
       <h1>Jammming</h1>
-      <div className='Authorization'>
+      <div className='authorizationContainer'>
         <Authorization/>
       </div>
-      <div>
+      <div className='displaySearchBar'>
         <SearchBar onSearchResults={handleSearchResults}/>
       </div>
       <div className='displayTracks'>
@@ -130,7 +130,7 @@ function App() {
 
         />
       </div>
-      <div>
+      <div className='dashboardContainer'>
         <h2>Dashboard</h2>
           <Dashboard/>
       </div>

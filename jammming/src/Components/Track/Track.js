@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 const Track = (props) => {
-    // console.log('In Track component:', props);
+    console.log('In Track component:', props);
    
     const track = {
         id: props.id,
@@ -9,7 +9,7 @@ const Track = (props) => {
         artist: props.artist,
         album: props.album,
         uri: props.uri,
-        imageUri: props.imageUri
+        imageUri: props.imageUri || props.image || '/music_note_baseImage.jpg'
     };
 
     const handleTrackAction = useCallback(() => {
@@ -21,16 +21,16 @@ const Track = (props) => {
     }, [props, track]);
   
     return (
-        <div className='trackContainer'>
+        <div className='displaytrackContainer'>
             <button onClick={handleTrackAction}>{props.isSelected(props) ? '-' : '+'}</button>
             <div className='trackBlock'>
                 <div className='trackImage'>
-                    <img src={props.imageUri}/>
+                    <img src={track.imageUri} alt={`Album art for ${track.name}`}/>
                 </div>
                 <div className='trackText'>
-                    <p><strong>{props.name}</strong></p>
-                    <p>{props.artist} | {props.album}</p>
-                    <p>{props.id}</p>
+                    <p><strong>{track.name}</strong></p>
+                    <p>{track.artist} | {track.album}</p>
+                    <p>{track.id}</p>
                 </div>
             </div>
         </div>

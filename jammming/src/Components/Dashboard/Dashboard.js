@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getUserPlaylists, getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
+import Playlist from '../Playlist/Playlist';
+import PagesSetUp from '../Playlist/PagesSetUp';
 
 const Dashboard = (props) => {
-    let index = 0;
     const [userProfile, setUserProfile] = useState(null);
     const [userPlaylistData, setUserPlaylistData] = useState(null)
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // Add a loading state
+
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(0);
+    const playlistsPerPage = 5;
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -16,111 +22,184 @@ const Dashboard = (props) => {
 
                 // Fetch the user's playlists
                 const playlistsData = await getUserPlaylists(profileData.id);
+                // console.log("Calling User Playlists in Dashboard:", playlistsData);
                 setUserPlaylistData(playlistsData);
-                // console.log("Calling User Playlists in Dashboard:", userPlaylistData);
-
+                
+                
             } catch (err) {
                 setError("An error occurred while fetching the user profile or playlists.");
                 console.error("Error fetching profile or playlists:", err);
+
+            } finally {
+                setIsLoading(false); // Stop loading once the data is fetched
             }
         };
-
+    
         fetchProfile();
     }, []);
 
-    const handlePlaylistSync = useCallback(async(playlist) => {
+
+    // Pagination handlers
+    const goToNextPage = () => {
+        if (!userPlaylistData || !userPlaylistData.items) return;
+        const totalPlaylists = userPlaylistData.items.length;
+        const totalPages = Math.ceil(totalPlaylists / playlistsPerPage);
+
+        if (currentPage < totalPages - 1) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    const goToPreviousPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
+    };
+
+
+
+    const handlePlaylistSync = useCallback(async (playlist) => {
 
         let prevPlaylistTracks = []
 
         try {
             const initalTracksResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks`, 'GET', );
-            let getTracksResponse = [];
+            let getTracksResponse = initalTracksResponse.items || []; // Extract the tracks safely
 
-            if (initalTracksResponse.total > 101) {
-                console.log(`total songs: ${initalTracksResponse.total}`);
 
+            // Handle cases with more than 100 tracks (pagination)
+            if (initalTracksResponse.total > 100) {
                 const count = Math.ceil(initalTracksResponse.total/100);
-                console.log('Tracks in Playlist ' + playlist.name + 'Count: ' + count, initalTracksResponse);
-
-                getTracksResponse.push(initalTracksResponse.items)
+                getTracksResponse = [...initalTracksResponse.items]
                 
                 for(let i = 1; i < count; i++) {
-                    let offsetCount = (i * initalTracksResponse.limit);
+                    let offsetCount = (i * 100);
 
                     let queryParams = new URLSearchParams({
                         offset: offsetCount,
-                        limit: initalTracksResponse.limit
+                        limit: 100
                     });
 
                     let newResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks?${queryParams.toString()}`, 'GET');
-                    getTracksResponse.push(newResponse.items)
+                    console.log(`Tracks batch ${i}:`, newResponse.items); // Log each batch
+                    getTracksResponse = [...getTracksResponse, ...newResponse.items];
                 }
-
-                console.log(getTracksResponse)
                 
-            } else { 
-                getTracksResponse = initalTracksResponse;
+            } 
+
+            // Check if we actually have tracks to process
+            if (!Array.isArray(getTracksResponse) || getTracksResponse.length === 0) {
+                console.log("No tracks found in the playlist.");
             }
 
-            getTracksResponse.forEach((array) => {
-                array.forEach((trackInfo) => {
+            getTracksResponse.forEach((trackInfo) => {
+                if (trackInfo && trackInfo.track) {
                     let track = {
                         id: trackInfo.track.id,
                         name: trackInfo.track.name,
-                        artist: trackInfo.track.artists.map(artist => artist.name).join(', '),
+                        artist: trackInfo.track.artists.map((artist) => artist.name).join(', '),
                         album: trackInfo.track.album.name,
-                        uri: trackInfo.track.uri
-                    }
-                    
-                    prevPlaylistTracks.push(track)
-                })
+                        uri: trackInfo.track.uri,
+                        image: trackInfo.track.album.images[1]?.url || '/default-image.jpg' // Fallback for missing image
+                    };
+                    prevPlaylistTracks.push(track);
+                }
             });
 
 
         } catch (error) {
-            console.log(error)
+            console.log("Error fetching playlist tracks:", error);
         }
 
        let customPlaylist = {
             playlistName: playlist.name,
+            playlistId: playlist.id,
             tracks: prevPlaylistTracks
         };
 
-        console.log(customPlaylist);
+        console.log("Custom Playlist Created:", customPlaylist);;
 
-        props.setExistingPlaylist((prevPlaylists)=> [...prevPlaylists, customPlaylist])
+        props.setExistingPlaylist((prevPlaylists) => {
+            // Ensure prevPlaylists is an array and customPlaylist has tracks
+            const validPrevPlaylists = Array.isArray(prevPlaylists) ? prevPlaylists : [];
+            
+            if (customPlaylist.tracks && customPlaylist.tracks.length > 0) {
+                return [...validPrevPlaylists, customPlaylist];
+            } else {
+                console.log("No tracks available in customPlaylist, skipping update.");
+                return validPrevPlaylists; // Return the previous state without changes if no tracks
+            }
+        });
+
         console.log('Logging existing playlist...');
 
-     }, []);
+     }, [props]);
 
-    return(
-        <div className='dashboard'>
-            {error && <p>Error: {error}</p>}
-            {userProfile ? (
-                <div className='userInfo'>
-                    <img src={userProfile.images[1].url}/>
-                    <h2>{userProfile.display_name}</h2>
-                    <p>Email: {userProfile.email}</p>
-                    <p>Country: {userProfile.country}</p>
-                    <div key={index+2}>
-                        <h3>Playlists Listed Under {userProfile.display_name}:</h3>
-                        {userPlaylistData && (
-                            <div>
-                                {userPlaylistData.items.map((playlist, index) => (
-                                    <div>
-                                        <p key={index}>{playlist.name}</p>
-                                        <button onClick={() => handlePlaylistSync(playlist, index)}>+</button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+     return (
+        <div className='displayDashboard'>
+           
+            {isLoading ? (
+                <div className='dashboardLoading'>
+                    <p>Loading...</p>
                 </div>
             ) : (
-                <p>Loading...</p>
+                <>
+                    {error && <p>Error: {error}</p>}
+
+                    {userProfile ? (
+                        <div className='userInfoContainer'>
+                            <div className='userInfo'>
+                                <img src={userProfile.images[1]?.url} alt="Profile" />
+                                <h2>{userProfile.display_name}</h2>
+                                <p>Email: {userProfile.email}</p>
+                                <p>Country: {userProfile.country}</p>
+                            </div>
+                            <div className='usersPlaylist-TitleContainer'>
+                                <h3>Playlists Listed Under {userProfile.display_name}:</h3>
+
+                                {userPlaylistData && userPlaylistData.items && userPlaylistData.items.length > 0 ? (
+                                    <div className='usersPlaylistsContainer'>
+                                        {/* Paginate playlists */}
+                                        {userPlaylistData.items
+                                            .slice(currentPage * playlistsPerPage, (currentPage + 1) * playlistsPerPage)
+                                            .map((playlist, index) => (
+                                                <div key={index} className='dashboardPlaylistIndex'>
+                                                    {/* Add check for playlist.images */}
+                                                    {playlist.images && playlist.images.length > 0 ? (
+                                                        <img src={playlist.images[0]?.url || ''} alt="Playlist" />
+                                                    ) : (
+                                                        <div>No Image</div> // Placeholder if no image
+                                                    )}
+                                                    <div className='playlistText'>
+                                                        <p>{playlist.name}</p>
+                                                        <button onClick={() => handlePlaylistSync(playlist)}>+</button>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+    
+                                        {/* Pagination Component */}
+                                        <PagesSetUp
+                                            currentPage={currentPage}
+                                            totalPages={Math.ceil(userPlaylistData.items.length / playlistsPerPage)}
+                                            goToNextPage={goToNextPage}
+                                            goToPreviousPage={goToPreviousPage}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p>No playlists available</p>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='userProfileLoading'>
+                            <p>Loading profile...</p>
+                        </div>
+                    )}
+                </>
             )}
         </div>
-    )
+    );
 }
 
 export default Dashboard;

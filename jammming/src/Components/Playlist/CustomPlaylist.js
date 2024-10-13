@@ -1,11 +1,15 @@
-    import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect, useCallback } from 'react';
     import TrackList from '../Tracklist/Tracklist'
+    import PagesSetUp from './PagesSetUp';
+    import SearchBar from '../SearchBar/SearchBar';
+
 
     function CustomPlaylist(props) {
 
         const selectedPlaylistObj = props.existingPlaylist[props.selectedPlaylist];
         const [isEditingName, setIsEditingName] = useState(false);
-        const [playlistName, setPlaylistName] = useState(selectedPlaylistObj ? selectedPlaylistObj.playlistName : '')
+        const [playlistName, setPlaylistName] = useState(selectedPlaylistObj ? selectedPlaylistObj.playlistName : '');
+        const [searchResults, setSearchResults] = useState([]); // New state for search results
 
           // Effect to update playlistName when selectedPlaylistObj changes
         useEffect(() => {
@@ -27,9 +31,17 @@
             setIsEditingName(false);
         } 
 
+        const handleSearchResults = useCallback((results) => {
+            setSearchResults(results || []);
+        }, []);
+        
+          // Slice the tracks based on pagination
+        const startIndex = props.trackCurrentPage * props.tracksPerTrackPage;
+        const currentTracks = props.tracks.slice(startIndex, startIndex + props.tracksPerTrackPage);
+
         return (
-            <div>
-                {/* Creates a Div for Editing Custom Playlists*/}
+            <div className='displayCustomPlaylist'>
+                {/* Creates a Div for Editing Custom Playlists */}
                 {props.selectedPlaylist !== null && (
                     <div>
                         {isEditingName ? (
@@ -44,19 +56,43 @@
                         ) : (
                             <h4 onClick={() => setIsEditingName(true)}>{playlistName}</h4>
                         )}
+    
+                        {/* TrackList for the current playlist */}
                         <TrackList
                             key={props.selectedPlaylist}
-                            tracks={props.tracks}
-                            onAdd={(track) => props.setTracksEdited((prev) => [...prev, track])} 
+                            tracks={currentTracks}
+                            onAdd={(track) => props.setTracksEdited((prev) => [...prev, track])}
                             onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.id !== track.id))}
                             playlistTracks={props.tracksEdited}
                         />
+    
+                        {/* Search Bar to add new tracks */}
+                        <div className="searchForNewTracks">
+                            <h4>Search for New Tracks to Add</h4>
+                            <SearchBar onSearchResults={handleSearchResults} />
+                            
+                            {/* Display search results in a TrackList */}
+                            <TrackList
+                                tracks={searchResults}
+                                onAdd={(track) => props.setTracksEdited((prev) => [...prev, track])}
+                                onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.id !== track.id))}
+                                playlistTracks={props.tracksEdited}
+                            />
+                        </div>
+    
+                        {/* Pagination for editing tracks */}
+                        <PagesSetUp
+                            currentPage={props.trackCurrentPage}
+                            totalPages={Math.ceil(props.tracks.length / props.tracksPerTrackPage)}
+                            goToNextPage={props.goToNextTrackPage}
+                            goToPreviousPage={props.goToPreviousTrackPage}
+                        />
+    
                         <button onClick={handleSavingEditedPlaylist}>Save</button>
-                        
                     </div>
                 )}
             </div>
         );
     }
-
+    
     export default CustomPlaylist;

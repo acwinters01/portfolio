@@ -5,7 +5,6 @@ import { getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
 const SearchBar = ({ onSearchResults }) => {
 
     const [searchInput, setSearchInput] = useState('');
-
     const handleSearchInput = useCallback(
         (event) => {
             setSearchInput(event.target.value);
@@ -38,8 +37,8 @@ const SearchBar = ({ onSearchResults }) => {
     }
 
     return (
-       <div>
-            <form onSubmit={handleSearch}>
+       <div className='displaySearchBar'>
+            <form className='searchForm' onSubmit={handleSearch}>
                 <input
                     type= 'text'
                     placeholder='Search tracks'

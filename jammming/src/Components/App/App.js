@@ -17,14 +17,13 @@ function App() {
   // ]);
 
   const [searchResults, setSearchResults] = useState([]);
-
   const [existingPlaylist, setExistingPlaylist] = useState([
 
     { playlistName: 'New Verbose', 
-      tracks: [{name: 'Forever', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4}, 
-               {name: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5}] }
+      playlistId: 123456,
+      tracks: [{name: 'Forever', album: 'Alive', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4, image: './music_note_baseImage.jpg' },
+               {name: 'Neva Play (feat. RM of BTS)', album: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5, image: './music_note_baseImage.jpg' }] }
   ]);
-
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
 
@@ -72,19 +71,31 @@ function App() {
     }
   }, [existingPlaylist])
 
-  const savePlaylist = useCallback((newPlaylist={}) => {
-    if (!playlistName || newPlaylistTracks.length === 0) return;
-    if (newPlaylist == {}) {
-      console.log('newPlaylist is empty')
-      newPlaylist = {
+  const savePlaylist = useCallback(() => {
+    if (!playlistName || newPlaylistTracks.length === 0) {
+      console.log("Cannot save: playlist name or tracks are missing");
+      return;
+    }
+
+    const newPlaylist = {
         playlistName: playlistName,
         tracks: newPlaylistTracks
-      };
-    }
+    };
 
     console.log('Saving playlist', newPlaylist)
 
-    setExistingPlaylist((prevPlaylists) => [...prevPlaylists, newPlaylist]);
+    setExistingPlaylist((prevPlaylists) => {
+      // Ensure prevPlaylists is an array and newPlaylist has tracks
+      const validPrevPlaylists = Array.isArray(prevPlaylists) ? prevPlaylists : [];
+      
+      if (newPlaylist.tracks && newPlaylist.tracks.length > 0) {
+          return [...validPrevPlaylists, newPlaylist];
+      } else {
+          console.log("No tracks available in customPlaylist, skipping update.");
+          return validPrevPlaylists; // Return the previous state without changes if no tracks
+      }
+    });    
+    
     setPlaylistName('');
     setNewPlaylistTracks([]);
 
@@ -103,14 +114,16 @@ function App() {
 
   return (
     <div className='AppContainer'>
-      <h1>Jammming</h1>
+      <div className='mainAppTitle'>
+        <h1>Jammming</h1>
+      </div>
       <div className='authorizationContainer'>
         <Authorization/>
       </div>
-      <div className='displaySearchBar'>
+      <div className='searchBarContainer'>
         <SearchBar onSearchResults={handleSearchResults}/>
       </div>
-      <div className='displayTracks'>
+      <div className='trackListContainer'>
         <Tracklist 
           tracks={searchResults} // Ensures tracks is always an array
           onAdd={addTrack}
@@ -118,13 +131,16 @@ function App() {
           playlistTracks={newPlaylistTracks}
         />
       </div>
-      <div className='displayPlaylist'>
-        <h2>Playlists</h2>
+      <div className='allPlaylistsContainer'>
+        <div className='playlistTitle'>
+          <h2>Playlists</h2>
+        </div>
         <Playlist 
           playlistName={playlistName} 
           playlistTracks={newPlaylistTracks}
           onNameChange={updatePlaylistName}
           setPlaylistName={setPlaylistName}
+          setExistingPlaylist={setExistingPlaylist}
           existingPlaylist={existingPlaylist}
           tracks={searchResults}
           onEdit={editExistingPlaylist}
@@ -135,7 +151,10 @@ function App() {
         />
       </div>
       <div className='dashboardContainer'>
-        <h2>Dashboard</h2>
+        <div className='dashboardTitle'>
+          <h2>Dashboard</h2>
+        </div>
+        
           <Dashboard
             setExistingPlaylist={setExistingPlaylist}
             existingPlaylist={existingPlaylist}

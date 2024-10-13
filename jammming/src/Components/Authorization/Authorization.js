@@ -172,15 +172,15 @@ const Authorization = () => {
     }, []);
 
     return (
-        <div>
+        <div className='displayAuthorization'>
             {!accessToken && (
-                <div>
+                <div className='needAuthorization'>
                     <h1>Spotify Authorization</h1>
                     <button onClick={initiateAuthorization}>Log in with Spotify</button>
                 </div>
             )}
             {accessToken && (
-                <div>
+                <div className='loggedIn'>
                     <h2>You are logged in!</h2>
                     <button onClick={initiateAuthorization}>Refresh</button>
                 </div>

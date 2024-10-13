@@ -1,36 +1,35 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-const Track = (props) => {
-    // console.log('In Track component:', props);
-   
-    const track = {
-        id: props.id,
-        name: props.name,
-        artist: props.artist,
-        album: props.album,
-        uri: props.uri,
-        imageUri: props.imageUri
-    };
+const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRemove, onAdd}) => {
+    
+    const track = useMemo (() => ({
+        id,
+        name,
+        artist,
+        album,
+        uri,
+        imageUri: imageUri || image || '/music_note_baseImage.jpg'
+    }), [id, name, artist, album, uri, imageUri, image])
 
     const handleTrackAction = useCallback(() => {
-        if (props.isSelected(track)) {
-            props.onRemove(track);  // Remove the track if it is already selected
+        if (isSelected(track)) {
+            onRemove(track);  // Remove the track if it is already selected
         } else {
-            props.onAdd(track);     // Add the track if it's not selected
+            onAdd(track);     // Add the track if it's not selected
         }
-    }, [props, track]);
+    }, [isSelected, onAdd, onRemove, track]);
   
     return (
-        <div className='trackContainer'>
-            <button onClick={handleTrackAction}>{props.isSelected(props) ? '-' : '+'}</button>
+        <div className='displaytrackContainer'>
+            <button onClick={handleTrackAction}>{isSelected(track) ? '-' : '+'}</button>
             <div className='trackBlock'>
                 <div className='trackImage'>
-                    <img src={props.imageUri}/>
+                    <img src={track.imageUri} alt={`Album art for ${track.name}`}/>
                 </div>
                 <div className='trackText'>
-                    <p><strong>{props.name}</strong></p>
-                    <p>{props.artist} | {props.album}</p>
-                    <p>{props.id}</p>
+                    <p><strong>{track.name}</strong></p>
+                    <p>{track.artist} | {track.album}</p>
+                    <p>{track.id}</p>
                 </div>
             </div>
         </div>

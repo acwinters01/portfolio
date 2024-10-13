@@ -9,10 +9,10 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     const [tracksEdited, setTracksEdited] = useState([]);
 
     const [playlistPages, setPlaylistPages] = useState(
-
         Array.isArray(existingPlaylist) && existingPlaylist.length > 0 
         ? existingPlaylist.map(() => 0) 
-        : [] // Default to an empty array if no playlists exist
+
+        : [] 
     );
 
     const tracksPerPage = 10; // Number of tracks to display per page
@@ -28,6 +28,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         }
     }, [existingPlaylist]);
 
+
     const handleNewPlaylistNameChange = useCallback(
         (event) => {
             onNameChange(event.target.value, null);
@@ -39,7 +40,6 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         setSelectedPlaylist(index);
         setTracksEdited(existingPlaylist[index].tracks);
         setTrackCurrentPage(0); // Reset track pagination when a new playlist is selected
-
     };    
 
     const handlePlaylistTracks = async (index) => {
@@ -58,6 +58,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         console.log('ID to playlist: ', playlist_id);
         try {
             setExistingPlaylist((prev) => {
+
                 prev.filter((playlistToRemove) => playlistToRemove.playlistId !== playlist_id)
             })
         } catch (error) {
@@ -87,6 +88,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     // Pagination for track list inside selected playlist
     const goToNextTrackPage = () => {
         const totalTracks = existingPlaylist[selectedPlaylist]?.tracks.length || 0;
+
         const totalPages = Math.ceil(totalTracks / tracksPerTrackPage);
 
         if (trackCurrentPage < totalPages - 1) {
@@ -141,6 +143,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             <div className='playlists'>
                 {Array.isArray(existingPlaylist) && existingPlaylist.length > 0 ? (
                     existingPlaylist.map((playlist, playlistIndex) => {
+
                         const totalTracks = playlist.tracks?.length || 0; // Safeguard against undefined playlist.tracks
                         const totalPages = totalTracks > 0 ? Math.ceil(totalTracks / tracksPerPage) : 1;
                         const startIndex = playlistPages[playlistIndex] * tracksPerPage;
@@ -179,6 +182,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                 ) : (
                     <div className='playlistsNotFound'>
                         <p>No playlists available</p>
+
                     </div>
                 )}
 
@@ -194,6 +198,8 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             tracksEdited={tracksEdited}
                             setTracksEdited={setTracksEdited}
                             onEdit={onEdit}
+
+ 
                             trackCurrentPage={trackCurrentPage}
                             tracksPerTrackPage={tracksPerTrackPage}
                             goToNextTrackPage={goToNextTrackPage}

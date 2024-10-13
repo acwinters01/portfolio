@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRemove, onAdd}) => {
-    
+
     const track = useMemo (() => ({
         id,
         name,
@@ -34,6 +34,7 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
             </div>
         </div>
     );
+
 }
 
 export default Track;

@@ -4,21 +4,22 @@ import PagesSetUp from '../Playlist/PagesSetUp';
 
 
 const TrackList = (props) => {
-    console.log('In TrackList component:', props);
+    //console.log('In TrackList component:', props);
+
     const trackCurrentPage = props.trackCurrentPage || 0;
     const tracksPerTrackPage = props.tracksPerTrackPage || 5;
-
     const startIndex = trackCurrentPage * tracksPerTrackPage;
     const endIndex = startIndex + tracksPerTrackPage;
-
     const currentTracks = props.tracks ? props.tracks.slice(startIndex, endIndex) : [];
+    console.log(currentTracks)
+    
     // Safeguard for fewer tracks than expected
     if (currentTracks.length === 0 && props.tracks.length > 0) {
         console.log('There are fewer tracks than the tracks per page')
         return <p>There are fewer tracks than the tracks per page.</p>;
     }
 
-    if (!props.tracks || props.tracks.length === 0) {
+    if (!currentTracks || currentTracks.length === 0) {
         return <div>No tracks found</div>;
     }
     const isSelected = (track) => {
@@ -44,6 +45,7 @@ const TrackList = (props) => {
                         onAdd={props.onAdd}
                         onRemove={props.onRemove}
                         isSelected={isSelected}
+               
                     />
                 ))
             )}

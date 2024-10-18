@@ -2,6 +2,7 @@
     import TrackList from '../Tracklist/Tracklist'
     import PagesSetUp from './PagesSetUp';
     import SearchBar from '../SearchBar/SearchBar';
+    
 
 
     function CustomPlaylist(props) {

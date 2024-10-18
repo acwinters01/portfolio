@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
+
 const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRemove, onAdd}) => {
 
     const track = useMemo (() => ({
@@ -21,7 +22,7 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
   
     return (
         <div className='displaytrackContainer'>
-            <button onClick={handleTrackAction}>{isSelected(track) ? '-' : '+'}</button>
+            <button data-testid={`track-${track.id}`} onClick={handleTrackAction}>{isSelected(track) ? '-' : '+'}</button>
             <div className='trackBlock'>
                 <div className='trackImage'>
                     <img src={track.imageUri} alt={`Album art for ${track.name}`}/>
@@ -29,7 +30,7 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
                 <div className='trackText'>
                     <p><strong>{track.name}</strong></p>
                     <p>{track.artist} | {track.album}</p>
-                    <p>{track.id}</p>
+                    <p>Track ID: {track.id}</p>
                 </div>
             </div>
         </div>

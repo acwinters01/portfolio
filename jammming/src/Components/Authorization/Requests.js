@@ -10,7 +10,7 @@ const getStoredToken = () => {
 
 export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => {
     let accessToken = await getStoredToken();
-
+    console.log(accessToken)
     if (!accessToken) {
         throw new Error('No access token available. Please login.');
     }
@@ -32,12 +32,13 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
         // console.log(`Sending ${method} request to endpoint: ${endpoint} with body:`, body);
 
         const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, fetchOptions);
-
+        
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Spotify API Error: ${errorData.error.message}`);
         }
         // console.log(`Method: ${method}`,fetchOptions)
+        
         return await response.json();
 
     } catch (error) {
@@ -45,7 +46,6 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
         throw error; // Re-throw to handle the error at a higher level if needed
     }
 };
-
 
 // Fetch the Spotify user's profile
 export const getUserProfile = async () => {
@@ -73,7 +73,7 @@ export const getUserPlaylists = async () => {
 export const getPlaylistsTracks = async (playlistId) => {
     try { 
         const data = await makeSpotifyRequest(`playlists/${playlistId}/tracks`);
-        //  console.log('Calling Playlist Tracks in Requests:', data);
+        console.log('Calling Playlist Tracks in Requests:', data);
         return data;
     } catch (error) {
         console.error('Error fetching playlist tracks:', error);

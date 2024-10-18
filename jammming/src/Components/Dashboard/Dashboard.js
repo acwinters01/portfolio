@@ -18,10 +18,10 @@ const Dashboard = (props) => {
                 // Fetch the user profile
                 const profileData = await getUserProfile();
                 setUserProfile(profileData);
-
+                console.log("Calling User in Dashboard:", profileData);
                 // Fetch the user's playlists
                 const playlistsData = await getUserPlaylists(profileData.id);
-                // console.log("Calling User Playlists in Dashboard:", playlistsData);
+                console.log("Calling User Playlists in Dashboard:", playlistsData);
                 setUserPlaylistData(playlistsData);
                 
                 
@@ -62,7 +62,7 @@ const Dashboard = (props) => {
         let prevPlaylistTracks = []
 
         try {
-            const initalTracksResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks`, 'GET', );
+            const initalTracksResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks`, 'GET');
             let getTracksResponse = initalTracksResponse.items || []; // Extract the tracks safely
 
 
@@ -159,19 +159,22 @@ const Dashboard = (props) => {
                                 {userPlaylistData && userPlaylistData.items && userPlaylistData.items.length > 0 ? (
                                     <div className='usersPlaylistsContainer'>
                                         {/* Paginate playlists */}
+
                                         {userPlaylistData.items
                                             .slice(currentPage * playlistsPerPage, (currentPage + 1) * playlistsPerPage)
                                             .map((playlist, index) => (
                                                 <div key={index} className='dashboardPlaylistIndex'>
+                                                    
                                                     {/* Add check for playlist.images */}
                                                     {playlist.images && playlist.images.length > 0 ? (
                                                         <img src={playlist.images[0]?.url || ''} alt="Playlist" />
                                                     ) : (
                                                         <div>No Image</div> // Placeholder if no image
                                                     )}
+                                                    
                                                     <div className='playlistText'>
                                                         <p>{playlist.name}</p>
-                                                        <button onClick={() => handlePlaylistSync(playlist)}>+</button>
+                                                        <button id={`${index}-toApp`} onClick={() => handlePlaylistSync(playlist)}>+</button>
                                                     </div>
                                                 </div>
                                             ))

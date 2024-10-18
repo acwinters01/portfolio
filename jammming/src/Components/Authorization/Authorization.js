@@ -7,29 +7,28 @@ const redirectUri = 'http://localhost:3000'
 const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private';
 
 // Generate random string for code verifier
-const generateRandomString = (length) => {
+export const generateRandomString = (length) => {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const values = crypto.getRandomValues(new Uint8Array(length));
     return values.reduce((acc, x) => acc + possible[x % possible.length], "");
 }
 
 // Transform code verifier using SHA 256 algorithm. This value will be sent within user authorization request.
-const sha256 = async (plain) => {
+export const sha256 = async (plain) => {
     const encode = new TextEncoder()
     const data = encode.encode(plain)
     return window.crypto.subtle.digest('SHA-256', data)
 }
 
 // Returns base64 representation of the digest from sha256
-const base64encode = (input) => {
+export const base64encode = (input) => {
     return btoa(String.fromCharCode(...new Uint8Array(input)))
         .replace(/=/g, '')
         .replace(/\+/g, '-')
         .replace(/\//g, '_');
 }
 
-
-export const initiateAuthorization = async() => {
+export async function initiateAuthorization (){
 
     // Clear old tokens/verifiers
     localStorage.removeItem('code_verifier');
@@ -62,7 +61,7 @@ export const initiateAuthorization = async() => {
 }
 
 // Request an Access Token with a function
-export const getToken = async (code) => {
+export async function getToken (code) {
     const url = 'https://accounts.spotify.com/api/token';
     const codeVerifier = localStorage.getItem('code_verifier');
 
@@ -105,7 +104,7 @@ export const getToken = async (code) => {
 };
 
 // Refresh the access token when it has expired
-export const refreshToken = async () => {
+export async function refreshToken () {
     const refresh_token = localStorage.getItem('refresh_token');
     
     if (!refresh_token) {
@@ -145,16 +144,15 @@ export const refreshToken = async () => {
     }
 };
 
-
 // Check if the current access token is expired
-export const isTokenExpired = () => {
+export function isTokenExpired() {
     const expiresIn = localStorage.getItem('expires_in');
     if (!expiresIn) return true;
     return Date.now() > expiresIn;
 };
 
 // Authorization Component
-const Authorization = () => {
+export default function Authorization() {
     const [accessToken, setAccessToken] = useState('');
 
     useEffect(() => {
@@ -189,4 +187,4 @@ const Authorization = () => {
     );
 };
 
-export default Authorization;
+

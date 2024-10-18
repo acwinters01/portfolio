@@ -7,14 +7,11 @@ import PagesSetUp from './PagesSetUp';
 export default function Playlist({existingPlaylist, setExistingPlaylist, onNameChange, onEdit, onAdd, onRemove, onSave, playlistTracks, playlistName, }) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [tracksEdited, setTracksEdited] = useState([]);
-
     const [playlistPages, setPlaylistPages] = useState(
         Array.isArray(existingPlaylist) && existingPlaylist.length > 0 
         ? existingPlaylist.map(() => 0) 
-
         : [] 
     );
-
     const tracksPerPage = 10; // Number of tracks to display per page
     const [trackCurrentPage, setTrackCurrentPage] = useState(0);
     const tracksPerTrackPage = 5; // Number of tracks to display per page in edit mode
@@ -27,7 +24,6 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             setPlaylistPages([]); // Handle the case where there are no playlists by setting an empty array
         }
     }, [existingPlaylist]);
-
 
     const handleNewPlaylistNameChange = useCallback(
         (event) => {
@@ -44,7 +40,9 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
     const handlePlaylistTracks = async (index) => {
         let tracksToAdd = [];
+
         existingPlaylist[index].tracks.forEach((track) => {
+
             if (track.uri) {
                 tracksToAdd.push(track.uri);
             } else {
@@ -55,10 +53,9 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     };
 
     const handlePlaylistRemove = (playlist_id) => {
-        console.log('ID to playlist: ', playlist_id);
+
         try {
             setExistingPlaylist((prev) => {
-
                 prev.filter((playlistToRemove) => playlistToRemove.playlistId !== playlist_id)
             })
         } catch (error) {
@@ -85,12 +82,11 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         }
     };
 
+
     // Pagination for track list inside selected playlist
     const goToNextTrackPage = () => {
         const totalTracks = existingPlaylist[selectedPlaylist]?.tracks.length || 0;
-
         const totalPages = Math.ceil(totalTracks / tracksPerTrackPage);
-
         if (trackCurrentPage < totalPages - 1) {
             setTrackCurrentPage((prevPage) => prevPage + 1);
         }
@@ -101,6 +97,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             setTrackCurrentPage((prevPage) => prevPage - 1);
         }
     }
+
 
     // Calculate the total pages and control pagination for each playlist
     const goToNextPage = (playlistIndex) => {
@@ -142,7 +139,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
             <div className='playlists'>
                 {Array.isArray(existingPlaylist) && existingPlaylist.length > 0 ? (
-                    existingPlaylist.map((playlist, playlistIndex) => {
+                    existingPlaylist.filter((_, playlistIndex) => selectedPlaylist !== playlistIndex).map((playlist, playlistIndex) => {
 
                         const totalTracks = playlist.tracks?.length || 0; // Safeguard against undefined playlist.tracks
                         const totalPages = totalTracks > 0 ? Math.ceil(totalTracks / tracksPerPage) : 1;
@@ -150,17 +147,17 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                         const currentTracks = playlist?.tracks?.slice(startIndex, startIndex + tracksPerPage) || []; // Safeguard
 
                         return (
-                            <div className='onePlaylistInfo' key={playlistIndex}>
+                            <div className='onePlaylistInfo' key={playlist.playlistId}>
                                 <div className='playlistTitleInfo'>
                                     <h4>{playlist.playlistName}</h4>
-                                    <button onClick={() => handlePlaylistRemove(playlist.playlistId)}>-</button>
+                                    <button data-testid={`${playlist.playlistId}-Remove`} onClick={() => handlePlaylistRemove(playlist.playlistId)}>-</button>
                                     <p>Tracks: {totalTracks}</p>
-                                    <button onClick={() => handleEditTracks(playlistIndex)}>Edit</button>
+                                    <button data-testid={`${playlist.playlistId}-EditPlaylist`} onClick={() => handleEditTracks(playlistIndex)}>{selectedPlaylist === playlistIndex ? 'Editing': 'Edit'}</button>
                                 </div>
 
                                 <div className='playlistTracksContainer'>
-                                    {currentTracks.map((track, i) => (
-                                        <div className='playlistTrack' key={i}>
+                                    {currentTracks.map((track) => (
+                                        <div className='playlistTrack' key={track.id}>
                                             <img src={track.image || track.imageUri || '/music_note_baseImage.jpg'} alt="Track artwork"/>
                                             <p>{track.name} by {track.artist}</p>
                                         </div>
@@ -174,15 +171,13 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                                     goToNextPage={() => goToNextPage(playlistIndex)}
                                     goToPreviousPage={() => goToPreviousPage(playlistIndex)}
                                 />
-
-                                <button onClick={() => transferToSpotify(playlistIndex)}>Save On Spotify</button>
+                                <button data-testid={`${playlist.playlistId}-Transfer`} onClick={() => transferToSpotify(playlistIndex)}>Save On Spotify</button>
                             </div>
                         );
                     })
                 ) : (
                     <div className='playlistsNotFound'>
                         <p>No playlists available</p>
-
                     </div>
                 )}
 
@@ -198,8 +193,6 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             tracksEdited={tracksEdited}
                             setTracksEdited={setTracksEdited}
                             onEdit={onEdit}
-
- 
                             trackCurrentPage={trackCurrentPage}
                             tracksPerTrackPage={tracksPerTrackPage}
                             goToNextTrackPage={goToNextTrackPage}

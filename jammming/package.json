@@ -45,6 +45,7 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "jest": "^27.5.1",
+    "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1"
   },
   "overrides": {

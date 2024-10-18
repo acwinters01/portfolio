@@ -1,5 +1,8 @@
+console.log("Jest config is being loaded"); 
 module.exports = {
     testEnvironment: 'jsdom',
-    setupFilesAfterEnv: ['jammming/src/test/App.test.js'],
+    setupFilesAfterEnv: ['./util.js'],
+    verbose: true,
+    silent: false,
 };
   

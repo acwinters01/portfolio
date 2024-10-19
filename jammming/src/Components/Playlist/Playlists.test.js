@@ -1,9 +1,11 @@
 import Playlist from './Playlist';
 import TrackList from '../Tracklist/Tracklist';
 import { mockPlaylists } from '../../test/MockTestData';
-import { render, screen, fireEvent} from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { makeSpotifyRequest } from '../Authorization/Requests';
 
 
+// Mock Tracklist Component
 jest.mock('../Tracklist/Tracklist', () => (props) => {
   // Mock only the necessary part of TrackList, but render the real Track component
   const Track = require('../Track/Track').default;
@@ -38,6 +40,12 @@ jest.mock('../Tracklist/Tracklist', () => (props) => {
     </div>
   );
 });
+// Mock Make Spotify Request Function
+jest.mock('../Authorization/Requests');
+//   , () => ({
+//   makeSpotifyRequest: jest.fn(),
+// }));
+
 
 
 describe('Playlist component Testing', () => {
@@ -45,6 +53,7 @@ describe('Playlist component Testing', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   
   // Mock varaiables
   const mockSetExistingPlaylist = jest.fn();
@@ -126,7 +135,7 @@ describe('Playlist component Testing', () => {
     },
   ];
 
-  describe('Testing rendering...', () => {
+  describe('Testing Component Render', () => {
     // Render Tests
     it('renders without crashing and provides valid props to Tracklist', () => {
 
@@ -173,7 +182,7 @@ describe('Playlist component Testing', () => {
   });
 
 
-  describe('Testing Input Handling...', () => {
+  describe('Testing Input Handling', () => {
     // Input Handling Tests
     it('playlist name input changes correctly and triggers the onNameChange callback with updated value', () => {
       // Set up
@@ -187,7 +196,7 @@ describe('Playlist component Testing', () => {
   });
 
 
-  describe('Testing Playlist Display...', () => {
+  describe('Testing Playlist Display', () => {
     // Playlist Display Tests
     it('testing that the correct number of playlists will render when existingPlaylist contains playlists', () => {
 
@@ -256,7 +265,7 @@ describe('Playlist component Testing', () => {
   });
 
 
-  describe('Testing Pagination Display...', () => {
+  describe('Testing Pagination Display', () => {
     // Pagination Display Tests
     it('handles pagination correctly in a playlist with tracks', () => {
       const testExistingPlaylist = [
@@ -274,12 +283,12 @@ describe('Playlist component Testing', () => {
       const { getByText } = render(
         <Playlist 
           existingPlaylist={testExistingPlaylist}
-          setExistingPlaylist={jest.fn()}
-          onNameChange={jest.fn()}
-          onEdit={jest.fn()}
-          onAdd={jest.fn()}
-          onRemove={jest.fn()}
-          onSave={jest.fn()}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
           playlistTracks={mockExistingPlaylist[0].tracks}
           playlistName="Test Playlist"
         />
@@ -346,7 +355,8 @@ describe('Playlist component Testing', () => {
     });
   });
 
-  describe('Testing Track Addition...', () => {
+
+  describe('Testing Track Addition', () => {
     // Track Addition and Removal
     it('should add a track to the playlist when onAdd is triggered', () => {
 
@@ -389,7 +399,8 @@ describe('Playlist component Testing', () => {
     });
   });
 
-  describe('Testing Track Removal...', () => {
+
+  describe('Testing Track Removal', () => {
     it('should remove a track to the playlist when onRemove is triggered', () => {
 
       const { getByTextId, getAllByTestId } = render(
@@ -423,7 +434,8 @@ describe('Playlist component Testing', () => {
     });
   });
 
-  describe('Testing Playlist Removal...', () => {
+
+  describe('Testing Playlist Removal', () => {
     // Playlist Removal
     it('should remove a playlist when handlePlaylistRemove is called', () => {
       const mockSetExistingPlaylist = jest.fn();
@@ -448,5 +460,309 @@ describe('Playlist component Testing', () => {
       expect(mockSetExistingPlaylist).toHaveBeenCalled(); 
     });
   });
+
+
+  describe('Testing Spotify API Interaction', () => {
+    // Spotify API Interaction
+    it('should send a request to create a new playlist on Spotify', async () => {
+
+      makeSpotifyRequest
+        .mockResolvedValueOnce({ id: 'newPlaylistId' })
+
+      const { getByTestId } = render(
+        <Playlist
+          existingPlaylist={mockExistingPlaylist}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={mockExistingPlaylist[0].tracks}
+          playlistName='Test Playlist'
+        />
+      );
+
+      const saveButton = getByTestId('12345-Transfer');
+      fireEvent.click(saveButton);
+
+      // Wait for the Spotify API request to complete
+      await waitFor(() => expect(makeSpotifyRequest).toHaveBeenCalledWith(
+        'me/playlists',
+        'POST',
+        expect.objectContaining({
+          name: 'Cello + Lofi + Chill',
+          description: 'New playlist created from Jammming app',
+          public: true
+        })
+      ));
+    });
+
+    it('should add tracks to the new created playlist on Spotify', async () => {
+
+      makeSpotifyRequest
+        .mockResolvedValueOnce({ id: 'newPlaylistId' })
+        .mockResolvedValueOnce({ snapshot_id: 'lexi' });
+
+      const { getByTestId } = render(
+        <Playlist
+          existingPlaylist={mockExistingPlaylist}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={mockExistingPlaylist[0].tracks}
+          playlistName='Test Playlist'
+        />
+      );
+
+      const saveButton = getByTestId('12345-Transfer');
+      fireEvent.click(saveButton);
+
+      // Wait for the track addition call
+      await waitFor(() => expect(makeSpotifyRequest).toHaveBeenCalledWith(
+        'playlists/newPlaylistId/tracks',
+        'POST',
+        expect.objectContaining({
+          uris: ["spotify:track:1", "spotify:track:2"]
+        })
+      ));
+      
+    });
+
+    describe('Testing Error Handling in Spotify API Interaction', () => {
+
+      it('should handle errors correctly when the Spotify API fails during playlist creation', async () => {
+
+        makeSpotifyRequest.mockRejectedValueOnce(new Error('Spotify API failed'));
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        const { getByTestId } = render(
+          <Playlist
+            existingPlaylist={mockExistingPlaylist}
+            setExistingPlaylist={mockSetExistingPlaylist}
+            onNameChange={mockOnNameChange}
+            onEdit={mockOnEdit}
+            onAdd={mockOnAdd}
+            onRemove={mockOnRemove}
+            onSave={mockOnSave}
+            playlistTracks={mockExistingPlaylist[0].tracks}
+            playlistName='Test Playlist'
+          />
+        );
+
+        const saveButton = getByTestId('12345-Transfer');
+        fireEvent.click(saveButton);
+
+        await waitFor(() => {
+          expect(makeSpotifyRequest).toHaveBeenCalledWith(
+            'me/playlists',
+            'POST',
+            expect.any(Object)
+          );
+          expect(consoleErrorSpy).toHaveBeenCalledWith('Error transferring playlist to Spotify:', expect.any(Error));
+        });
+
+        // Clean up the console spy
+        consoleErrorSpy.mockRestore();
+      });
+
+      it('should handle error correctly when adding tracks to a playlist fails', async () => {
+        
+        makeSpotifyRequest
+          .mockResolvedValueOnce({ id: 'newPlaylistId' })
+          .mockRejectedValueOnce(new Error('Track addition failed'));
+
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+        const { getByTestId } = render(
+          <Playlist
+            existingPlaylist={mockExistingPlaylist}
+            setExistingPlaylist={mockSetExistingPlaylist}
+            onNameChange={mockOnNameChange}
+            onEdit={mockOnEdit}
+            onAdd={mockOnAdd}
+            onRemove={mockOnRemove}
+            onSave={mockOnSave}
+            playlistTracks={mockExistingPlaylist[0].tracks}
+            playlistName='Test Playlist'
+          />
+        );
+
+        const saveButton = getByTestId('12345-Transfer');
+        fireEvent.click(saveButton);
+
+        // Wait for the error to be caught during track addition
+        await waitFor(() => {
+          expect(makeSpotifyRequest).toHaveBeenCalledWith(
+            'playlists/newPlaylistId/tracks',
+            'POST',
+            expect.any(Object)
+          );
+          expect(consoleErrorSpy).toHaveBeenCalledWith('Error adding tracks to the playlist:', expect.any(Error));
+        });
+
+        consoleErrorSpy.mockRestore();
+
+      });
+    });
+
+  });
+
+
+  describe('Testing "Edit Playlist" Functionality', () => {
+    it('should select the correct playlist for editing when "edit" is clicked', () => {
+      const { getByText, container } = render(
+        <Playlist
+          existingPlaylist={mockExistingPlaylist}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={mockExistingPlaylist[0].tracks}
+          playlistName='Test Playlist'
+        />
+      );
+
+      const playlistContainer = container.querySelector('.Playlist-12345')
+      const editButton = within(playlistContainer).getByText('Edit');
+
+      // Check if the editButton selected is the right one.
+      expect(editButton.getAttribute('data-testid')).toBe('12345-EditPlaylist');
+
+      fireEvent.click(editButton);
+
+      // Playlist Container will move to edit playlist check if this happened.
+      const editPlaylistContainer = container.querySelector('.EditingPlaylist-12345');
+      expect(playlistContainer).not.toBeVisible();
+
+      // Check if the Save button is within the playlist that is edited. 
+      const saveButton = within(editPlaylistContainer).getByText('Save');
+
+    });
+
+    it('Ensure pagination on edited playlist works as expected', () => {
+
+      const testExistingPlaylist = [
+        {
+          playlistName: 'Chill Vibes',
+          playlistId: '1',
+          tracks: Array.from({ length: 30 }, (_, i) => ({
+            id: `track${i}`,
+            name: `Track ${i + 1}`,
+            artist: `Artist ${i + 1}`,
+          })),
+        },
+      ];
+
+      const { getByText, container } = render(
+        <Playlist 
+          existingPlaylist={testExistingPlaylist}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={mockExistingPlaylist[0].tracks}
+          playlistName="Test Playlist"
+        />
+      );
+
+
+      const playlistContainer = container.querySelector('.Playlist-1')
+      const editButton = within(playlistContainer).getByText('Edit');
+
+      // Check if the editButton selected is the right one.
+      expect(editButton.getAttribute('data-testid')).toBe('1-EditPlaylist');
+
+      fireEvent.click(editButton);
+
+      // First page should display Tracks 1 - 5
+      expect(getByText('Track ID: track0')).toBeInTheDocument();
+      expect(getByText('Track ID: track4')).toBeInTheDocument();
+
+      // Go to next 
+      fireEvent.click(getByText('Next'));
+
+      // Should display Tracks 6 - 10
+      expect(getByText('Track ID: track5')).toBeInTheDocument();
+      expect(getByText('Track ID: track9')).toBeInTheDocument();
+
+      // Go to previous
+      fireEvent.click(getByText('Previous'));
+
+      // Should display Tracks 1 - 5 again
+      expect(getByText('Track ID: track0')).toBeInTheDocument();
+      expect(getByText('Track ID: track4')).toBeInTheDocument();
+
+      fireEvent.click(getByText('Next')); // Tracks 6 - 10
+      fireEvent.click(getByText('Next')); // Tracks 11 - 15
+      fireEvent.click(getByText('Next')); // Tracks 16 - 20
+      fireEvent.click(getByText('Next')); // Tracks 21 - 25
+      fireEvent.click(getByText('Next')); // Tracks 26 - 30
+
+      // Should display Tracks 26 - 30
+      expect(getByText('Track ID: track25')).toBeInTheDocument();
+      expect(getByText('Track ID: track29')).toBeInTheDocument();
+
+
+    });
+  });
+
+
+  describe('Edge Case Tests...', () => {
+    it('Ensure that the component handles empty playlists', () => {
+      const { getByText } = render(
+        <Playlist
+          existingPlaylist={[]}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={[]}
+          playlistName="Test Playlist Edge Case"
+        />
+      );
+
+      expect(getByText('No playlists available')).toBeInTheDocument();
+    });
+
+    it('Ensure that the component handles casesa where a playlist has no tracks', () => {
+      const emptyTrackPlaylist = [
+        {
+          playlistName: 'Empty Playlist', 
+          playlistId: 0o0, 
+          tracks: []
+        }, 
+      ];
+
+      const { getByText } = render(
+        <Playlist
+          existingPlaylist={emptyTrackPlaylist}
+          setExistingPlaylist={mockSetExistingPlaylist}
+          onNameChange={mockOnNameChange}
+          onEdit={mockOnEdit}
+          onAdd={mockOnAdd}
+          onRemove={mockOnRemove}
+          onSave={mockOnSave}
+          playlistTracks={[]}
+          playlistName="Test Playlist Edge Case"
+        />
+      );
+
+      expect(getByText('No tracks found')).toBeInTheDocument();
+        
+
+    });
+
+  });
+  
 });
 

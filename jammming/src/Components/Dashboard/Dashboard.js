@@ -99,7 +99,7 @@ const Dashboard = (props) => {
                         artist: trackInfo.track.artists.map((artist) => artist.name).join(', '),
                         album: trackInfo.track.album.name,
                         uri: trackInfo.track.uri,
-                        image: trackInfo.track.album.images[1]?.url || '/default-image.jpg' // Fallback for missing image
+                        image: trackInfo.track.album.images[1]?.url || './public/music_note_baseImage.jpg' // Fallback for missing image
                     };
                     prevPlaylistTracks.push(track);
                 }
@@ -144,7 +144,6 @@ const Dashboard = (props) => {
             ) : (
                 <>
                     {error && <p>Error: {error}</p>}
-
                     {userProfile ? (
                         <div className='userInfoContainer'>
                             <div className='userInfo'>

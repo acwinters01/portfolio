@@ -5,7 +5,7 @@
     
 
 
-    function CustomPlaylist(props) {
+    function EditingPlaylist(props) {
 
         const selectedPlaylistObj = props.existingPlaylist[props.selectedPlaylist];
         const [isEditingName, setIsEditingName] = useState(false);
@@ -41,10 +41,10 @@
         const currentTracks = props.tracks.slice(startIndex, startIndex + props.tracksPerTrackPage);
 
         return (
-            <div className='displayCustomPlaylist'>
-                {/* Creates a Div for Editing Custom Playlists */}
+            <div className='displayEditingPlaylist'>
+                {/* Creates a Div for Editing Playlists */}
                 {props.selectedPlaylist !== null && (
-                    <div>
+                    <div className={`EditingPlaylist-${selectedPlaylistObj.playlistId}`}>
                         {isEditingName ? (
                             <input
                                 type="text"
@@ -96,4 +96,4 @@
         );
     }
     
-    export default CustomPlaylist;
+    export default EditingPlaylist;

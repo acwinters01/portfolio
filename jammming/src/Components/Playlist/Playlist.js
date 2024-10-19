@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import TrackList from '../Tracklist/Tracklist';
-import CustomPlaylist from './CustomPlaylist';
+import EditingPlaylist from './EditPlaylist';
 import { makeSpotifyRequest } from '../Authorization/Requests';
 import PagesSetUp from './PagesSetUp';
 
@@ -74,8 +74,13 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
             const createPlaylistResponse = await makeSpotifyRequest(`me/playlists`, 'POST', createPlaylistPayload);
             const playlistId = createPlaylistResponse.id;
-            const addTracksPayload = { uris: tracksToAdd };
-            await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload);
+
+            try {
+                const addTracksPayload = { uris: tracksToAdd };
+                await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload);
+            } catch (error) {
+                console.error('Error adding tracks to the playlist:', error);
+            }
 
         } catch (error) {
             console.error('Error transferring playlist to Spotify:', error);
@@ -147,7 +152,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                         const currentTracks = playlist?.tracks?.slice(startIndex, startIndex + tracksPerPage) || []; // Safeguard
 
                         return (
-                            <div className='onePlaylistInfo' key={playlist.playlistId}>
+                            <div className={`Playlist-${playlist.playlistId}`} key={playlist.playlistId}>
                                 <div className='playlistTitleInfo'>
                                     <h4>{playlist.playlistName}</h4>
                                     <button data-testid={`${playlist.playlistId}-Remove`} onClick={() => handlePlaylistRemove(playlist.playlistId)}>-</button>
@@ -183,8 +188,8 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
                 {/* Editing Selected Playlist */}
                 {selectedPlaylist !== null && (
-                    <div className='customPlaylistContainer'>
-                        <CustomPlaylist 
+                    <div className='editPlaylistContainer'>
+                        <EditingPlaylist 
                             selectedPlaylist={selectedPlaylist}
                             setSelectedPlaylist={setSelectedPlaylist}
                             tracks={existingPlaylist[selectedPlaylist]?.tracks}

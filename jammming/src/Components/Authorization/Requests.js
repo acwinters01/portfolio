@@ -1,3 +1,6 @@
+import { isTokenExpired, refreshToken } from "./Authorization";
+
+// Gets stored token from local storage
 const getStoredToken = () => { 
     try {
         const token = localStorage.getItem('access_token');
@@ -8,10 +11,22 @@ const getStoredToken = () => {
    
 };
 
+// Makes requests to Spotify
 export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => {
     let accessToken = await getStoredToken();
     console.log(accessToken)
-    if (!accessToken) {
+    
+   
+
+    if(isTokenExpired()) {
+        console.log("Access token expired. Attempting to refresh")
+        accessToken = await refreshToken();
+        if(!accessToken) {
+            throw new Error('Unable to refresh access token. ')
+        }
+    }
+
+     if (!accessToken) {
         throw new Error('No access token available. Please login.');
     }
 

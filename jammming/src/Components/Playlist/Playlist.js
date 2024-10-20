@@ -25,6 +25,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         }
     }, [existingPlaylist]);
 
+    // Playlist Name Change
     const handleNewPlaylistNameChange = useCallback(
         (event) => {
             onNameChange(event.target.value, null);
@@ -32,12 +33,14 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         [onNameChange]
     );
 
+    // Edit Tracks in selected playlist
     const handleEditTracks = (index) => {
         setSelectedPlaylist(index);
         setTracksEdited(existingPlaylist[index].tracks);
         setTrackCurrentPage(0); // Reset track pagination when a new playlist is selected
     };    
 
+    // Add tracks to existing playlist
     const handlePlaylistTracks = async (index) => {
         let tracksToAdd = [];
 
@@ -52,6 +55,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         return tracksToAdd;
     };
 
+    // Remove Playlist from the App
     const handlePlaylistRemove = (playlist_id) => {
 
         try {
@@ -63,6 +67,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
         }
     };
 
+    // Transfers Custom playlist made in app to Spotify
     const transferToSpotify = async (index) => {
         try {
             const tracksToAdd = await handlePlaylistTracks(index);
@@ -111,7 +116,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
         if (playlistPages[playlistIndex] < totalPages - 1) {
             setPlaylistPages((prevPages) =>
-                prevPages.map((page, idx) => (idx === playlistIndex ? page + 1 : page))
+                prevPages.map((page, index) => (index === playlistIndex ? page + 1 : page))
             );
         }
     };
@@ -119,7 +124,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     const goToPreviousPage = (playlistIndex) => {
         if (playlistPages[playlistIndex] > 0) {
             setPlaylistPages((prevPages) =>
-                prevPages.map((page, idx) => (idx === playlistIndex ? page - 1 : page))
+                prevPages.map((page, index) => (index === playlistIndex ? page - 1 : page))
             );
         }
     };
@@ -143,6 +148,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             />
 
             <div className='playlists'>
+                {/*  Checks if playlist is an array and if there are any playlists to filter through and display */}
                 {Array.isArray(existingPlaylist) && existingPlaylist.length > 0 ? (
                     existingPlaylist.filter((_, playlistIndex) => selectedPlaylist !== playlistIndex).map((playlist, playlistIndex) => {
 
@@ -152,7 +158,8 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                         const currentTracks = playlist?.tracks?.slice(startIndex, startIndex + tracksPerPage) || []; // Safeguard
 
                         return (
-                            <div className={`Playlist-${playlist.playlistId}`} key={playlist.playlistId}>
+                            <div className={`Playlist`} id={`Playlist-${playlist.playlistId}`} key={playlist.playlistId}>
+                                
                                 <div className='playlistTitleInfo'>
                                     <h4>{playlist.playlistName}</h4>
                                     <button data-testid={`${playlist.playlistId}-Remove`} onClick={() => handlePlaylistRemove(playlist.playlistId)}>-</button>
@@ -166,7 +173,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                                             <img src={track.image || track.imageUri || '/music_note_baseImage.jpg'} alt="Track artwork"/>
                                             <p>{track.name} by {track.artist}</p>
                                         </div>
-                                    ))}
+                                    ))};
                                 </div>
 
                                 {/* Playlist Pagination */}
@@ -204,7 +211,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             goToPreviousTrackPage={goToPreviousTrackPage}
                         />
                     </div>
-                )}
+                )};
             </div>
         </div>
     );

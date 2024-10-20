@@ -192,18 +192,18 @@ const Dashboard = (props) => {
                                     </div>
                                 ) : (
                                     <p>No playlists available</p>
-                                )};
+                                )}
                             </div>
                         </div>
                     ) : (
                         <div className='userProfileLoading'>
                             <p>Loading profile...</p>
                         </div>
-                    )};
+                    )}
                 </>
-            )};
+            )}
         </div>
-    );
+    )
 };
 
 export default Dashboard;

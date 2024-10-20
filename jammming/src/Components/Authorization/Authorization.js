@@ -36,11 +36,6 @@ export async function initiateAuthorization (){
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
 
-    // Debugging -- Check if values were removed from storage
-    const removedVerifier = localStorage.getItem('code_verifier');
-    const removedToken = localStorage.getItem('access_token');
-    console.log('Code Verifier and Access Token removed from storage:', removedVerifier, removedToken);
-
     const codeVerifier = generateRandomString(64);
     localStorage.setItem('code_verifier', codeVerifier);
 
@@ -96,6 +91,7 @@ export async function getToken (code) {
             // Store expiration and refresh token
             localStorage.setItem('refresh_token', data.refresh_token);
             localStorage.setItem('expires_in', Date.now() + data.expires_in * 1000);
+            return data.access_token;
         } else {
             console.error('Failed to retrieve access token:', data);
         }
@@ -149,39 +145,73 @@ export async function refreshToken () {
 export function isTokenExpired() {
     const expiresIn = localStorage.getItem('expires_in');
     if (!expiresIn) return true;
-    return Date.now() > expiresIn;
+    return Date.now() > parseInt(expiresIn, 10);
 };
 
 // Authorization Component
 export default function Authorization() {
     const [accessToken, setAccessToken] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         const existingToken = localStorage.getItem('access_token');
+        const tokenExpired = isTokenExpired();
 
-        // Check if there's already an access token.
+    
+        const handleToken = async (token) => {
+            setAccessToken(token);
+            setLoading(false);
+            // Optionally clear the URL from the code param
+            window.history.replaceState({}, document.title, '/');
+        };
+
+        //Check if there's already an access token.
         if (code && !existingToken) {
-            getToken(code);
-        } else if (existingToken) {
+            getToken(code).then((token) => {
+                if (token) {
+                    handleToken(token)
+                    window.location.reload();
+                } else {
+                    setLoading(false)
+                }
+            });
+    
+        // Use existing Token if it isn't expired
+        } else if (existingToken && !tokenExpired) {
             setAccessToken(existingToken);
-        }
+            setLoading(false);
 
+        // Refresh token if it's expired
+        } else if (existingToken && tokenExpired) {
+            refreshToken().then((newToken) => {
+                if (newToken) {
+                    handleToken(newToken);
+                } else {
+                    setLoading(false)
+                }
+            })
+        } else {
+            setLoading(false)
+        }
+        
     }, []);
+
+    if(loading) return <p>Loading...</p>
 
     return (
         <div className='displayAuthorization'>
-            {!accessToken && (
+            {!accessToken ? (
                 <div className='needAuthorization'>
                     <h1>Spotify Authorization</h1>
                     <button onClick={initiateAuthorization}>Log in with Spotify</button>
                 </div>
-            )}
-            {accessToken && (
+            ) : (
+    
                 <div className='loggedIn'>
                     <h2>You are logged in!</h2>
-                    <button onClick={initiateAuthorization}>Refresh</button>
+                    <button onClick={initiateAuthorization}>Refresh Authorization</button>
                 </div>
             )}
         </div>

@@ -5,12 +5,15 @@ import { getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
 const SearchBar = ({ onSearchResults }) => {
 
     const [searchInput, setSearchInput] = useState('');
+
+    // Sets the users search value
     const handleSearchInput = useCallback(
         (event) => {
             setSearchInput(event.target.value);
         }, []
     )
 
+    // Fetches search response
     const getSearchResponse = useCallback(async () => {
 
         const userProfile = await getUserProfile();
@@ -31,6 +34,7 @@ const SearchBar = ({ onSearchResults }) => {
 
     }, [searchInput, onSearchResults])
 
+    // Function for button search to call
     const handleSearch = (event) => {
         event.preventDefault();
         getSearchResponse();

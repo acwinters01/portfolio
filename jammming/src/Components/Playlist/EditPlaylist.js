@@ -12,13 +12,14 @@
         const [playlistName, setPlaylistName] = useState(selectedPlaylistObj ? selectedPlaylistObj.playlistName : '');
         const [searchResults, setSearchResults] = useState([]); // New state for search results
 
-          // Effect to update playlistName when selectedPlaylistObj changes
+        // Effect to update playlistName when selectedPlaylistObj changes
         useEffect(() => {
             if (selectedPlaylistObj) {
                 setPlaylistName(selectedPlaylistObj.playlistName);
             }
         }, [selectedPlaylistObj]);
 
+        // Saves a playlist that has been edited
         const handleSavingEditedPlaylist = () => {
             if (props.selectedPlaylist !== null) {
                 props.onEdit(props.selectedPlaylist, props.tracksEdited);
@@ -28,10 +29,12 @@
             }
         }
 
+        // Enables user to click on Playlist title to edit the name
         const handleNameSave = () => {
             setIsEditingName(false);
         } 
 
+        // Gets search results from searchbar.js
         const handleSearchResults = useCallback((results) => {
             setSearchResults(results || []);
         }, []);
@@ -44,7 +47,7 @@
             <div className='displayEditingPlaylist'>
                 {/* Creates a Div for Editing Playlists */}
                 {props.selectedPlaylist !== null && (
-                    <div className={`EditingPlaylist-${selectedPlaylistObj.playlistId}`}>
+                    <div className={`EditingPlaylist`} id={`EditingPlaylist-${selectedPlaylistObj.playlistId}`}>
                         {isEditingName ? (
                             <input
                                 type="text"

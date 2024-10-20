@@ -256,7 +256,6 @@ describe('Playlist component Testing', () => {
       expect(getByText('Track 2 by Artist 2')).toBeInTheDocument();
 
     });
-
   });
 
 
@@ -351,7 +350,7 @@ describe('Playlist component Testing', () => {
 
 
       // Test Pagination on Edited Playlists
-      const playlistContainer = container.querySelector('.Playlist-1')
+      const playlistContainer = container.querySelector('.Playlist')
       const editButton = within(playlistContainer).getByText('Edit');
 
       // Check if the editButton selected is the right one.
@@ -359,7 +358,7 @@ describe('Playlist component Testing', () => {
 
       fireEvent.click(editButton);
 
-      const editContainer = container.querySelector('.EditingPlaylist-1');
+      const editContainer = container.querySelector('.EditingPlaylist');
       const { getByText: getByTextInEdit } = within(editContainer)
 
       // First page should display Tracks 1 - 5
@@ -414,7 +413,6 @@ describe('Playlist component Testing', () => {
         id: 'track1',
         name: 'Track 1',
       }));
-
     });
   });
 
@@ -558,7 +556,6 @@ describe('Playlist component Testing', () => {
 
       });
     });
-
   });
 
 
@@ -578,7 +575,7 @@ describe('Playlist component Testing', () => {
         />
       );
 
-      const playlistContainer = container.querySelector('.Playlist-12345')
+      const playlistContainer = container.querySelector('.Playlist')
       const editButton = within(playlistContainer).getByText('Edit');
 
       // Check if the editButton selected is the right one.
@@ -587,7 +584,7 @@ describe('Playlist component Testing', () => {
       fireEvent.click(editButton);
 
       // Playlist Container will move to edit playlist check if this happened.
-      const editPlaylistContainer = container.querySelector('.EditingPlaylist-12345');
+      const editPlaylistContainer = container.querySelector('.EditingPlaylist');
       expect(playlistContainer).not.toBeVisible();
 
       // Check if the Save button is within the playlist that is edited. 
@@ -626,7 +623,9 @@ describe('Playlist component Testing', () => {
 
     });
 
+    it('Ensure the component handles cases where the playlist is saved without a name', () => {
+
+    });
   });
-  
 });
 

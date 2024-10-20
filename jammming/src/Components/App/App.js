@@ -24,9 +24,12 @@ function App() {
       tracks: [{name: 'Forever', album: 'Alive', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4, image: './music_note_baseImage.jpg' },
                {name: 'Neva Play (feat. RM of BTS)', album: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5, image: './music_note_baseImage.jpg' }] }
   ]);
+
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
 
+
+  // Add track to new playlist
   const addTrack = useCallback(
     (track) => {
 
@@ -38,6 +41,7 @@ function App() {
     [newPlaylistTracks]
   );
 
+  // Remove track to new playlist
   const removeTrack = useCallback(
     (track) => {
 
@@ -48,13 +52,16 @@ function App() {
     []
   );
 
+  // Sets track results from searchbar.js
   const handleSearchResults = (results) => {
     setSearchResults(results || []);
   };
 
+  // Updates Playlist name
   const updatePlaylistName = useCallback((newName, playlistIndex) => {
 
     console.log(`Playlist is ${playlistIndex}`)
+    // Checks if playlistIndex is a number and not over or under the existingPlaylist length
     if (typeof playlistIndex === 'number' && playlistIndex >= 0 && playlistIndex < existingPlaylist.length) {
         console.log(`Playlist is existing`);
 
@@ -71,7 +78,9 @@ function App() {
     }
   }, [existingPlaylist])
 
+  // Saves Playlist
   const savePlaylist = useCallback(() => {
+    // Ensure playlist has a name and tracks
     if (!playlistName || newPlaylistTracks.length === 0) {
       console.log("Cannot save: playlist name or tracks are missing");
       return;
@@ -101,6 +110,7 @@ function App() {
 
   }, [playlistName, newPlaylistTracks]);
 
+  // Edits Existing Playlists
   const editExistingPlaylist = useCallback((playlistIndex, updatedTracks) => {
 
     setExistingPlaylist((prevPlaylists) => {
@@ -154,7 +164,6 @@ function App() {
         <div className='dashboardTitle'>
           <h2>Dashboard</h2>
         </div>
-        
           <Dashboard
             setExistingPlaylist={setExistingPlaylist}
             existingPlaylist={existingPlaylist}

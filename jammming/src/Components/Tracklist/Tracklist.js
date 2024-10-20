@@ -11,7 +11,7 @@ const TrackList = (props) => {
     const startIndex = trackCurrentPage * tracksPerTrackPage;
     const endIndex = startIndex + tracksPerTrackPage;
     const currentTracks = props.tracks ? props.tracks.slice(startIndex, endIndex) : [];
-    console.log(currentTracks)
+    // console.log(currentTracks)
     
     // Safeguard for fewer tracks than expected
     if (currentTracks.length === 0 && props.tracks.length > 0) {
@@ -19,10 +19,12 @@ const TrackList = (props) => {
         return <p>There are fewer tracks than the tracks per page.</p>;
     };
 
+    // If currentTracks is falsy or the array length is 0, display no tracks found
     if (!currentTracks || currentTracks.length === 0) {
         return <div>No tracks found</div>;
     };
 
+    // Selects playlist track by id
     const isSelected = (track) => {
         return props.playlistTracks.some((playlistTrack) => playlistTrack.id === track.id)
     };

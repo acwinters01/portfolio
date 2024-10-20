@@ -12,6 +12,7 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
         imageUri: imageUri || image || '/music_note_baseImage.jpg'
     }), [id, name, artist, album, uri, imageUri, image])
 
+    // Handles Track selection
     const handleTrackAction = useCallback(() => {
         if (isSelected(track)) {
             onRemove(track);  // Remove the track if it is already selected

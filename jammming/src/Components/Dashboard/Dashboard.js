@@ -18,16 +18,21 @@ const Dashboard = (props) => {
                 // Fetch the user profile
                 const profileData = await getUserProfile();
                 setUserProfile(profileData);
-                console.log("Calling User in Dashboard:", profileData);
-                // Fetch the user's playlists
-                const playlistsData = await getUserPlaylists(profileData.id);
-                console.log("Calling User Playlists in Dashboard:", playlistsData);
-                setUserPlaylistData(playlistsData);
-                
-                
+                // console.log("Calling User in Dashboard:", profileData);
+
+                try {
+                    // Fetch the user's playlists
+                    const playlistsData = await getUserPlaylists(profileData.id);
+                    // console.log("Calling User Playlists in Dashboard:", playlistsData);
+                    setUserPlaylistData(playlistsData);
+                } catch (err) {
+                    setError("An error occurred while fetching the user playlists.");
+                    console.error("Error fetching playlists:", err);
+                }
+                     
             } catch (err) {
-                setError("An error occurred while fetching the user profile or playlists.");
-                console.error("Error fetching profile or playlists:", err);
+                setError("An error occurred while fetching the user profile.");
+                console.error("Error fetching profile:", err);
 
             } finally {
                 setIsLoading(false); // Stop loading once the data is fetched
@@ -58,13 +63,11 @@ const Dashboard = (props) => {
 
 
     const handlePlaylistSync = useCallback(async (playlist) => {
-
-        let prevPlaylistTracks = []
+        let prevPlaylistTracks = [];
 
         try {
             const initalTracksResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks`, 'GET');
             let getTracksResponse = initalTracksResponse.items || []; // Extract the tracks safely
-
 
             // Handle cases with more than 100 tracks (pagination)
             if (initalTracksResponse.total > 100) {
@@ -80,16 +83,16 @@ const Dashboard = (props) => {
                     });
 
                     let newResponse = await makeSpotifyRequest(`playlists/${playlist.id}/tracks?${queryParams.toString()}`, 'GET');
-                    console.log(`Tracks batch ${i}:`, newResponse.items); // Log each batch
+                    // console.log(`Tracks batch ${i}:`, newResponse.items); // Log each batch
                     getTracksResponse = [...getTracksResponse, ...newResponse.items];
-                }
+                };
                 
-            } 
+            };
 
             // Check if we actually have tracks to process
             if (!Array.isArray(getTracksResponse) || getTracksResponse.length === 0) {
-                console.log("No tracks found in the playlist.");
-            }
+                //console.log("No tracks found in the playlist.");
+            };
 
             getTracksResponse.forEach((trackInfo) => {
                 if (trackInfo && trackInfo.track) {
@@ -102,39 +105,39 @@ const Dashboard = (props) => {
                         image: trackInfo.track.album.images[1]?.url || './public/music_note_baseImage.jpg' // Fallback for missing image
                     };
                     prevPlaylistTracks.push(track);
-                }
+                };
             });
 
 
         } catch (error) {
-            console.log("Error fetching playlist tracks:", error);
+            console.error("Error fetching playlist tracks:", error);
         }
 
-       let customPlaylist = {
+       let editingPlaylist = {
             playlistName: playlist.name,
             playlistId: playlist.id,
             tracks: prevPlaylistTracks
         };
 
-        console.log("Custom Playlist Created:", customPlaylist);;
+        // console.log("Edit Playlist Updated:", editingPlaylist);
 
         props.setExistingPlaylist((prevPlaylists) => {
-            // Ensure prevPlaylists is an array and customPlaylist has tracks
+            // Ensure prevPlaylists is an array and editingPlaylist has tracks
             const validPrevPlaylists = Array.isArray(prevPlaylists) ? prevPlaylists : [];
             
-            if (customPlaylist.tracks && customPlaylist.tracks.length > 0) {
-                return [...validPrevPlaylists, customPlaylist];
+            if (editingPlaylist.tracks && editingPlaylist.tracks.length > 0) {
+                return [...validPrevPlaylists, editingPlaylist];
             } else {
-                console.log("No tracks available in customPlaylist, skipping update.");
+                console.log("No tracks available in editing playlist, skipping update.");
                 return validPrevPlaylists; // Return the previous state without changes if no tracks
             }
         });
 
-        console.log('Logging existing playlist...');
+        // console.log('Logging existing playlist...');
 
-     }, [props]);
+    }, [props]);
 
-     return (
+    return (
         <div className='displayDashboard'>
            
             {isLoading ? (
@@ -147,7 +150,7 @@ const Dashboard = (props) => {
                     {userProfile ? (
                         <div className='userInfoContainer'>
                             <div className='userInfo'>
-                                <img src={userProfile.images[1]?.url} alt="Profile" />
+                                <img src={userProfile.images[0]?.url} alt="Profile" />
                                 <h2>{userProfile.display_name}</h2>
                                 <p>Email: {userProfile.email}</p>
                                 <p>Country: {userProfile.country}</p>
@@ -162,7 +165,7 @@ const Dashboard = (props) => {
                                         {userPlaylistData.items
                                             .slice(currentPage * playlistsPerPage, (currentPage + 1) * playlistsPerPage)
                                             .map((playlist, index) => (
-                                                <div key={index} className='dashboardPlaylistIndex'>
+                                                <div key={index} className={`dashboardPlaylist-${index}`}>
                                                     
                                                     {/* Add check for playlist.images */}
                                                     {playlist.images && playlist.images.length > 0 ? (
@@ -173,7 +176,7 @@ const Dashboard = (props) => {
                                                     
                                                     <div className='playlistText'>
                                                         <p>{playlist.name}</p>
-                                                        <button id={`${index}-toApp`} onClick={() => handlePlaylistSync(playlist)}>+</button>
+                                                        <button id={`${index}-toApp`} onClick={() => handlePlaylistSync(playlist)}>Sync</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -189,18 +192,18 @@ const Dashboard = (props) => {
                                     </div>
                                 ) : (
                                     <p>No playlists available</p>
-                                )}
+                                )};
                             </div>
                         </div>
                     ) : (
                         <div className='userProfileLoading'>
                             <p>Loading profile...</p>
                         </div>
-                    )}
+                    )};
                 </>
-            )}
+            )};
         </div>
     );
-}
+};
 
 export default Dashboard;

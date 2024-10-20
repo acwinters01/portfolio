@@ -27,7 +27,7 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
                 <div className='trackImage'>
                     <img src={track.imageUri} alt={`Album art for ${track.name}`}/>
                 </div>
-                <div className='trackText'>
+                <div className='trackText' id={track.id}>
                     <p><strong>{track.name}</strong></p>
                     <p>{track.artist} | {track.album}</p>
                     <p>Track ID: {track.id}</p>
@@ -35,7 +35,6 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
             </div>
         </div>
     );
-
-}
+};
 
 export default Track;

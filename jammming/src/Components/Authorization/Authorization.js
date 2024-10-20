@@ -28,6 +28,7 @@ export const base64encode = (input) => {
         .replace(/\//g, '_');
 }
 
+// Initate Spotify Authorization 
 export async function initiateAuthorization (){
 
     // Clear old tokens/verifiers
@@ -38,7 +39,7 @@ export async function initiateAuthorization (){
     // Debugging -- Check if values were removed from storage
     const removedVerifier = localStorage.getItem('code_verifier');
     const removedToken = localStorage.getItem('access_token');
-    alert('Code Verifier and Access Token removed from storage:', removedVerifier, removedToken);
+    console.log('Code Verifier and Access Token removed from storage:', removedVerifier, removedToken);
 
     const codeVerifier = generateRandomString(64);
     localStorage.setItem('code_verifier', codeVerifier);

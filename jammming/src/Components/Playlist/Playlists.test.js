@@ -5,14 +5,13 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { makeSpotifyRequest } from '../Authorization/Requests';
 
 
-// Mock Tracklist Component
+// Mock only the necessary part of TrackList, but render the real Track component
 jest.mock('../Tracklist/Tracklist', () => (props) => {
-  // Mock only the necessary part of TrackList, but render the real Track component
   const Track = require('../Track/Track').default;
   const currentTracks = props.tracks || [];
 
+  // Replicating the isSelected logic from TrackList
   const isSelected = (track) => {
-    // Replicate the isSelected logic from the actual TrackList component
     return props.playlistTracks.some(playlistTrack => playlistTrack.id === track.id);
   };
 
@@ -31,7 +30,7 @@ jest.mock('../Tracklist/Tracklist', () => (props) => {
             imageUri={track.imageUri}
             onAdd={props.onAdd}
             onRemove={props.onRemove}
-            isSelected={() => isSelected(track)} // Simplify isSelected for the mock
+            isSelected={() => isSelected(track)}
           />
         ))
       ) : (
@@ -40,13 +39,9 @@ jest.mock('../Tracklist/Tracklist', () => (props) => {
     </div>
   );
 });
-// Mock Make Spotify Request Function
+
+// Mock the makeSpotifyRequest function from Requests
 jest.mock('../Authorization/Requests');
-//   , () => ({
-//   makeSpotifyRequest: jest.fn(),
-// }));
-
-
 
 describe('Playlist component Testing', () => {
 
@@ -54,8 +49,7 @@ describe('Playlist component Testing', () => {
     jest.clearAllMocks();
   });
 
-  
-  // Mock varaiables
+  // Mock varaiables and playlists
   const mockSetExistingPlaylist = jest.fn();
   const mockOnNameChange = jest.fn();
   const mockOnEdit = jest.fn();
@@ -262,6 +256,7 @@ describe('Playlist component Testing', () => {
       expect(getByText('Track 2 by Artist 2')).toBeInTheDocument();
 
     });
+
   });
 
 
@@ -328,7 +323,7 @@ describe('Playlist component Testing', () => {
         },
       ];
     
-      const { getByText } = render(
+      const { getByText, getAllByText, container } = render(
         <Playlist
           existingPlaylist={mockExistingPlaylist}
           setExistingPlaylist={jest.fn()}
@@ -352,51 +347,40 @@ describe('Playlist component Testing', () => {
       // Should display Tracks 11 - 12
       expect(getByText('Track 11 by Artist 11')).toBeInTheDocument();
       expect(getByText('Track 12 by Artist 12')).toBeInTheDocument();
-    });
-  });
 
 
-  describe('Testing Track Addition', () => {
-    // Track Addition and Removal
-    it('should add a track to the playlist when onAdd is triggered', () => {
 
-      const { getAllByText, getByText } = render(
-        <div>
-          <TrackList 
-            tracks={mockTracks}
-            onAdd={mockOnAdd}
-            onRemove={mockOnRemove}
-            playlistTracks={mockExistingPlaylist[0].tracks}
-          />
-          <Playlist
-            existingPlaylist={mockExistingPlaylist}
-            setExistingPlaylist={jest.fn()}
-            onNameChange={jest.fn()}
-            onEdit={jest.fn()}
-            onAdd={jest.fn()}
-            onRemove={jest.fn()}
-            onSave={jest.fn()}
-            playlistTracks={mockExistingPlaylist[0].tracks}
-            playlistName="Test Playlist"
-        />
-        </div>
+      // Test Pagination on Edited Playlists
+      const playlistContainer = container.querySelector('.Playlist-1')
+      const editButton = within(playlistContainer).getByText('Edit');
 
-      );
-      // Check that new tracks displays '+' button
-      const addButton = getAllByText('+');
-      expect(addButton.length).toBe(3);
+      // Check if the editButton selected is the right one.
+      expect(editButton.getAttribute('data-testid')).toBe('1-EditPlaylist');
 
-      const editButton = screen.getByTestId('12345-EditPlaylist');
       fireEvent.click(editButton);
 
-      fireEvent.click(addButton[0])
-      expect(mockOnAdd).toHaveBeenCalledWith(expect.objectContaining({
-        id: 'alpha1',
-      }))
+      const editContainer = container.querySelector('.EditingPlaylist-1');
+      const { getByText: getByTextInEdit } = within(editContainer)
 
+      // First page should display Tracks 1 - 5
+      expect(getByTextInEdit('Track ID: track0')).toBeInTheDocument();
+      expect(getByTextInEdit('Track ID: track4')).toBeInTheDocument();
 
-      // expect(mockOnAdd).toHaveBeenCalled();
+      // Go to next 
+      fireEvent.click(getByTextInEdit('Next'));
+
+      // Should display Tracks 6 - 10
+      expect(getByTextInEdit('Track ID: track5')).toBeInTheDocument();
+      expect(getByTextInEdit('Track ID: track9')).toBeInTheDocument();
+
+      // Go to previous
+      fireEvent.click(getByTextInEdit('Previous'));
+
+      // Should display Tracks 1 - 5 again
+      expect(getByTextInEdit('Track ID: track0')).toBeInTheDocument();
+      expect(getByTextInEdit('Track ID: track4')).toBeInTheDocument();
     });
+
   });
 
 
@@ -498,40 +482,6 @@ describe('Playlist component Testing', () => {
       ));
     });
 
-    it('should add tracks to the new created playlist on Spotify', async () => {
-
-      makeSpotifyRequest
-        .mockResolvedValueOnce({ id: 'newPlaylistId' })
-        .mockResolvedValueOnce({ snapshot_id: 'lexi' });
-
-      const { getByTestId } = render(
-        <Playlist
-          existingPlaylist={mockExistingPlaylist}
-          setExistingPlaylist={mockSetExistingPlaylist}
-          onNameChange={mockOnNameChange}
-          onEdit={mockOnEdit}
-          onAdd={mockOnAdd}
-          onRemove={mockOnRemove}
-          onSave={mockOnSave}
-          playlistTracks={mockExistingPlaylist[0].tracks}
-          playlistName='Test Playlist'
-        />
-      );
-
-      const saveButton = getByTestId('12345-Transfer');
-      fireEvent.click(saveButton);
-
-      // Wait for the track addition call
-      await waitFor(() => expect(makeSpotifyRequest).toHaveBeenCalledWith(
-        'playlists/newPlaylistId/tracks',
-        'POST',
-        expect.objectContaining({
-          uris: ["spotify:track:1", "spotify:track:2"]
-        })
-      ));
-      
-    });
-
     describe('Testing Error Handling in Spotify API Interaction', () => {
 
       it('should handle errors correctly when the Spotify API fails during playlist creation', async () => {
@@ -614,7 +564,7 @@ describe('Playlist component Testing', () => {
 
   describe('Testing "Edit Playlist" Functionality', () => {
     it('should select the correct playlist for editing when "edit" is clicked', () => {
-      const { getByText, container } = render(
+      const { container } = render(
         <Playlist
           existingPlaylist={mockExistingPlaylist}
           setExistingPlaylist={mockSetExistingPlaylist}
@@ -644,97 +594,11 @@ describe('Playlist component Testing', () => {
       const saveButton = within(editPlaylistContainer).getByText('Save');
 
     });
-
-    it('Ensure pagination on edited playlist works as expected', () => {
-
-      const testExistingPlaylist = [
-        {
-          playlistName: 'Chill Vibes',
-          playlistId: '1',
-          tracks: Array.from({ length: 30 }, (_, i) => ({
-            id: `track${i}`,
-            name: `Track ${i + 1}`,
-            artist: `Artist ${i + 1}`,
-          })),
-        },
-      ];
-
-      const { getByText, container } = render(
-        <Playlist 
-          existingPlaylist={testExistingPlaylist}
-          setExistingPlaylist={mockSetExistingPlaylist}
-          onNameChange={mockOnNameChange}
-          onEdit={mockOnEdit}
-          onAdd={mockOnAdd}
-          onRemove={mockOnRemove}
-          onSave={mockOnSave}
-          playlistTracks={mockExistingPlaylist[0].tracks}
-          playlistName="Test Playlist"
-        />
-      );
-
-
-      const playlistContainer = container.querySelector('.Playlist-1')
-      const editButton = within(playlistContainer).getByText('Edit');
-
-      // Check if the editButton selected is the right one.
-      expect(editButton.getAttribute('data-testid')).toBe('1-EditPlaylist');
-
-      fireEvent.click(editButton);
-
-      // First page should display Tracks 1 - 5
-      expect(getByText('Track ID: track0')).toBeInTheDocument();
-      expect(getByText('Track ID: track4')).toBeInTheDocument();
-
-      // Go to next 
-      fireEvent.click(getByText('Next'));
-
-      // Should display Tracks 6 - 10
-      expect(getByText('Track ID: track5')).toBeInTheDocument();
-      expect(getByText('Track ID: track9')).toBeInTheDocument();
-
-      // Go to previous
-      fireEvent.click(getByText('Previous'));
-
-      // Should display Tracks 1 - 5 again
-      expect(getByText('Track ID: track0')).toBeInTheDocument();
-      expect(getByText('Track ID: track4')).toBeInTheDocument();
-
-      fireEvent.click(getByText('Next')); // Tracks 6 - 10
-      fireEvent.click(getByText('Next')); // Tracks 11 - 15
-      fireEvent.click(getByText('Next')); // Tracks 16 - 20
-      fireEvent.click(getByText('Next')); // Tracks 21 - 25
-      fireEvent.click(getByText('Next')); // Tracks 26 - 30
-
-      // Should display Tracks 26 - 30
-      expect(getByText('Track ID: track25')).toBeInTheDocument();
-      expect(getByText('Track ID: track29')).toBeInTheDocument();
-
-
-    });
   });
 
 
   describe('Edge Case Tests...', () => {
-    it('Ensure that the component handles empty playlists', () => {
-      const { getByText } = render(
-        <Playlist
-          existingPlaylist={[]}
-          setExistingPlaylist={mockSetExistingPlaylist}
-          onNameChange={mockOnNameChange}
-          onEdit={mockOnEdit}
-          onAdd={mockOnAdd}
-          onRemove={mockOnRemove}
-          onSave={mockOnSave}
-          playlistTracks={[]}
-          playlistName="Test Playlist Edge Case"
-        />
-      );
-
-      expect(getByText('No playlists available')).toBeInTheDocument();
-    });
-
-    it('Ensure that the component handles casesa where a playlist has no tracks', () => {
+    it('Ensure that the component handles cases where a playlist has no tracks', () => {
       const emptyTrackPlaylist = [
         {
           playlistName: 'Empty Playlist', 

@@ -17,14 +17,16 @@ const TrackList = (props) => {
     if (currentTracks.length === 0 && props.tracks.length > 0) {
         console.log('There are fewer tracks than the tracks per page')
         return <p>There are fewer tracks than the tracks per page.</p>;
-    }
+    };
 
     if (!currentTracks || currentTracks.length === 0) {
         return <div>No tracks found</div>;
-    }
+    };
+
     const isSelected = (track) => {
         return props.playlistTracks.some((playlistTrack) => playlistTrack.id === track.id)
-    }
+    };
+    
     // console.log(`List of tracks: ${props.tracks}`)
 
     return (

@@ -163,7 +163,7 @@ export default function Authorization() {
         const handleToken = async (token) => {
             setAccessToken(token);
             setLoading(false);
-            // Optionally clear the URL from the code param
+            // Clear the URL from the code param
             window.history.replaceState({}, document.title, '/');
         };
 
@@ -172,7 +172,6 @@ export default function Authorization() {
             getToken(code).then((token) => {
                 if (token) {
                     handleToken(token)
-                    window.location.reload();
                 } else {
                     setLoading(false)
                 }
@@ -192,6 +191,7 @@ export default function Authorization() {
                     setLoading(false)
                 }
             })
+            window.location.reload()
         } else {
             setLoading(false)
         }

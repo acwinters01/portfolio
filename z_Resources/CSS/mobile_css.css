@@ -32,6 +32,10 @@ img#pink {
     #num2 .project-text {
         min-height: 35rem;
     }
+
+    #contact-me-menu #decoration-box-menu {
+        width: 9%;
+    }
 }
 
 
@@ -40,6 +44,10 @@ img#pink {
 @media only screen and (min-width: 1011px) and (max-width: 1785px) {
     .project img {
         max-width: 40%;
+    }
+
+    #contact-me-menu #decoration-box-menu {
+        width: 11%;
     }
 }
 
@@ -136,6 +144,27 @@ img#pink {
 
     #links a {
         font-size: 1.25rem;
+    }
+
+    #decoration-box-menu {
+        bottom: 1.25rem;
+        height: .5rem;
+    }
+
+    #contact-me-menu #decoration-box-menu {
+        width: 15%;
+    }
+    
+    #contact-me-skills #decoration-box-menu {
+        width: 9%;
+    }
+    
+    #contact-me-projects #decoration-box-menu {
+        width: 12%;
+    }
+    
+    #contact-me-aboutme #decoration-box-menu {
+        width: 13%;
     }
 
 }

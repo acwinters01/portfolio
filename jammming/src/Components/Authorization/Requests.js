@@ -21,6 +21,7 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
     if(isTokenExpired()) {
         console.log("Access token expired. Attempting to refresh")
         accessToken = await refreshToken();
+
         if(!accessToken) {
             throw new Error('Unable to refresh access token. ')
         }

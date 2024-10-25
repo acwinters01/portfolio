@@ -4,6 +4,9 @@ import Playlist from '../Playlist/Playlist';
 import Authorization from '../Authorization/Authorization';
 import Dashboard from '../Dashboard/Dashboard';
 import SearchBar from '../SearchBar/SearchBar';
+import './App.css';
+import './reset.css';
+
 
 
 function App() {

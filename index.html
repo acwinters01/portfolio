@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Suse&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=SUSE:wght@100..800&display=swap" rel="stylesheet">
         <link href="./z_Resources/CSS/reset.css" rel="stylesheet">
         <link href="./z_Resources/CSS/style.css" rel="stylesheet">
         <link href="./z_Resources/CSS/mobile_css.css" rel="stylesheet">
@@ -26,20 +26,34 @@
 
                 <nav>
                     <div id="links">
-                        <a href="./mainContactMe.html">About Me</a>
-                        <a href="#projects">Projects</a>
-                        <a href="./mainContactMe.html#skills-container">Skills</a>
-                        <a href="./mainContactMe.html#contactme">Contact Me</a>
+                        <ul id="links-list">
+                            <li id="contact-me-projects">
+                                <a href="#">Projects</a>
+                                <div id="decoration-box-menu"></div>
+                            </li>
+                            <li id="contact-me-aboutme">
+                                <a href="./mainContactMe.html">About Me</a>
+                                <div id="decoration-box-menu"></div>
+                            </li>
+                            <li id="contact-me-skills">
+                                <a href="./mainContactMe.html#skills-container">Skills</a>
+                                <div id="decoration-box-menu"></div>
+                            </li>
+                            <li id="contact-me-menu">
+                                <a href="./mainContactMe.html#contactme">Contact Me</a>
+                                <div id="decoration-box-menu"></div>
+                            </li>
+                        </ul>
                     </div>
                     <img src="./z_Resources/Icons/menu-bar-icon.svg">
                     <img id="pink" src="./z_Resources/Icons/menu-bar-icon-active.svg">
                     <div id="mobile">
                         <ul>
                             <li>
-                                <a href="./mainContactMe.html">About Me</a>
+                                <a href="#projects">Projects</a>
                             </li>
                             <li>
-                                <a href="#projects">Projects</a>
+                                <a href="./mainContactMe.html">About Me</a>
                             </li>
                             <li>
                                 <a href="./mainContactMe.html#skills-container">Skills</a>
@@ -158,7 +172,34 @@
                         </div>
                     </div>
 
-                    <!-- <div class="project" id="num4">
+                    <div class="project" id="num4">
+                        <img src="./z_Resources/Images/coming-soon-2579123_1920.jpg">
+                        <div class="project-content">
+                            <div class="project-text">
+                                <div class="project-title">
+                                    <div class="project-title-text">
+                                        <h4>Jammming - React Web Application</h4>
+                                        <div id="decoration-box"></div>
+                                    </div>
+                                </div>
+
+                                <p>As part of a Codecademy project, I built Jammming, a React app that integrates 
+                                    with the Spotify API. Users can search for songs, create and sync custom playlists to 
+                                    their Spotify account, and edit them directly within the app. This project enhanced my 
+                                    skills in React components, state management, API requests, and user authentication, 
+                                    while also reinforcing best practices in responsive design and version control.</p>
+
+                                <div id="button">
+                                    <a href="#">Coming Soon...</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decoration-divider" id="divider-container4">
+                            <div class="decoration-divider1" id="divider4"></div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="project" id="num5">
                         <div class="project-content">
 
                         </div>

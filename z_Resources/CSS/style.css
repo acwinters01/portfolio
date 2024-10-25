@@ -4,10 +4,17 @@ html {
     font-size: 16px;
 }
 
+
 body {
-    font-family: "SUSE";
-    background-color: black;
+    font-family: "Calibri", sans-serif;
+    background-image: linear-gradient(to bottom, rgb(0, 0, 0), #1e1028, rgb(0, 0, 0));
+    position: relative;
     color: white;
+
+}
+
+a, h3, h4, .skills-container p {
+   font-family: "SUSE", "Calibri"; 
 }
 
 /* Main Title */
@@ -53,21 +60,38 @@ nav {
     border-bottom: 3px solid #8B939C;
     box-shadow: 0px 5px 15px black;
     z-index: 5;
+    font-size: 1.25rem
 
 }
 
 #links {
     width: 50%;
+    margin-right: .75rem;
     display: flex;
     justify-content: space-around;
+    
+}
+
+#links-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#links li #decoration-box-menu {
+    display: none;
 }
 
 #links a {
     color: white;
 }
 
-a:active {
-    color: #E54F6D;
+#links li a:hover + #decoration-box-menu {
+    display: block; 
+}
+
+#links li a:active + #decoration-box-menu {
+    background-color: #E54F6D;
 }
 
 
@@ -77,7 +101,7 @@ a:active {
     position: relative;
     width: 100%;
     display: flex;
-    margin: 14rem auto;
+    margin: 11.75rem auto;
 }
 
 #num1 {
@@ -85,6 +109,11 @@ a:active {
 }
 
 #num2 {
+    flex-direction: row-reverse;
+    margin: 0rem auto;
+}
+
+#num4 {
     flex-direction: row-reverse;
     margin: 0rem auto;
 }
@@ -145,7 +174,7 @@ h3 {
 h4 {
     margin-top: 1rem;
     font-weight: 900;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     z-index: 1;
 }
 
@@ -174,6 +203,10 @@ p {
     object-position: top;
 }
 
+#num4 img {
+    object-position: center;
+}
+
 
 /* About Section*/
 
@@ -197,7 +230,7 @@ p {
 
 .about-text p {
     font-size: 1.25rem;
-    line-height: 2rem;
+    line-height: 2.5rem;
 
 }
 
@@ -294,11 +327,39 @@ footer p {
     
 }
 
+#decoration-box-menu {
+    position: absolute;
+    bottom: 1.5rem;
+    display: flex;
+    align-self: center;
+    height: .5rem;
+    width: 10%;
+    background-color: #8B939C; 
+    z-index: -1;
+    
+}
+
+#contact-me-menu #decoration-box-menu {
+    width: 9%;
+}
+
+#contact-me-skills #decoration-box-menu {
+    width: 7%;
+}
+
+#contact-me-projects #decoration-box-menu {
+    width: 8%;
+}
+
+#contact-me-aboutme #decoration-box-menu {
+    width: 9%;
+}
+
 
 /* Divider Decor */
 .decoration-divider {
     position: absolute;
-    bottom: -40px;
+    bottom: -5rem;
     display: flex;
     justify-content: start;
     width: 100%; 
@@ -313,7 +374,7 @@ footer p {
 
 
 #divider-container2 {
-    bottom: -10rem;
+    bottom: -5rem;
     justify-content: end;
 }
 
@@ -323,11 +384,21 @@ footer p {
 
 
 #divider-container3 {
-    bottom: -60px;
+    bottom: -5rem;
     justify-content: start;
 }
 
 #divider3 {
     background-color: #E54F6D; 
+}
+
+#divider-container4 {
+    bottom: -2rem;
+    justify-content: end;
+    
+}
+
+#divider4 {
+    background-color: #8B939C; 
 }
 

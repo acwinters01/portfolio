@@ -23,16 +23,16 @@ const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRem
   
     return (
         <div className='displaytrackContainer'>
-            <button data-testid={`track-${track.id}`} onClick={handleTrackAction}>{isSelected(track) ? '-' : '+'}</button>
             <div className='trackBlock'>
                 <div className='trackImage'>
                     <img src={track.imageUri} alt={`Album art for ${track.name}`}/>
                 </div>
                 <div className='trackText' id={track.id}>
-                    <p><strong>{track.name}</strong></p>
-                    <p>{track.artist} | {track.album}</p>
-                    <p>Track ID: {track.id}</p>
+                    <h4>{track.name}</h4>
+                    <p id="artist">{track.artist}</p> 
+                    <p id="album">{track.album}</p>
                 </div>
+                <button id='trackButton' data-testid={`track-${track.id}`} onClick={handleTrackAction}>{isSelected(track) ? '-' : '+'}</button>
             </div>
         </div>
     );

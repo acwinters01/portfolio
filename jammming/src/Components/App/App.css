@@ -1,0 +1,375 @@
+body {
+    background-color: #1E1B18;
+    color: white;
+}
+
+.dashboardContainer {
+    display: none;
+}
+
+.authorizationContainer {
+    /* display: none; */
+}
+
+
+/* Main Configurations */
+.mainAppTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.mainAppTitle h1 {
+    font-size: 3rem;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+#title {
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #F3D9DC;
+    color: #D8315B;
+    padding: .5rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: .5rem;
+
+}
+/* App Playlist Container */
+.PlaylistsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #B4ADEA;
+    padding: 1rem 2.5rem;
+    min-width: 50%;
+    margin-right: 2rem;
+}
+
+.Playlist {
+    display: flex;
+    max-height: 12rem;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E1B18;
+    padding: 1rem;
+    
+}
+
+.playlistSectionOne {
+    display: flex;
+}
+
+.noTracks {
+    display: flex;
+    justify-content: center;
+    margin-top: .5rem;
+}
+
+.playlistNameInput {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1rem 0rem;
+}
+
+input {
+    padding: .25rem;
+}
+
+.allPlaylists {
+    display: flex;
+    flex-direction: column;
+}
+
+.playlistText {
+    display: flex;
+    min-width: 65%;
+    height: auto;
+    flex-direction: column;
+    background-color: #F3D9DC;
+    color: black;
+    text-align: right;
+    justify-content: center;
+}
+
+.playlistTitleInfo {
+    padding: 1rem;
+}
+
+.playlistButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+    align-items: end;
+    color: #D8315B;
+}
+
+.playlistButtons button {
+    background-color: #D8315B;
+    border: 1px solid #B4ADEA;
+    border-radius: .25rem;
+    color: #F3D9DC;
+    padding: .25rem .5rem
+}
+
+#transferToSpotify {
+    width: 100%;
+    height: 1.5rem;
+    background-color: #B4ADEA;
+    color: black;
+    border: 1px solid #B4ADEA;
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+
+}
+
+.playlistImage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 30%;
+    height: 100%;
+    margin-right: 1rem;
+
+}
+
+.playlistImage img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+/* Search Container */
+
+.searchBarContainer {
+    margin-right: 1rem;
+}
+
+.displaySearchBar {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0rem;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #B4ADEA;
+    padding: 1rem 2.5rem;
+    max-width: 50%;
+    margin-left: 2rem;
+
+}
+
+.searchForm button {
+    padding: .25rem;
+}
+
+/* Editing Playlist */
+
+
+
+.displayEditingPlaylist {
+    position: absolute;
+    overflow: scroll;
+    top: 10%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    border: 2px solid #D8315B;
+    background-color: #1E1B18;
+    margin: 0rem 6rem;
+    height: calc(100vh - 20%);
+}
+
+.displayEditingPlaylist h3 {
+    text-align: center;
+    font-size: 1.75rem;
+    background-color: #F3D9DC;
+    color: #D8315B;
+    padding: .5rem;
+    margin: 1.5rem;
+    margin-bottom: 0rem;
+}
+
+.trackBlock button {
+    background-color: #D8315B;
+    color: #F3D9DC;
+    border: 1px solid #D8315B;
+    border-radius: .25rem;
+    font-weight: 900;
+    font-size: 1.25rem;
+}
+
+.trackBlock#trackButton {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+  
+}
+
+.editingSection {
+    min-width: 35rem;
+    max-width: 50%;
+    margin: 2rem;
+    margin-left: 0rem;
+    background-color: #B4ADEA;
+    min-height: 86rem;
+}
+
+.editingButtons {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.editingButtons button {
+    background-color: #D8315B;
+    border: 1px solid #B4ADEA;
+    border-radius: .25rem;
+    color: #F3D9DC;
+    padding: .25rem .5rem;
+    margin: 1rem;
+}
+
+.editingSearch {
+    min-width: 35rem;
+    max-width: 50%;
+    margin: 2rem;
+    margin-right: 0rem;
+    background-color: #B4ADEA;
+    min-height: 86rem;
+}
+
+
+.displayTrackList {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    padding-top: 0rem;
+}
+
+.displaytrackContainer {
+    display: flex;
+    align-items: center;
+    background-color: #1E1B18;
+    
+}
+
+.trackBlock {
+    display: flex;
+    width: 100%;
+}
+
+.trackImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 30%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.trackImage img {
+    width: 100%;
+    height: auto; /* to keep the aspect ratio*/
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.trackText {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    max-width: 65%;
+    justify-content: center;
+    margin: 1rem;
+    padding: 1.5rem;
+    background-color: #F3D9DC;
+    overflow: hidden;
+    color: black;
+}
+.trackText h4, .playlistText h4 {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.trackText p#artist {
+    font-size: 1.25rem;
+}
+
+#trackButton {
+    width: 1.75rem;
+    align-self: center;
+    margin-right: 1rem;
+}
+
+
+/* Duplicate Modal Container */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(30, 27, 24, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #F3D9DC;
+    color: black;
+    padding: 1.25rem;
+    padding-bottom: .75rem;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0px 5px 10px  rgba(30, 27, 24, 0.5);
+}
+
+.modal-content #question {
+    margin-top: .5rem;
+}
+
+.modal-content span {
+    font-weight: 700;
+}
+
+.modal-buttons button {
+    margin: .75rem;
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+    background-color: #D8315B; 
+    color: white;
+}
+
+.modal-buttons button:last-child {
+    background-color: #F3D9DC;
+}

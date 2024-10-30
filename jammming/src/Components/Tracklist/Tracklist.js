@@ -1,34 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Track from '../Track/Track';
 import PagesSetUp from '../Playlist/PagesSetUp';
 
 
-const TrackList = (props) => {
-    //console.log('In TrackList component:', props);
+const TrackList = ({ tracks, tracksPerPage = 5, onAdd, onRemove, playlistTracks = [], tracksEdited = [] }) => {
+    // Add these logs at the start of TrackList to verify props received
 
-    const trackCurrentPage = props.trackCurrentPage || 0;
-    const tracksPerTrackPage = props.tracksPerTrackPage || 5;
-    const startIndex = trackCurrentPage * tracksPerTrackPage;
-    const endIndex = startIndex + tracksPerTrackPage;
-    const currentTracks = props.tracks ? props.tracks.slice(startIndex, endIndex) : [];
+    const [currentPage, setCurrentPage] = useState(0);
+    const startIndex = currentPage * tracksPerPage;
+    const endIndex = startIndex + tracksPerPage;
+    const currentTracks = tracks ? tracks.slice(startIndex, endIndex) : [];
     // console.log(currentTracks)
     
     // Safeguard for fewer tracks than expected
-    if (currentTracks.length === 0 && props.tracks.length > 0) {
+    if (currentTracks.length === 0 && tracks.length > 0) {
         console.log('There are fewer tracks than the tracks per page')
         return <p>There are fewer tracks than the tracks per page.</p>;
     };
 
     // If currentTracks is falsy or the array length is 0, display no tracks found
     if (!currentTracks || currentTracks.length === 0) {
-        return <div>No tracks found</div>;
+        return;
     };
 
     // Selects playlist track by id
     const isSelected = (track) => {
-        return props.playlistTracks.some((playlistTrack) => playlistTrack.id === track.id)
-    };
+        const inPlaylist = Array.isArray(playlistTracks) && playlistTracks.some((playlistTrack) => playlistTrack.id === track.id);
+        // const inEdited = Array.isArray(tracksEdited) && tracksEdited.some((editedTrack) => editedTrack.id === track.id);
+        return inPlaylist;
+    }
     
+    
+    // Pagination controls
+    const goToNextPage = () => {
+        if ((currentPage + 1) * tracksPerPage < tracks.length) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const goToPreviousPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
     // console.log(`List of tracks: ${props.tracks}`)
 
     return (
@@ -46,8 +60,8 @@ const TrackList = (props) => {
                         album={track.album.name || track.album || 'Unknown Album'}
                         imageUri={track.album?.images?.[1]?.url || track.image || track.imageUri || 'Image not Found'}
                         uri={track.uri}
-                        onAdd={props.onAdd}
-                        onRemove={props.onRemove}
+                        onAdd={onAdd}
+                        onRemove={onRemove}
                         isSelected={isSelected}
                
                     />
@@ -55,12 +69,12 @@ const TrackList = (props) => {
             )}
 
             {/* Add pagination controls */}
-            {props.tracks.length > tracksPerTrackPage && (
+            {tracks.length > tracksPerPage && (
                 <PagesSetUp
-                    currentPage={trackCurrentPage}
-                    totalPages={Math.ceil(props.tracks.length / tracksPerTrackPage)}
-                    goToNextPage={props.goToNextTrackPage}
-                    goToPreviousPage={props.goToPreviousTrackPage}
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(tracks.length / tracksPerPage)}
+                    goToNextPage={goToNextPage}
+                    goToPreviousPage={goToPreviousPage}
                 />
             )}
 

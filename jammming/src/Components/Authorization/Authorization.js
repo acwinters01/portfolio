@@ -191,7 +191,7 @@ export default function Authorization() {
                     setLoading(false)
                 }
             })
-            window.location.reload()
+         
         } else {
             setLoading(false)
         }

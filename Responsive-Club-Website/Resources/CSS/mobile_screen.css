@@ -3,8 +3,21 @@
 
 /* Main Edits for Tablet */
 @media only screen and (max-width: 1010px) {
+
+    .option-container.private,
+    .club-ice .option-container.club,
+    .scholarship-fund .option-container.fund,
+    .since-1894 .option-container.history {
+        transition: .5s ease;
+        opacity: 100;
+        position: absolute;
+        transform: translateY(-4rem);
+        text-align: center;
+    }
+
     html {
         font-size: 14px;
+        pointer-events: none;
     }
 
     .banner-content h1 {

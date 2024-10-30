@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
 
 
-const SearchBar = ({ onSearchResults }) => {
+const SearchBar = ({ onSearchResults, tracksPerPage }) => {
 
     const [searchInput, setSearchInput] = useState('');
 
@@ -14,25 +14,28 @@ const SearchBar = ({ onSearchResults }) => {
     )
 
     // Fetches search response
-    const getSearchResponse = useCallback(async () => {
-
+    const getSearchResponse = useCallback(async (offsetNum = 0, tracksPerPage = 1) => {
+        const off = offsetNum * tracksPerPage
+        console.log(off, offsetNum, tracksPerPage)
         const userProfile = await getUserProfile();
         let queryParams = new URLSearchParams({
             q: searchInput,
             type: 'track',
-            market: userProfile.country
+            limit: 50,
+            market: userProfile.country,
+            offset: offsetNum * tracksPerPage
         });
 
         try {
             const searchResult = await makeSpotifyRequest(`search?${queryParams.toString()}`, 'GET')
             onSearchResults(searchResult.tracks.items)
-            console.log(searchResult)
+            
 
         } catch (error) {
             console.error('Error fetching search results:', error);
         }
 
-    }, [searchInput, onSearchResults])
+    }, [searchInput, onSearchResults, tracksPerPage])
 
     // Function for button search to call
     const handleSearch = (event) => {

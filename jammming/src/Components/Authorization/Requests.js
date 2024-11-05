@@ -12,12 +12,11 @@ const getStoredToken = () => {
 };
 
 // Makes requests to Spotify
-export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => {
+export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null, setLoading) => {
+    if(setLoading) setLoading(true);
     let accessToken = await getStoredToken();
     console.log(accessToken)
     
-   
-
     if(isTokenExpired()) {
         console.log("Access token expired. Attempting to refresh")
         accessToken = await refreshToken();
@@ -60,6 +59,8 @@ export const makeSpotifyRequest = async(endpoint, method = 'GET', body=null) => 
     } catch (error) {
         console.error('Error making Spotify request:', error);
         throw error; // Re-throw to handle the error at a higher level if needed
+    } finally {
+        if (setLoading) setLoading(false)
     }
 };
 

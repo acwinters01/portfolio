@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Loading from './Loading';
 
 
 // Request User Authorization
@@ -149,7 +150,7 @@ export function isTokenExpired() {
 };
 
 // Authorization Component
-export default function Authorization() {
+export default function Authorization({ onLogin, onLogout }) {
     const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -163,6 +164,7 @@ export default function Authorization() {
         const handleToken = async (token) => {
             setAccessToken(token);
             setLoading(false);
+            onLogin();
             // Clear the URL from the code param
             window.history.replaceState({}, document.title, '/');
         };
@@ -181,6 +183,7 @@ export default function Authorization() {
         } else if (existingToken && !tokenExpired) {
             setAccessToken(existingToken);
             setLoading(false);
+            onLogin();
 
         // Refresh token if it's expired
         } else if (existingToken && tokenExpired) {
@@ -196,9 +199,9 @@ export default function Authorization() {
             setLoading(false)
         }
         
-    }, []);
+    }, [onLogin]);
 
-    if(loading) return <p>Loading...</p>
+    if(loading) return <Loading />
 
     return (
         <div className='displayAuthorization'>
@@ -212,6 +215,7 @@ export default function Authorization() {
                 <div className='loggedIn'>
                     <h2>You are logged in!</h2>
                     <button onClick={initiateAuthorization}>Refresh Authorization</button>
+                    <button onClick={onLogout}>Log Out</button>
                 </div>
             )}
         </div>

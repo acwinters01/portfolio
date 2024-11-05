@@ -1,16 +1,17 @@
 import React, { useCallback, useMemo } from 'react';
 
 
-const Track = ({id, name, artist, album, uri, imageUri, image, isSelected, onRemove, onAdd}) => {
+const Track = ({uniqueKey, id, name, artist, album, uri, imageUri, image, isSelected, onRemove, onAdd}) => {
 
     const track = useMemo (() => ({
+        uniqueKey,
         id,
         name,
         artist,
         album,
         uri,
         imageUri: imageUri || image || '/music_note_baseImage.jpg'
-    }), [id, name, artist, album, uri, imageUri, image])
+    }), [uniqueKey, id, name, artist, album, uri, imageUri, image])
 
     // Handles Track selection
     const handleTrackAction = useCallback(() => {

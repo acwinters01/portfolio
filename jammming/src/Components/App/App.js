@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
-import Tracklist from '../Tracklist/Tracklist';
 import Playlist from '../Playlist/Playlist';
 import Authorization from '../Authorization/Authorization';
 import Dashboard from '../Dashboard/Dashboard';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
+import Loading from '../Authorization/Loading'
 import './App.css';
 import './reset.css';
 import DuplicateTrackModal from '../Track/DuplicateTrackModal';
@@ -23,18 +23,30 @@ function App() {
   //   { name: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', album: 'Neva Play Single', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5 }
   // ]);
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
+  const [isAppLoaded, setIsAppLoaded] = useState(false); // Track if main app is ready to load
+
   const [searchResults, setSearchResults] = useState([]);
   const [existingPlaylist, setExistingPlaylist] = useState([
 
     { playlistName: 'New Verbose', 
       playlistId: 123456,
-      tracks: [{name: 'Forever', album: 'Alive', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4, image: './music_note_baseImage.jpg' },
-               {name: 'Neva Play (feat. RM of BTS)', album: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5, image: './music_note_baseImage.jpg' }] }
+      tracks: [{name: 'Forever', album: 'Alive', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4, image: './music_note_baseImage.jpg', uniqueKey: `uniqueKey-4`},
+               {name: 'Neva Play (feat. RM of BTS)', album: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5, image: './music_note_baseImage.jpg', uniqueKey: `uniqueKey-5` }] }
   ]);
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
   const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false);
   const [ duplicateTrack, setDuplicateTrack ] = useState(null);
+
+  // Loading Screens
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [syncLoading, setSyncLoading] = useState(false);
+  const [transferLoading, setTransferLoading] = useState(false);
+  const isAnyLoading = () => searchLoading || saveLoading || syncLoading || transferLoading;
+
+
 
 
   const handleConfirmAdd = (track) => {
@@ -94,7 +106,6 @@ function App() {
         })
 
     } else {
-      console.log(`Creating new Playlist with name: ${newName}`)
       setPlaylistName(newName);
 
     }
@@ -108,7 +119,12 @@ function App() {
       return;
     }
 
+    const generateLocalId = () => `local-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+
     const newPlaylist = {
+        key: generateLocalId(),
+        playlistId: generateLocalId(),
         playlistName: playlistName,
         tracks: newPlaylistTracks
     };
@@ -144,70 +160,83 @@ function App() {
 
   },[])
 
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setIsAppLoaded(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('expires_in');
+    setIsAuthenticated(false);
+    setIsAppLoaded(false);
+  }
+
   return (
     <div className='AppContainer'>
       <div className='mainAppTitle'>
         <h1>Jammming</h1>
       </div>
-      <div className='main'>
-        <div className='appStart'>
-          <div className='authorizationContainer'>
-            <Authorization/>
-          </div>
-          <div className='PlaylistsContainer'>
-            <div className='playlistTitle'>
-              <h2 id='title'>Playlists</h2>
-            </div>
-            <Playlist 
-              playlistName={playlistName} 
-              playlistTracks={newPlaylistTracks}
-              onNameChange={updatePlaylistName}
-              setPlaylistName={setPlaylistName}
-              setExistingPlaylist={setExistingPlaylist}
-              existingPlaylist={existingPlaylist}
-              tracks={searchResults}
-              onEdit={editExistingPlaylist}
-              onSave={savePlaylist}
-              onRemove={removeTrack}
-              onAdd={addTrack}
-              searchResults={searchResults}
 
-            />
-          </div>
+      {!isAuthenticated ? (
+        <div className='authorizationContainer'>
+          <Authorization onLogin={handleLogin} onLogout={handleLogout}/>
         </div>
-        <div className='search'>
-          <div className='searchBarContainer'>
-            <h2 id='title'>Results</h2>
-            <SearchBar onSearchResults={handleSearchResults}/>
+      ) : !isAppLoaded ? (
+        <Loading />
+      ) : (
+        <>
+          {isAnyLoading() && <Loading />}
+          <div className='authorizationContainer' id="logOut">
+            <Authorization onLogin={handleLogin} onLogout={handleLogout}/>
           </div>
-          <div className='searchResultsContainer'>
-            <SearchResults 
-              tracks={searchResults} // Ensures tracks is always an array
-              onAdd={addTrack}
-              onRemove={removeTrack}
-              playlistTracks={newPlaylistTracks}
-            />
+          <div className='main'>
+            <div className='appStart'>
+              <div className='PlaylistsContainer'>
+                <div className='playlistTitle'>
+                  <h2 id='title'>Playlists</h2>
+                </div>
+                <Playlist
+                  playlistName={playlistName}
+                  playlistTracks={newPlaylistTracks}
+                  onNameChange={updatePlaylistName}
+                  setPlaylistName={setPlaylistName}
+                  setExistingPlaylist={setExistingPlaylist}
+                  existingPlaylist={existingPlaylist}
+                  tracks={searchResults}
+                  onEdit={editExistingPlaylist}
+                  onSave={savePlaylist}
+                  onRemove={removeTrack}
+                  onAdd={addTrack}
+                  searchResults={searchResults}
+                  setTransferLoading={setTransferLoading}
+                  transferLoading={transferLoading}
+                />
+              </div>
+            </div>
+            <div className='search'>
+              <div className='searchBarContainer'>
+                <h2 id='title'>Results</h2>
+                <SearchBar onSearchResults={handleSearchResults} setSearchLoading={setSearchLoading} />
+              </div>
+              <div className='searchResultsContainer'>
+                <SearchResults tracks={searchResults} onAdd={addTrack} onRemove={removeTrack} playlistTracks={newPlaylistTracks} />
+              </div>
+            </div>
           </div>
-        </div>
-        
-      </div>
-      <div className='dashboardContainer'>
-        <div className='dashboardTitle'>
-          <h2>Dashboard</h2>
-        </div>
-          <Dashboard
-            setExistingPlaylist={setExistingPlaylist}
-            existingPlaylist={existingPlaylist}
-          />
-      </div>
-      <DuplicateTrackModal
-        track={duplicateTrack}
-        onConfirm={handleConfirmAdd}
-        onCancel={handleCancelAdd}
-      />
-      
+          <div className='dashboardContainer'>
+            <div className='dashboardTitle'>
+              <h2>Dashboard</h2>
+            </div>
+            <Dashboard setExistingPlaylist={setExistingPlaylist} existingPlaylist={existingPlaylist} />
+          </div>
+          <DuplicateTrackModal track={duplicateTrack} onConfirm={handleConfirmAdd} onCancel={handleCancelAdd} />
+        </>
+      )}
     </div>
   );
 }
+
 
 export default App;

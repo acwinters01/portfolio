@@ -1,10 +1,12 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import TrackList from '../Tracklist/Tracklist';
 import EditingPlaylist from './EditPlaylist';
 import { makeSpotifyRequest } from '../Authorization/Requests';
 import PagesSetUp from './PagesSetUp';
 
-export default function Playlist({existingPlaylist, setExistingPlaylist, onNameChange, onEdit, onAdd, onRemove, onSave, playlistTracks, playlistName, searchResults}) {
+export default function Playlist({existingPlaylist, setExistingPlaylist, onNameChange, onEdit, onAdd, 
+                                onRemove, onSave, playlistTracks, playlistName, searchResults, 
+                                setTransferLoading, transferLoading}) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [ currentPlaylistPage, setCurrentPlaylistPage ] = useState(0);
     const [tracksEdited, setTracksEdited] = useState([]);
@@ -12,7 +14,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     const startIndex = currentPlaylistPage * playlistPerPage;
     const currentPlaylists = existingPlaylist.slice(startIndex, startIndex + playlistPerPage);
     
-
+    
     // Playlist Name Change
     const handleNewPlaylistNameChange = useCallback(
         (event) => {
@@ -76,6 +78,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
      // Transfers Custom playlist made in app to Spotify
      const transferToSpotify = async (index) => {
+        setTransferLoading(true);
         try {
             const tracksToAdd = await handlePlaylistTracks(index);
             const createPlaylistPayload = {
@@ -87,6 +90,13 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             const createPlaylistResponse = await makeSpotifyRequest(`me/playlists`, 'POST', createPlaylistPayload);
             const playlistId = createPlaylistResponse.id;
 
+            setExistingPlaylist((prevPlaylists) => {
+                const updatedPlaylists = [...prevPlaylists];
+                updatedPlaylists[index].playlistId = playlistId;  // Replace local ID with Spotify ID
+                return updatedPlaylists;
+            });
+
+
             try {
                 const addTracksPayload = { uris: tracksToAdd };
                 await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload);
@@ -96,10 +106,12 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
         } catch (error) {
             console.error('Error transferring playlist to Spotify:', error);
+        } finally {
+            setTransferLoading(false);
         }
     };
 
-
+   
     return (
         <div className='displayPlaylistsContainer'>
             <div className='playlistNameInput'>
@@ -113,6 +125,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
             </div>
 
             <TrackList
+                keyPrefix='playlist-'
                 tracks={playlistTracks}
                 onAdd={onAdd} 
                 onRemove={onRemove}
@@ -123,12 +136,13 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                 {/*  Checks if playlist is an array and if there are any playlists to filter through and display */}
                 {Array.isArray(currentPlaylists) && currentPlaylists.length > 0 ? (
                     currentPlaylists.map((playlist, index) => {
+                        const playlistKey = playlist.playlistId;
                         return (
-                            <div className={`Playlist`} id={`Playlist-${playlist.playlistId}`} key={playlist.playlistId}>
+                            <div className={`Playlist`} id={`playlist-${playlistKey}`} key={playlistKey}>
                                 <div className='playlistSectionOne'>
                                     <div className='playlistImage'>
                                         <img 
-                                            src={playlist.tracks[0].image || '/music_note_baseImage.jpg'}
+                                            src={playlist.tracks[0].imageUri || '/music_note_baseImage.jpg'}
                                             alt="Track artwork"
                                         />
                                         <button id='transferToSpotify' data-testid={`${playlist.playlistId}-Transfer`} onClick={() => transferToSpotify(index + startIndex)}>Save On Spotify</button>
@@ -171,6 +185,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                     {/* Playlist Pagination */}
                     <PagesSetUp
                         currentPage={currentPlaylistPage}
+                        setCurrentPage={setCurrentPlaylistPage}
                         totalPages={Math.ceil(existingPlaylist.length / playlistPerPage)}
                         goToNextPage={goToNextPlaylistPage}
                         goToPreviousPage={goToPreviousPlaylistPage}

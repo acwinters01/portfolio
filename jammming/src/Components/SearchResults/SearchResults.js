@@ -1,7 +1,6 @@
-import React, { useState }from 'react';
+import React from 'react';
 import TrackList from '../Tracklist/Tracklist';
-import PagesSetUp from '../Playlist/PagesSetUp';
-import { getSearchResponse } from '../SearchBar/SearchBar'
+
 
 
 const SearchResults = ({ tracks, onAdd, onRemove, playlistTracks}) => {
@@ -15,11 +14,11 @@ const SearchResults = ({ tracks, onAdd, onRemove, playlistTracks}) => {
         <div className='displaySearchResults'>
             {/* Add pagination controls to Search Results */}
             <TrackList 
+                keyPrefix='search-'
                 tracks={tracks}
                 onAdd={onAdd}
                 onRemove={onRemove}
                 playlistTracks={playlistTracks}
-        
             />
         </div>
     )

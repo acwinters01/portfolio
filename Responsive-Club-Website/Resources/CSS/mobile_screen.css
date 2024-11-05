@@ -165,8 +165,14 @@
         align-items: center;
     }
 
+    .logo {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     .logo img {
         max-width: 40%;
+
     }
 
    .headliner #mobile {

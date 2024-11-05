@@ -1,6 +1,5 @@
     import React, { useState, useEffect, useCallback } from 'react';
     import TrackList from '../Tracklist/Tracklist'
-    import PagesSetUp from './PagesSetUp';
     import SearchBar from '../SearchBar/SearchBar';
     import SearchResults from '../SearchResults/SearchResults';
     import DuplicateTrackModal from '../Track/DuplicateTrackModal';
@@ -17,6 +16,7 @@
         const [searchResults, setSearchResults] = useState([]); // New state for search results
         const [trackCurrentPage, setTrackCurrentPage] = useState(0);
         const tracksPerTrackPage = 5; // Adjust as needed for display
+        const [trackDuplicationCounts, setTrackDuplicationCounts] = useState({});
 
 
         // Effect to update playlistName when selectedPlaylistObj changes
@@ -25,6 +25,14 @@
                 setPlaylistName(selectedPlaylistObj.playlistName);
                 props.setTracksEdited(selectedPlaylistObj.tracks);
             }
+
+            const duplicationCounts = {};
+            selectedPlaylistObj.tracks.forEach(track => {
+                const baseKey = track.id;
+                duplicationCounts[baseKey] = (duplicationCounts[baseKey] || 0) + 1;
+            });
+
+            setTrackDuplicationCounts(duplicationCounts);
         }, [selectedPlaylistObj, props.setTracksEdited]);
 
         // Saves a playlist that has been edited
@@ -34,40 +42,67 @@
                 props.onNameChange(playlistName, props.selectedPlaylist)
                 props.handleExitEditMode();
             }
-        }
+        };
 
         const handleConfirmAdd = (track) => {
-            props.setTracksEdited((prevTracks) => [...prevTracks, track]);
+            handleAddingDuplicateTracks(track);
             setIsDuplicateModalVisible(false);
             setDuplicateTrack(null);
-          }
+        }
         
-          const handleCancelAdd = () => {
+        const handleCancelAdd = () => {
             setIsDuplicateModalVisible(false);
             setDuplicateTrack(null); // Hide modal without adding
-          };
+        };
 
         // Enables user to click on Playlist title to edit the name
         const handleNameSave = () => {
             setIsEditingName(false);
-        } 
+        };
 
         // Gets search results from searchbar.js
         const handleSearchResults = useCallback((results) => {
             setSearchResults(results || []);
         }, []);
 
+        const handleAddingDuplicateTracks = useCallback((track) => {
+            const baseKey = track.id;
+
+            setTrackDuplicationCounts(prevCounts => {
+                const newCounts = {...prevCounts};
+                newCounts[baseKey] = (newCounts[baseKey] || 1) + 1;
+
+                const uniqueKey = `${baseKey}-${newCounts[baseKey]}`;
+                
+                const trackWithUniqueKey = {
+                    ...track,
+                    uniqueKey: uniqueKey
+                };
+
+                
+                setTimeout(() => {
+                    props.setTracksEdited(prevTracks => {
+                        if (prevTracks.some(t => t.uniqueKey === uniqueKey)) return prevTracks;
+                        return [trackWithUniqueKey, ...prevTracks];
+                    });
+                }, 0);
+                return newCounts;
+            });
+        }, [props.setTracksEdited]);
+
         const addTracksEditingPlaylist = useCallback(
             (track) => {
+
                 if (props.tracksEdited.some((savedTrack) => savedTrack.id === track.id)) {
                     setDuplicateTrack(track);
                     setIsDuplicateModalVisible(true);
                     return;
                 }
-                 props.setTracksEdited((prevTracks) => [...prevTracks, track]);
+
+                 props.setTracksEdited((prevTracks) => [{ ...track, uniqueKey: `${track.id}-1` }, ...prevTracks]);
             },
-            [props.tracksEdited]
-        )
+            [props.tracksEdited, props.setTracksEdited]
+        );
         
           // Slice the tracks based on pagination
         const startIndex = trackCurrentPage * tracksPerTrackPage;
@@ -98,13 +133,13 @@
                             </div>
                             {/* TrackList for the current playlist */}
                             <TrackList
-                                key={props.selectedPlaylist}
-                                tracks={currentTracks}
-                                onAdd={(track) => props.setTracksEdited((prev) => [...prev, track])}
-                                onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.id !== track.id))}
+                                key={props.selectedPlaylist + 1}
+                                tracks={props.tracksEdited}
+                                onAdd={addTracksEditingPlaylist}
+                                onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.uniqueKey !== track.uniqueKey))}
                                 playlistTracks={props.tracksEdited}
                             />
-               
+
                             <DuplicateTrackModal
                                 track={duplicateTrack}
                                 onConfirm={handleConfirmAdd}
@@ -125,7 +160,7 @@
                         <SearchResults
                             tracks={searchResults}
                             onAdd={addTracksEditingPlaylist}
-                            onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.id !== track.id))}
+                            onRemove={(track) => props.setTracksEdited((prev) => prev.filter((t) => t.uniqueKey !== track.uniqueKey))}
                             tracksEdited={props.tracksEdited}
                             selectedPlaylist={props.selectedPlaylist}
                         />

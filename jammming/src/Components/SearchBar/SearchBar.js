@@ -1,25 +1,35 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getUserProfile, makeSpotifyRequest } from '../Authorization/Requests';
 
 
-const SearchBar = ({ onSearchResults, tracksPerPage }) => {
+const SearchBar = ({ onSearchResults, tracksPerPage, setSearchLoading}) => {
 
     const [searchInput, setSearchInput] = useState('');
+    const [recentSearches, setRecentSearches] = useState([]);
+
+    useEffect(() => {
+        const savedSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+        setRecentSearches(savedSearches);
+    }, [setRecentSearches]);
 
     // Sets the users search value
-    const handleSearchInput = useCallback(
-        (event) => {
-            setSearchInput(event.target.value);
-        }, []
-    )
+    const handleSearchInput = (event) => {
+        const query = event.target.value;
+        setSearchInput(query);
+
+    };
+
+    const handleRecentSearchClick = (search) => {
+        setSearchInput(search);
+        getSearchResponse(search);
+    }
 
     // Fetches search response
-    const getSearchResponse = useCallback(async (offsetNum = 0, tracksPerPage = 1) => {
-        const off = offsetNum * tracksPerPage
-        console.log(off, offsetNum, tracksPerPage)
+    const getSearchResponse = useCallback(async (query = searchInput, offsetNum = 0, tracksPerPage = 1) => {
+        setSearchLoading(true);
         const userProfile = await getUserProfile();
         let queryParams = new URLSearchParams({
-            q: searchInput,
+            q: query,
             type: 'track',
             limit: 50,
             market: userProfile.country,
@@ -29,18 +39,24 @@ const SearchBar = ({ onSearchResults, tracksPerPage }) => {
         try {
             const searchResult = await makeSpotifyRequest(`search?${queryParams.toString()}`, 'GET')
             onSearchResults(searchResult.tracks.items)
-            
+            setSearchLoading(false);
+
+            // Save the recent search
+            const newRecentSearches = [query, ...recentSearches.filter(s => s !== query)].slice(0, 5);
+            setRecentSearches(newRecentSearches);
+            localStorage.setItem('recentSearches', JSON.stringify(newRecentSearches));
 
         } catch (error) {
             console.error('Error fetching search results:', error);
+            setSearchLoading(false);
         }
 
-    }, [searchInput, onSearchResults, tracksPerPage])
+    }, [searchInput, onSearchResults, recentSearches])
 
     // Function for button search to call
     const handleSearch = (event) => {
         event.preventDefault();
-        getSearchResponse();
+        getSearchResponse(searchInput);
     }
 
     return (
@@ -55,9 +71,19 @@ const SearchBar = ({ onSearchResults, tracksPerPage }) => {
                 />
                 <button type='submit'>Search</button>
             </form>
+
+            <div className='recentSearchesContainer'>
+                {recentSearches.length > 0 && (
+                    <div className='recentSearches'>
+                        <p>Recent Searches</p>
+                        {recentSearches.map((search, index) => (
+                            <p key={index} onClick={() => handleRecentSearchClick(search)}>{search}</p>
+                        ))}
+                    </div>
+                )}
+            </div>
        </div> 
-    )
-}
+    );
+};
 
 export default SearchBar;
-

@@ -150,14 +150,18 @@ const Dashboard = (props) => {
                     {userProfile ? (
                         <div className='userInfoContainer'>
                             <div className='userInfo'>
-                                <img src={userProfile.images[0]?.url} alt="Profile" />
-                                <h2>{userProfile.display_name}</h2>
-                                <p>Email: {userProfile.email}</p>
-                                <p>Country: {userProfile.country}</p>
+                                <div className='dashboardProfileImage'>
+                                    <img src={userProfile.images[0]?.url} alt="Profile" />
+                                </div>
+                                <div className='dashboardText'>
+                                    <h2>{userProfile.display_name}</h2>
+                                    <p>Email: {userProfile.email}</p>
+                                    <p>Country: {userProfile.country}</p>
+                                </div>
                             </div>
                             <div className='usersPlaylist-TitleContainer'>
                                 <h3>Playlists Listed Under {userProfile.display_name}:</h3>
-
+                            </div>
                                 {userPlaylistData && userPlaylistData.items && userPlaylistData.items.length > 0 ? (
                                     <div className='usersPlaylistsContainer'>
                                         {/* Paginate playlists */}
@@ -165,18 +169,20 @@ const Dashboard = (props) => {
                                         {userPlaylistData.items
                                             .slice(currentPage * playlistsPerPage, (currentPage + 1) * playlistsPerPage)
                                             .map((playlist, index) => (
-                                                <div key={index} className={`dashboardPlaylist-${index}`}>
+                                                <div key={index} className={`dashboardPlaylist`}>
                                                     
-                                                    {/* Add check for playlist.images */}
-                                                    {playlist.images && playlist.images.length > 0 ? (
-                                                        <img src={playlist.images[0]?.url || ''} alt="Playlist" />
-                                                    ) : (
-                                                        <div>No Image</div> // Placeholder if no image
-                                                    )}
+                                                    <div className='dashboardPlaylistImages'>
+                                                        {/* Add check for playlist.images */}
+                                                        {playlist.images && playlist.images.length > 0 ? (
+                                                            <img src={playlist.images[0]?.url || ''} alt="Playlist" />
+                                                        ) : (
+                                                            <div>No Image</div> // Placeholder if no image
+                                                        )}
+                                                    </div>
                                                     
-                                                    <div className='playlistText'>
+                                                    <div className='playlistText' id='dashboardText'>
                                                         <p>{playlist.name}</p>
-                                                        <button id={`${index}-toApp`} onClick={() => handlePlaylistSync(playlist)}>Sync</button>
+                                                        <button id={`toApp`} key={`${index}-toApp`} onClick={() => handlePlaylistSync(playlist)}>Sync Playlist to App</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -194,7 +200,6 @@ const Dashboard = (props) => {
                                     <p>No playlists available</p>
                                 )}
                             </div>
-                        </div>
                     ) : (
                         <div className='userProfileLoading'>
                             <p>Loading profile...</p>

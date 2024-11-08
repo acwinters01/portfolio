@@ -1,25 +1,251 @@
+html {
+    box-sizing: border-box;
+}
 body {
     background-color: #1E1B18;
     color: white;
 }
 
-.dashboardContainer {
-    display: none;
+/* Loading Screen */ 
+
+.modal-loading .modal-content {
+    padding-bottom: 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-loading {
+    position: fixed;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    margin: 0 auto;
+    z-index: 2000;
+}
+/* Authorization */ 
+
+.AppContainer.editing-active .authorizationContainer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 10.25%;
+    width: 100%;
+    height: 3rem;
+    z-index: 1006;
+}
+
+.AppContainer.editing-active .displayAuthorization {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.AppContainer.editing-active .displayAuthorization .loggedIn {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    height: 1.5rem;
+    background-color: rgba(30, 27, 24, 0.5);
+    padding: .75rem .5rem .5rem .5rem;
+    margin-right: 2rem;
 }
 
 .authorizationContainer {
-    /* display: none; */
+    margin: 0rem 1rem;
+}
+
+.displayAuthorization h2 {
+    text-align: center;
+    align-self: center;
+}
+
+.displayAuthorization .loggedIn {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 1rem;
+}
+
+.AppContainer.dashboard-open .displayAuthorization .loggedIn button {
+ transform: translateX(-330px);
+}
+
+
+/* Dashboard */
+
+.dashboard-open .main {
+    transform: translateX(-200px); /* Adjust width based on the dashboard width */
+}
+
+.dashboardContainer {
+    position: fixed;
+    overflow: scroll;
+    top: 0;
+    right: -335px; /* Start off-screen */
+    width: 300px;
+    height: 100%;
+    padding: 1rem;
+    background-color: #F3D9DC;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.dashboardContainer.open {
+    right: 0; /* Slide in */
+}
+  
+
+/* Toggle Button Styling */
+
+.AppContainer.dashboard-open .dashboardToggle {
+    right: 8.25rem;
+    top: 15rem;
+}
+
+.dashboardToggle {
+    position: absolute;
+    background-color: #F3D9DC;
+    box-shadow: -1px 0px .5rem #1E1B18;
+    border: none;
+    height: 6rem;
+    font-size: 2rem;
+    top: 20rem;
+    right: 0px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.displayDashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.dashboardProfileImage {
+    margin-bottom: .75rem;
+}
+
+.dashboardProfileImage img {
+    background-color: #1E1B18;
+    padding: .125rem;
+}
+
+.dashboardText {
+    background-color: #B4ADEA;
+    padding: .5rem;
+    line-height: 1.25rem;
+}
+
+.dashboardText h2 {
+    background-color: #F3D9DC;
+    text-align: center;
+    padding: .25rem;
+    border: .125rem solid #D8315B;
+    color: #D8315B;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: .5rem
+}
+
+.usersPlaylist-TitleContainer {
+    margin-top: 1.5rem;
+}
+
+.usersPlaylist-TitleContainer h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #D8315B;
+}
+
+.userPlaylistsContainer {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.dashboardPlaylist {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #B4ADEA;
+    padding: .5rem;
+    margin: .5rem .25rem;
+}
+
+.dashboardPlaylist .playlistText {
+    position: absolute;
+    background-color: #B4ADEA;
+    border-radius: .5rem;
+    padding: .5rem;
+    width: 5rem;
+    top: 12.5rem;
+    left: 3rem;
+}
+
+.dashboardPlaylistImages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dashboardPlaylistImages::after {
+    content: '';
+    position: absolute;
+    background-color: #B4ADEA;
+    opacity: 30%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#dashboardText {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 0px 10px #1E1B18;
+}
+
+#dashboardText p {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    text-wrap: wrap;
+    color: #1E1B18;
+    margin-bottom: .25rem;
+}
+
+#toApp {
+    background-color: #F3D9DC;
+    color: #D8315B;
+    border: none;
+    border-radius: .5rem;
+    width: 10rem;
+    padding: .25rem;
+    align-self: center;
 }
 
 
 /* Main Configurations */
+
 .mainAppTitle {
     display: flex;
     justify-content: center;
 }
 
 .mainAppTitle h1 {
+    margin-top: 1.5rem;
     font-size: 3rem;
+    z-index: 1010;
+}
+
+.mainAppTitle h1 span {
+    color: #D8315B;
+}
+
+.AppContainer.dashboard-open .mainAppTitle h1 {
+    transform: translateX(-200px)
 }
 
 .main {
@@ -29,35 +255,63 @@ body {
     width: 100%;
 }
 
+.AppContainer.editing-active .main {
+    margin-top: 3rem;
+}
+
 #title {
     font-size: 1.5rem;
     text-align: center;
     background-color: #F3D9DC;
     color: #D8315B;
-    padding: .5rem;
+    padding: .5rem 0;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: .5rem;
-
+    align-items: center;
+    margin: .5rem 0rem 1rem 0rem;
 }
+
+.pagination p { 
+    margin: 0rem .5rem;
+}
+
+.pagination button {
+    background-color: #D8315B;
+    border: none;
+    border-radius: .25rem;
+    color:#F3D9DC;
+    padding: .25rem .5rem;
+}
+
+
 /* App Playlist Container */
+
 .PlaylistsContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
     background-color: #B4ADEA;
-    padding: 1rem 2.5rem;
+    padding: 1rem .75rem;
     min-width: 50%;
-    margin-right: 2rem;
+    min-height: 11rem;
+    margin-right: 1rem;
+}
+
+.playlistTitle {
+    width: 100%;
 }
 
 .Playlist {
     display: flex;
     max-height: 12rem;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: #1E1B18;
     padding: 1rem;
@@ -152,23 +406,73 @@ input {
 /* Search Container */
 
 .searchBarContainer {
-    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
 }
 
 .displaySearchBar {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 1rem 0rem;
+    align-items: center;
+    margin: 1rem;
+}
+
+.searchWithRecentContainer {
+    position: relative;
+}
+
+/* Recent Searches with regards to edit menu */ 
+.recentSearchesContainer {
+    position: absolute;
+    top: 1.75rem;
+    left: 10.1rem;
+    display: none;
+    background-color: white;
+    color: #1E1B18;
+    border: 1px solid #D8315B;
+    width: 9.3rem;
+    z-index: 10;
+}
+
+/* Recent Searches with regards to main menu */ 
+.searchBarContainer .displaySearchBar .recentSearchesContainer {
+    top: 1.75rem;
+    left: 0rem;
+}
+
+.recentSearchesContainer.show {
+    display: block;
+}
+
+.singleSearch {
+    padding: .3rem;
+    border-bottom: 1px solid #D8315B;
+}
+
+.singleSearch:hover {
+    background-color: #F3D9DC;
+}
+
+.singleSearch:active {
+    font-weight: 600;
+    background-color: #D8315B;
+    color: #F3D9DC;
 }
 
 .search {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     background-color: #B4ADEA;
-    padding: 1rem 2.5rem;
+    padding: 1rem .75rem;
     max-width: 50%;
-    margin-left: 2rem;
+    min-height: 11rem;
+    margin-left: 1rem;
 
 }
 
@@ -176,24 +480,38 @@ input {
     padding: .25rem;
 }
 
+
+
 /* Editing Playlist */
 
-
-
+.editPlaylistContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(30, 27, 24, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1005;
+}
 .displayEditingPlaylist {
-    position: absolute;
+    position: fixed;
     overflow: scroll;
     top: 10%;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1rem 2.5rem;
     border: 2px solid #D8315B;
-    background-color: #1E1B18;
+    background-color: rgb(30, 27, 24);
     margin: 0rem 6rem;
     height: calc(100vh - 20%);
+    z-index: 500;
+    box-shadow: 0px 0px 3rem #1E1B18;
 }
 
 .displayEditingPlaylist h3 {
@@ -225,10 +543,9 @@ input {
 .editingSection {
     min-width: 35rem;
     max-width: 50%;
-    margin: 2rem;
-    margin-left: 0rem;
+    margin: 2rem 1rem 2rem 0rem;
     background-color: #B4ADEA;
-    min-height: 86rem;
+    height: calc(100vh + 30%);
 }
 
 .editingButtons {
@@ -250,30 +567,30 @@ input {
 .editingSearch {
     min-width: 35rem;
     max-width: 50%;
-    margin: 2rem;
-    margin-right: 0rem;
+    margin: 2rem 0rem 2rem 1rem;
     background-color: #B4ADEA;
-    min-height: 86rem;
+    height: calc(100vh + 30%);
 }
 
 
 .displayTrackList {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    padding-top: 0rem;
+    background-color: #1E1B18;
+    margin: 1rem;
 }
 
 .displaytrackContainer {
     display: flex;
-    align-items: center;
-    background-color: #1E1B18;
+    align-items: stretch;
+    
     
 }
 
 .trackBlock {
     display: flex;
     width: 100%;
+    margin: .75rem;
 }
 
 .trackImage {
@@ -282,7 +599,7 @@ input {
     justify-content: center;
     max-width: 30%;
     height: 100%;
-    padding: 1rem;
+    padding-right: 1rem;
 }
 
 .trackImage img {
@@ -297,14 +614,15 @@ input {
     flex-direction: column;
     flex: 2;
     max-width: 65%;
-    justify-content: center;
-    margin: 1rem;
-    padding: 1.5rem;
+    justify-content: space-around;
+    margin-right: .75rem;
+    padding: .75rem;
     background-color: #F3D9DC;
     overflow: hidden;
     color: black;
 }
 .trackText h4, .playlistText h4 {
+    font-weight: 600;
     font-size: 1.5rem;
     margin-bottom: .5rem;
 }
@@ -316,7 +634,6 @@ input {
 #trackButton {
     width: 1.75rem;
     align-self: center;
-    margin-right: 1rem;
 }
 
 

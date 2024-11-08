@@ -56,7 +56,7 @@ export default function PagesSetUp({ setCurrentPage, currentPage, totalPages, go
                         style={{ cursor: 'pointer' }}>
                             {`${currentPage + 1}`}
                     </span>
-                    {` of ${totalPages}`}
+                    {` of ${totalPages} `}
                 </p>
             )}
 

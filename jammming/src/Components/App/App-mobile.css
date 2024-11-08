@@ -1,0 +1,229 @@
+
+/* For Smaller Screens for Editing Playlist*/
+@media only screen and (max-width: 1415px) {
+    
+    .AppContainer.editing-active .displayAuthorization .loggedIn {
+        width: 80%;
+        margin-right: 2rem;
+    }
+    
+    .editingSection {
+        min-width: 50%;
+    }
+
+    .editingSearch {
+        min-width: 50%;
+    }
+
+    .trackText h4 {
+        font-size: 1.25rem;
+    }
+
+    .trackText p#artist {
+        font-size: 1rem;
+    }
+
+    .trackText p#album {
+        margin-top: .25rem;
+        font-size: .75rem;
+    }
+
+    .displayAuthorization  {
+        margin: 0rem;
+     }
+
+
+}
+
+/* For Smaller Screens where the text wraps longer than the image.*/
+
+/* For Smaller Screens where the columns don't 
+fit with tracks and playlists */
+@media only screen and (max-width: 1261px) {
+    .dashboard-open .main {
+        transform: translateX(0px); /* Adjust width based on the dashboard width */
+    }
+
+    .AppContainer.dashboard-open .dashboardToggle {
+        right: 20.75rem;
+        top: 11.20rem;
+    }
+
+    .AppContainer.dashboard-open .mainAppTitle h1 {
+        transform: translateX(0px)
+    }
+
+    .dashboardToggle {
+        position: fixed;
+    }
+
+    .AppContainer.editing-active .displayAuthorization .loggedIn {
+        height: 1.25rem;
+        padding: .75rem .5rem 1rem .5rem;
+
+    }  
+        
+
+    .PlaylistsContainer {
+        min-width: 30%;
+    }
+
+    .search {
+        min-width: 30%;
+    }
+
+    .trackText {
+        margin-right: 0rem;
+    }
+
+    .trackBlock {
+        position: relative;
+    }
+
+    .trackBlock #trackButton {
+        position: absolute;
+        bottom: -.5rem;
+        right: 0rem;
+        border-bottom-right-radius: 0px;
+    }
+
+
+    /* Editing Playlist UI */
+    .editingSection {
+        min-width: 25rem;
+     
+    }
+
+    .editingSearch {
+        min-width: 25rem;
+
+    }
+}
+
+
+/* For Smaller Screens where the columns don't 
+fit with tracks and playlists */
+@media only screen and (max-width: 1041px) {
+    .AppContainer {
+        position: relative;
+    }
+
+    .AppContainer.editing-active .displayAuthorization .loggedIn {
+        width: 91%;
+        height: 1.5rem;
+        padding: .75rem 1rem;
+    }
+
+    .displayEditingPlaylist {
+        width: 91vw;
+        border-left: none;
+        border-right: none;
+        margin: 0 auto;
+    }
+
+    .editingSection {
+        margin-right: 1rem;
+    }
+
+    .editingSearch {
+        margin-left: 1rem;
+    }
+
+}
+
+/* The smallest of screens */
+@media only screen and (max-width: 825px) {
+
+    /* Main Menu */
+
+    .main {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        margin: 0 auto;
+    }
+
+    .search, .PlaylistsContainer {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+
+    .search {
+        border-top: 5px solid #1E1B18;
+    }
+
+    .AppContainer.editing-active .search {
+        display: none;
+    }
+
+    #transferToSpotify {
+        height: auto;
+
+    }
+
+    /* Editing Playlist */
+    .AppContainer.editing-active .displayAuthorization .loggedIn {
+        background-color: #1E1B18;
+        width: 100%;
+        margin: 0; 
+    }
+
+    .AppContainer.editing-active .authorizationContainer {
+        margin: 0;
+    }
+
+    .AppContainer.editing-active .displayEditingPlaylist {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        height: auto;
+        width: 100%;
+        padding: 0;
+        margin: 0 auto;
+        overflow-y: auto;
+
+    }
+
+    .editingSection, .editingSearch {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 30rem;
+    }
+
+    .editingSection {
+        border-top: 10px solid #1E1B18;
+        margin-bottom: 30rem;
+    }
+
+    .AppContainer.editing-active .large-height {
+        margin-bottom: 80rem; /* Adjust as needed for taller element */
+    }
+
+    .editingSearch {
+        border-bottom: 1rem solid #1E1B18;
+        margin-top: 11rem;
+    }
+
+    .AppContainer.editing-active .editingMainContainer {
+        position: fixed;
+        top: 15.55%;
+        right: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #B4ADEA;
+        border-bottom: 2px solid #1E1B18;
+        box-shadow: 0px 3px 5px #1E1B18;
+        
+    }
+
+    .AppContainer.editing-active .searchWithRecentContainer {
+        position: relative;
+    } 
+
+    .AppContainer.editing-active .recentSearchesContainer {
+        position: absolute;
+        top: 1.75rem;
+        left: 0rem;
+        z-index: 1000;
+    }
+}

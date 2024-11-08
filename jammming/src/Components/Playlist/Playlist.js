@@ -5,8 +5,8 @@ import { makeSpotifyRequest } from '../Authorization/Requests';
 import PagesSetUp from './PagesSetUp';
 
 export default function Playlist({existingPlaylist, setExistingPlaylist, onNameChange, onEdit, onAdd, 
-                                onRemove, onSave, playlistTracks, playlistName, searchResults, 
-                                setTransferLoading, transferLoading}) {
+                                onRemove, onSave, playlistTracks, playlistName, searchResults, setSearchLoading,
+                                setTransferLoading, onEditOpen, onEditClose}) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [ currentPlaylistPage, setCurrentPlaylistPage ] = useState(0);
     const [tracksEdited, setTracksEdited] = useState([]);
@@ -27,12 +27,14 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     const handleEditTracks = (index) => {
         setSelectedPlaylist(index);
         setTracksEdited(existingPlaylist[index].tracks);
+        onEditOpen();
     };  
     
     // Reset editing mode on save or cancel
     const handleExitEditMode = () => {
         setSelectedPlaylist(null);
         setTracksEdited([]);
+        onEditClose();
     };
 
     // Add tracks to existing playlist
@@ -134,15 +136,16 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
             <div className='allPlaylists'>
                 {/*  Checks if playlist is an array and if there are any playlists to filter through and display */}
-                {Array.isArray(currentPlaylists) && currentPlaylists.length > 0 ? (
+                {currentPlaylists.length > 0 ? (
                     currentPlaylists.map((playlist, index) => {
                         const playlistKey = playlist.playlistId;
                         return (
                             <div className={`Playlist`} id={`playlist-${playlistKey}`} key={playlistKey}>
                                 <div className='playlistSectionOne'>
                                     <div className='playlistImage'>
+                                        {console.log("Tracks",playlist.tracks)}
                                         <img 
-                                            src={playlist.tracks[0].imageUri || '/music_note_baseImage.jpg'}
+                                            src={playlist.tracks[0].imageUri || playlist.tracks[0].image || '/music_note_baseImage.jpg'}
                                             alt="Track artwork"
                                         />
                                         <button id='transferToSpotify' data-testid={`${playlist.playlistId}-Transfer`} onClick={() => transferToSpotify(index + startIndex)}>Save On Spotify</button>
@@ -205,6 +208,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             setTracksEdited={setTracksEdited}
                             onEdit={onEdit}
                             handleExitEditMode={handleExitEditMode} 
+                            setSearchLoading={setSearchLoading}
                         />
                     </div>
                 )}

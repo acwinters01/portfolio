@@ -5,39 +5,28 @@ import Dashboard from '../Dashboard/Dashboard';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Loading from '../Authorization/Loading'
-import './App.css';
-import './reset.css';
 import DuplicateTrackModal from '../Track/DuplicateTrackModal';
+import './App.css';
+import './App-mobile.css';
+import './reset.css';
+
 
 
 
 
 
 function App() {
-  // const [searchResults, setSearchResults] = useState([
-
-  //   { name: 'Low', artist: 'SZA', album: 'SOS', uri: "spotify:track:7tYKF4w9nC0nq9CsPZTHyP", id: 1 },
-  //   { name: 'Spot a Fake', artist: 'Ava Max', album: 'Spot a Fake Single', uri: "spotify:track:1svpo8ORIHy4BdgicdyUjx", id: 2 },
-  //   { name: 'Espresso', artist: 'Sabrina Carpenter', album: 'Espresso Single', uri: "spotify:track:2qSkIjg1o9h3YT9RAgYN75", id: 3 },
-  //   { name: 'Forever', artist: 'Gryffin, Elley Duhë', album: 'Alive', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4 }, 
-  //   { name: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', album: 'Neva Play Single', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5 }
-  // ]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
-  const [isAppLoaded, setIsAppLoaded] = useState(false); // Track if main app is ready to load
-
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [existingPlaylist, setExistingPlaylist] = useState([
-
-    { playlistName: 'New Verbose', 
-      playlistId: 123456,
-      tracks: [{name: 'Forever', album: 'Alive', artist: 'Gryffin, Elley Duhë', uri: "spotify:track:14dLEccPdsIvZdaMfimZEt", id: 4, image: './music_note_baseImage.jpg', uniqueKey: `uniqueKey-4`},
-               {name: 'Neva Play (feat. RM of BTS)', album: 'Neva Play (feat. RM of BTS)', artist: 'Megan Thee Stallion', uri: "spotify:track:2ZqTbIID9vFPTXaGyzbb4q", id: 5, image: './music_note_baseImage.jpg', uniqueKey: `uniqueKey-5` }] }
-  ]);
+  const [existingPlaylist, setExistingPlaylist] = useState([]);
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
   const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false);
   const [ duplicateTrack, setDuplicateTrack ] = useState(null);
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // Loading Screens
   const [searchLoading, setSearchLoading] = useState(false);
@@ -48,6 +37,9 @@ function App() {
 
 
 
+  const toggleDashboard = () => setDashboardOpen(!dashboardOpen);
+  const handleEditOpen = () => setIsEditing(true);
+  const handleEditClose = () => setIsEditing(false);
 
   const handleConfirmAdd = (track) => {
     setNewPlaylistTracks((prevTracks) => [...prevTracks, track]);
@@ -174,11 +166,11 @@ function App() {
   }
 
   return (
-    <div className='AppContainer'>
+    <div className={`AppContainer ${dashboardOpen ? 'dashboard-open' : ''} ${isEditing ? 'editing-active' : ''}`}>
       <div className='mainAppTitle'>
-        <h1>Jammming</h1>
+        <h1>Ja<span>mmm</span>ing</h1>
       </div>
-
+      
       {!isAuthenticated ? (
         <div className='authorizationContainer'>
           <Authorization onLogin={handleLogin} onLogout={handleLogout}/>
@@ -191,8 +183,14 @@ function App() {
           <div className='authorizationContainer' id="logOut">
             <Authorization onLogin={handleLogin} onLogout={handleLogout}/>
           </div>
+          
           <div className='main'>
             <div className='appStart'>
+              {/* Dashboard Toggle Button */}
+              <button className="dashboardToggle" onClick={toggleDashboard}>
+                {dashboardOpen ? '>' : '<'}
+              </button>
+
               <div className='PlaylistsContainer'>
                 <div className='playlistTitle'>
                   <h2 id='title'>Playlists</h2>
@@ -210,11 +208,15 @@ function App() {
                   onRemove={removeTrack}
                   onAdd={addTrack}
                   searchResults={searchResults}
+                  setSearchLoading={setSearchLoading}
                   setTransferLoading={setTransferLoading}
                   transferLoading={transferLoading}
+                  onEditOpen={handleEditOpen}
+                  onEditClose={handleEditClose}
                 />
               </div>
             </div>
+
             <div className='search'>
               <div className='searchBarContainer'>
                 <h2 id='title'>Results</h2>
@@ -225,18 +227,21 @@ function App() {
               </div>
             </div>
           </div>
-          <div className='dashboardContainer'>
-            <div className='dashboardTitle'>
-              <h2>Dashboard</h2>
-            </div>
-            <Dashboard setExistingPlaylist={setExistingPlaylist} existingPlaylist={existingPlaylist} />
+
+          {/* Dashboard Component */}
+          <div className={`dashboardContainer ${dashboardOpen ? 'open' : ''}`}>
+            <Dashboard
+              setExistingPlaylist={setExistingPlaylist}
+              existingPlaylist={existingPlaylist}
+              isOpen={dashboardOpen}
+            />
           </div>
+
           <DuplicateTrackModal track={duplicateTrack} onConfirm={handleConfirmAdd} onCancel={handleCancelAdd} />
         </>
       )}
     </div>
   );
 }
-
 
 export default App;

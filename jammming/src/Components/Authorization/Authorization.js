@@ -214,7 +214,7 @@ export default function Authorization({ onLogin, onLogout }) {
     
                 <div className='loggedIn'>
                     <h2>You are logged in!</h2>
-                    <button onClick={initiateAuthorization}>Refresh Authorization</button>
+                    {/* <button onClick={initiateAuthorization}>Refresh Authorization</button> */}
                     <button onClick={onLogout}>Log Out</button>
                 </div>
             )}

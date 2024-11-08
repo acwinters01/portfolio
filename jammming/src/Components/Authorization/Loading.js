@@ -6,9 +6,10 @@ const Loading = ({ isLoading }) => {
     return (
 
         <div className='modal-loading'>
-            
-            <div className='modal-content'>
-                <p>Loading...</p>
+            <div className='modal-overlay'>
+                <div className='modal-content'>
+                    <p>Loading...</p>
+                </div>
             </div>
         </div>     
     );

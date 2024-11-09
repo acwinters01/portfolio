@@ -2,7 +2,7 @@
   "name": "jammming",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://acwinters01.github.io/porfolio/jammming/deploy",
+  "homepage": "https://acwinters01.github.io/portfolio/jammming/deploy",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/user-event": "^13.5.0",

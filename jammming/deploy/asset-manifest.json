@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/porfolio/jammming/static/css/main.458c993f.css",
-    "main.js": "/porfolio/jammming/static/js/main.97151bf6.js",
-    "static/js/453.a69270cd.chunk.js": "/porfolio/jammming/static/js/453.a69270cd.chunk.js",
-    "static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.jpg": "/porfolio/jammming/static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.426b23ab92800131eed6.jpg",
-    "index.html": "/porfolio/jammming/index.html",
-    "main.458c993f.css.map": "/porfolio/jammming/static/css/main.458c993f.css.map",
-    "main.97151bf6.js.map": "/porfolio/jammming/static/js/main.97151bf6.js.map",
-    "453.a69270cd.chunk.js.map": "/porfolio/jammming/static/js/453.a69270cd.chunk.js.map"
+    "main.css": "/portfolio/jammming/deploy/static/css/main.b989af06.css",
+    "main.js": "/portfolio/jammming/deploy/static/js/main.f569ee8a.js",
+    "static/js/453.a69270cd.chunk.js": "/portfolio/jammming/deploy/static/js/453.a69270cd.chunk.js",
+    "static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.jpg": "/portfolio/jammming/deploy/static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.426b23ab92800131eed6.jpg",
+    "index.html": "/portfolio/jammming/deploy/index.html",
+    "main.b989af06.css.map": "/portfolio/jammming/deploy/static/css/main.b989af06.css.map",
+    "main.f569ee8a.js.map": "/portfolio/jammming/deploy/static/js/main.f569ee8a.js.map",
+    "453.a69270cd.chunk.js.map": "/portfolio/jammming/deploy/static/js/453.a69270cd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.458c993f.css",
-    "static/js/main.97151bf6.js"
+    "static/css/main.b989af06.css",
+    "static/js/main.f569ee8a.js"
   ]
 }

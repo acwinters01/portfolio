@@ -78,7 +78,7 @@ const SearchBar = ({ onSearchResults, tracksPerPage, setSearchLoading}) => {
     }
 
     return (
-       <div className='displaySearchBar' >
+       <div className='displaySearchBar'>
             <div className='searchWithRecentContainer'>
                 <form className='searchForm' onSubmit={handleSearch}>
                     <input
@@ -96,7 +96,7 @@ const SearchBar = ({ onSearchResults, tracksPerPage, setSearchLoading}) => {
                     {recentSearches.length > 0 && (
                         <div className='recentSearches'>
                             {recentSearches.map((search, index) => (
-                                <div className='singleSearch'>
+                                <div className='singleSearch' key={`search-${index}`}>
                                     <p key={index} onClick={() => handleRecentSearchClick(search)}>{search}</p>
                                 </div>
                             ))}

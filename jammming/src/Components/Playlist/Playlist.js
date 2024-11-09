@@ -6,14 +6,22 @@ import PagesSetUp from './PagesSetUp';
 
 export default function Playlist({existingPlaylist, setExistingPlaylist, onNameChange, onEdit, onAdd, 
                                 onRemove, onSave, playlistTracks, playlistName, searchResults, setSearchLoading,
-                                setTransferLoading, onEditOpen, onEditClose}) {
+                                setTransferLoading, onEditOpen, onEditClose, dashboardOpen, setShowModal, showModal}) {
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-    const [ currentPlaylistPage, setCurrentPlaylistPage ] = useState(0);
+    const [currentPlaylistPage, setCurrentPlaylistPage] = useState(0);
     const [tracksEdited, setTracksEdited] = useState([]);
     const playlistPerPage = 5;
     const startIndex = currentPlaylistPage * playlistPerPage;
-    const currentPlaylists = existingPlaylist.slice(startIndex, startIndex + playlistPerPage);
-    
+    const currentPlaylists = Array.isArray(existingPlaylist) && 
+                            existingPlaylist.length < playlistPerPage
+                            ? existingPlaylist
+                            : existingPlaylist.slice(startIndex, startIndex + playlistPerPage);
+
+    console.log( existingPlaylist.length < playlistPerPage)
+    console.log('PlaylistPerPage', playlistPerPage)
+    console.log('ExistingPlaylist',existingPlaylist.length);
+    console.log('CurrentPlaylists', currentPlaylists)
+
     
     // Playlist Name Change
     const handleNewPlaylistNameChange = useCallback(
@@ -25,9 +33,14 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
     // Edit Tracks in selected playlist
     const handleEditTracks = (index) => {
-        setSelectedPlaylist(index);
-        setTracksEdited(existingPlaylist[index].tracks);
-        onEditOpen();
+        if (dashboardOpen) {
+           
+            setShowModal(true);
+        } else {
+            setSelectedPlaylist(index);
+            setTracksEdited(existingPlaylist[index].tracks);
+            onEditOpen();
+        }
     };  
     
     // Reset editing mode on save or cancel
@@ -40,11 +53,10 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
     // Add tracks to existing playlist
     const handlePlaylistTracks = async (index) => {
         let tracksToAdd = [];
-
         existingPlaylist[index].tracks.forEach((track) => {
-
             if (track.uri) {
                 tracksToAdd.push(track.uri);
+
             } else {
                 console.warn(`Track URI missing for ${track.name}`);
             }
@@ -54,16 +66,15 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
 
     // Remove Playlist from the App
     const handlePlaylistRemove = (playlist_id) => {
-
         try {
             setExistingPlaylist((prev) => {
-                prev.filter((playlistToRemove) => playlistToRemove.playlistId !== playlist_id)
+                 return prev.filter((playlistToRemove) => playlistToRemove.playlistId !== playlist_id)
             })
+
         } catch (error) {
             console.log(error)
         }
     };
-
 
     // Calculate the total pages and control pagination for each playlist
     const goToNextPlaylistPage = () => {
@@ -81,6 +92,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
      // Transfers Custom playlist made in app to Spotify
      const transferToSpotify = async (index) => {
         setTransferLoading(true);
+
         try {
             const tracksToAdd = await handlePlaylistTracks(index);
             const createPlaylistPayload = {
@@ -98,16 +110,17 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                 return updatedPlaylists;
             });
 
-
             try {
                 const addTracksPayload = { uris: tracksToAdd };
                 await makeSpotifyRequest(`playlists/${playlistId}/tracks`, 'POST', addTracksPayload);
+
             } catch (error) {
                 console.error('Error adding tracks to the playlist:', error);
             }
 
         } catch (error) {
             console.error('Error transferring playlist to Spotify:', error);
+
         } finally {
             setTransferLoading(false);
         }
@@ -123,7 +136,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                     placeholder="New Playlist"
                 />
             
-                <button onClick={onSave}>Save</button>
+                <button id='saveButton' onClick={onSave}>Save</button>
             </div>
 
             <TrackList
@@ -143,16 +156,18 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             <div className={`Playlist`} id={`playlist-${playlistKey}`} key={playlistKey}>
                                 <div className='playlistSectionOne'>
                                     <div className='playlistImage'>
-                                        {console.log("Tracks",playlist.tracks)}
                                         <img 
                                             src={playlist.tracks[0].imageUri || playlist.tracks[0].image || '/music_note_baseImage.jpg'}
                                             alt="Track artwork"
                                         />
-                                        <button id='transferToSpotify' data-testid={`${playlist.playlistId}-Transfer`} onClick={() => transferToSpotify(index + startIndex)}>Save On Spotify</button>
-
+                                        <button 
+                                            id='transferToSpotify' 
+                                            data-testid={`${playlist.playlistId}-Transfer`} 
+                                            onClick={() => transferToSpotify(index + startIndex)}>
+                                                Save On Spotify
+                                        </button>
                                     </div>
                                     <div className='playlistText'>
-                                        
                                         <div className='playlistTitleInfo'>
                                             <h4>{playlist.playlistName}</h4>
                                             <p>Tracks: {playlist.tracks.length}</p>
@@ -170,13 +185,9 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                                                     Edit
                                             </button>
                                         </div>
-                                    
-
                                     </div>
                                 </div>
-
                             </div>
-                        
                         )
                     })
                 ) : (
@@ -194,6 +205,7 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                         goToPreviousPage={goToPreviousPlaylistPage}
                     />
                 </div>
+
                 {/* Editing Selected Playlist */}
                 {selectedPlaylist !== null && (
                     <div className='editPlaylistContainer'>

@@ -13,21 +13,29 @@
         const [ duplicateTrack, setDuplicateTrack ] = useState(null);
         const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false);
         const [playlistName, setPlaylistName] = useState(selectedPlaylistObj ? selectedPlaylistObj.playlistName : '');
-        const [searchResults, setSearchResults] = useState([]); // New state for search results
+        const [searchResults, setSearchResults] = useState([]); 
         const [trackCurrentPage, setTrackCurrentPage] = useState(0);
         const tracksPerTrackPage = 5; // Adjust as needed for display
         const [trackDuplicationCounts, setTrackDuplicationCounts] = useState({});
         const editingSearchRef = useRef(null);
         const editingSectionRef = useRef(null);
+        const mainRef = useRef(null);
 
 
         const adjustMargin = useCallback(() => {
-            if (editingSearchRef.current && editingSectionRef.current) {
-                const height = editingSearchRef.current.offsetHeight;
-                console.log("Height of .editingSearch:", height); // Debugging
-    
-                if (height > 200) {
-                    editingSectionRef.current.classList.add('large-height');
+            if(mainRef.current) {
+                const mainWidth = mainRef.current.offsetWidth;
+                if(mainWidth < 932) {
+                    if (editingSearchRef.current && editingSectionRef.current) {
+                        const height = editingSearchRef.current.offsetHeight;
+                        console.log("Height of .editingSearch:", height); // Debugging
+            
+                        if (height > 200) {
+                            editingSectionRef.current.classList.add('large-height');
+                        } else {
+                            editingSectionRef.current.classList.remove('large-height');
+                        }
+                    }
                 } else {
                     editingSectionRef.current.classList.remove('large-height');
                 }
@@ -146,7 +154,7 @@
 
 
         return (
-            <div className='displayEditingPlaylist'>
+            <div className='displayEditingPlaylist' ref={mainRef}>
                 {/* Creates a Div for Editing Playlists */}
                 <div className='editingSection' ref={editingSectionRef}>
                     {props.selectedPlaylist !== null && (
@@ -165,7 +173,6 @@
                                     <h3 onClick={() => setIsEditingName(true)}>{`Editing: ${playlistName}`}</h3>
                                 )}
                             
-
                                 <div className='editingButtons'>
                                     <button onClick={handleSavingEditedPlaylist}>Save</button>
                                     <button onClick={props.handleExitEditMode}>Cancel</button>
@@ -185,7 +192,6 @@
                                 onConfirm={handleConfirmAdd}
                                 onCancel={handleCancelAdd}
                             />
-
                         </div>
                     )}
                 </div>
@@ -205,7 +211,6 @@
                             selectedPlaylist={props.selectedPlaylist}
                         />
                     </div>
-                    
                 </div>
             </div>
         );

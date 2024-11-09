@@ -6,13 +6,10 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Loading from '../Authorization/Loading'
 import DuplicateTrackModal from '../Track/DuplicateTrackModal';
+import PlaylistModal from '../Playlist/PlaylistModal'
 import './App.css';
 import './App-mobile.css';
 import './reset.css';
-
-
-
-
 
 
 function App() {
@@ -27,6 +24,7 @@ function App() {
   const [ duplicateTrack, setDuplicateTrack ] = useState(null);
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   // Loading Screens
   const [searchLoading, setSearchLoading] = useState(false);
@@ -35,12 +33,22 @@ function App() {
   const [transferLoading, setTransferLoading] = useState(false);
   const isAnyLoading = () => searchLoading || saveLoading || syncLoading || transferLoading;
 
-
-
-  const toggleDashboard = () => setDashboardOpen(!dashboardOpen);
-  const handleEditOpen = () => setIsEditing(true);
+  // Toggles
+  const toggleDashboard = () => {
+    if (isEditing) return;
+    setDashboardOpen(!dashboardOpen);
+  }
+  const handleEditOpen = () => {
+    if (dashboardOpen) {
+      setShowModal(true); // Show modal if dashboard is open
+    } else {
+      setIsEditing(true);
+    }
+  }
   const handleEditClose = () => setIsEditing(false);
+  const closeModal = () => setShowModal(false);
 
+  // Functions
   const handleConfirmAdd = (track) => {
     setNewPlaylistTracks((prevTracks) => [...prevTracks, track]);
     setIsDuplicateModalVisible(false);
@@ -186,10 +194,6 @@ function App() {
           
           <div className='main'>
             <div className='appStart'>
-              {/* Dashboard Toggle Button */}
-              <button className="dashboardToggle" onClick={toggleDashboard}>
-                {dashboardOpen ? '>' : '<'}
-              </button>
 
               <div className='PlaylistsContainer'>
                 <div className='playlistTitle'>
@@ -213,11 +217,12 @@ function App() {
                   transferLoading={transferLoading}
                   onEditOpen={handleEditOpen}
                   onEditClose={handleEditClose}
+                  setShowModal={setShowModal}
+                  showModal={showModal}
+                  dashboardOpen={dashboardOpen}
                 />
               </div>
-            </div>
-
-            <div className='search'>
+              <div className='search'>
               <div className='searchBarContainer'>
                 <h2 id='title'>Results</h2>
                 <SearchBar onSearchResults={handleSearchResults} setSearchLoading={setSearchLoading} />
@@ -226,8 +231,14 @@ function App() {
                 <SearchResults tracks={searchResults} onAdd={addTrack} onRemove={removeTrack} playlistTracks={newPlaylistTracks} />
               </div>
             </div>
+            </div>
+
           </div>
 
+          {/* Dashboard Toggle Button */}
+          <button className="dashboardToggle" onClick={toggleDashboard} disabled={isEditing}>
+            {dashboardOpen ? '>' : '<'}
+          </button>
           {/* Dashboard Component */}
           <div className={`dashboardContainer ${dashboardOpen ? 'open' : ''}`}>
             <Dashboard
@@ -237,6 +248,10 @@ function App() {
             />
           </div>
 
+          {/* Modal */}
+          {showModal && (
+            <PlaylistModal message="Close the dashboard to edit a playlist." onClose={closeModal} />
+          )}
           <DuplicateTrackModal track={duplicateTrack} onConfirm={handleConfirmAdd} onCancel={handleCancelAdd} />
         </>
       )}

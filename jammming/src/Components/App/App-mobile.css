@@ -6,13 +6,17 @@
         width: 80%;
         margin-right: 2rem;
     }
+
+    .displayAuthorization  {
+        margin: 0rem;
+    }
     
     .editingSection {
-        min-width: 50%;
+        min-width: 40%;
     }
 
     .editingSearch {
-        min-width: 50%;
+        min-width: 40%;
     }
 
     .trackText h4 {
@@ -27,32 +31,39 @@
         margin-top: .25rem;
         font-size: .75rem;
     }
-
-    .displayAuthorization  {
-        margin: 0rem;
-     }
-
-
 }
-
-/* For Smaller Screens where the text wraps longer than the image.*/
 
 /* For Smaller Screens where the columns don't 
 fit with tracks and playlists */
 @media only screen and (max-width: 1261px) {
     .dashboard-open .main {
-        transform: translateX(0px); /* Adjust width based on the dashboard width */
+        transform: translateX(-90px); /* Adjust width based on the dashboard width */
     }
 
-    .AppContainer.dashboard-open .dashboardToggle {
-        right: 20.75rem;
-        top: 11.20rem;
+   /* Dashboard Open Settings */
+
+   .dashboard-open .appStart {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        margin: 0 auto;
+        width: 90%
+
+    }
+    .dashboard-open .PlaylistsContainer {
+        max-width: 50%;
+        margin: 0 1rem;
+        transform: translateX(100px);
+        background-color: #B4ADEA;
     }
 
-    .AppContainer.dashboard-open .mainAppTitle h1 {
-        transform: translateX(0px)
+    .dashboard-open .search {
+        border-top: 5px solid #1E1B18;
+        max-width: 50%;
+        transform: translateX(100px);
     }
 
+    /*-----------*/
     .dashboardToggle {
         position: fixed;
     }
@@ -60,16 +71,16 @@ fit with tracks and playlists */
     .AppContainer.editing-active .displayAuthorization .loggedIn {
         height: 1.25rem;
         padding: .75rem .5rem 1rem .5rem;
-
     }  
         
-
     .PlaylistsContainer {
         min-width: 30%;
+        margin-left: 1.5rem;
     }
 
     .search {
         min-width: 30%;
+        margin-right: 1.5rem;
     }
 
     .trackText {
@@ -90,16 +101,13 @@ fit with tracks and playlists */
 
     /* Editing Playlist UI */
     .editingSection {
-        min-width: 25rem;
-     
+        min-width: 50%;
     }
 
     .editingSearch {
-        min-width: 25rem;
-
+        min-width: 50%;
     }
 }
-
 
 /* For Smaller Screens where the columns don't 
 fit with tracks and playlists */
@@ -114,6 +122,31 @@ fit with tracks and playlists */
         padding: .75rem 1rem;
     }
 
+     /* Dashboard Open Settings */
+
+     .dashboard-open .appStart {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        margin: 0 auto;
+        width: 70%;
+
+     }
+      .dashboard-open .PlaylistsContainer,  .dashboard-open .search {
+        max-width: 100%;
+        margin: 0 5rem;
+        transform: translateX(-100px);
+
+    }
+
+    .dashboard-open .search {
+        border-top: 5px solid #1E1B18;
+        /* max-width: 100%;
+        margin: 0 auto;
+        transform: translateX(-100px); */
+       
+    }
+
     .displayEditingPlaylist {
         width: 91vw;
         border-left: none;
@@ -123,33 +156,42 @@ fit with tracks and playlists */
 
     .editingSection {
         margin-right: 1rem;
+        height: calc(100vh + 20%);
     }
 
     .editingSearch {
         margin-left: 1rem;
+        height: calc(100vh + 20%);
     }
-
 }
 
 /* The smallest of screens */
-@media only screen and (max-width: 825px) {
+@media only screen and (max-width: 931px) {
 
     /* Main Menu */
-
-    .main {
+    .appStart {
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: stretch;
         margin: 0 auto;
+        width: 100%;
+        transform: translateX(100px);
     }
 
     .search, .PlaylistsContainer {
-        max-width: 100%;
-        margin: 0 1rem;
+        max-width: 70%;
+        margin: 0;
+  
+    }
+
+    .PlaylistsContainer {
+        background-color: #B4ADEA;
     }
 
     .search {
         border-top: 5px solid #1E1B18;
+        align-self: stretch;
     }
 
     .AppContainer.editing-active .search {
@@ -158,8 +200,22 @@ fit with tracks and playlists */
 
     #transferToSpotify {
         height: auto;
-
     }
+
+    .playlistNameInput {
+        justify-content: center;
+    }
+
+    /*  Dashboard Open */
+
+    .dashboard-open .PlaylistsContainer .playlistButtons {
+        margin-bottom: .25rem;
+    }
+
+    .AppContainer.dashboard-open .mainAppTitle h1 {
+        transform: translateX(-155px);
+    }
+
 
     /* Editing Playlist */
     .AppContainer.editing-active .displayAuthorization .loggedIn {
@@ -181,22 +237,23 @@ fit with tracks and playlists */
         padding: 0;
         margin: 0 auto;
         overflow-y: auto;
-
     }
 
     .editingSection, .editingSearch {
         margin: 0 auto;
         width: 100%;
-        max-width: 30rem;
+        max-width: 32rem;
+        height: calc(100vh + 25%);
     }
 
     .editingSection {
         border-top: 10px solid #1E1B18;
         margin-bottom: 30rem;
+        padding-top: 1rem;
     }
 
     .AppContainer.editing-active .large-height {
-        margin-bottom: 80rem; /* Adjust as needed for taller element */
+        margin-bottom: 86rem; /* Adjust as needed for taller element */
     }
 
     .editingSearch {
@@ -213,7 +270,6 @@ fit with tracks and playlists */
         background-color: #B4ADEA;
         border-bottom: 2px solid #1E1B18;
         box-shadow: 0px 3px 5px #1E1B18;
-        
     }
 
     .AppContainer.editing-active .searchWithRecentContainer {
@@ -226,4 +282,18 @@ fit with tracks and playlists */
         left: 0rem;
         z-index: 1000;
     }
+}
+
+/* The smallest of screens */
+@media only screen and (max-width: 581px) {
+    /* Main Menu */
+    .appStart {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        width: 100%;
+        transform: translateX(75px);
+    }
+
 }

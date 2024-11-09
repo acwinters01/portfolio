@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/portfolio/jammming/deploy/static/css/main.b989af06.css",
-    "main.js": "/portfolio/jammming/deploy/static/js/main.3df46f91.js",
+    "main.js": "/portfolio/jammming/deploy/static/js/main.5993687f.js",
     "static/js/453.a69270cd.chunk.js": "/portfolio/jammming/deploy/static/js/453.a69270cd.chunk.js",
     "static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.jpg": "/portfolio/jammming/deploy/static/media/andrew-kliatskyi-RJ7tsexUyJY-unsplash.426b23ab92800131eed6.jpg",
     "index.html": "/portfolio/jammming/deploy/index.html",
     "main.b989af06.css.map": "/portfolio/jammming/deploy/static/css/main.b989af06.css.map",
-    "main.3df46f91.js.map": "/portfolio/jammming/deploy/static/js/main.3df46f91.js.map",
+    "main.5993687f.js.map": "/portfolio/jammming/deploy/static/js/main.5993687f.js.map",
     "453.a69270cd.chunk.js.map": "/portfolio/jammming/deploy/static/js/453.a69270cd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b989af06.css",
-    "static/js/main.3df46f91.js"
+    "static/js/main.5993687f.js"
   ]
 }

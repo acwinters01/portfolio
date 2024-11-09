@@ -17,12 +17,6 @@ export default function Playlist({existingPlaylist, setExistingPlaylist, onNameC
                             ? existingPlaylist
                             : existingPlaylist.slice(startIndex, startIndex + playlistPerPage);
 
-    console.log( existingPlaylist.length < playlistPerPage)
-    console.log('PlaylistPerPage', playlistPerPage)
-    console.log('ExistingPlaylist',existingPlaylist.length);
-    console.log('CurrentPlaylists', currentPlaylists)
-
-    
     // Playlist Name Change
     const handleNewPlaylistNameChange = useCallback(
         (event) => {

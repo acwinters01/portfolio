@@ -15,18 +15,20 @@ import './reset.css';
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
-  const [isAppLoaded, setIsAppLoaded] = useState(false);
+
   const [searchResults, setSearchResults] = useState([]);
   const [existingPlaylist, setExistingPlaylist] = useState([]);
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState('');
   const [isDuplicateModalVisible, setIsDuplicateModalVisible] = useState(false);
   const [ duplicateTrack, setDuplicateTrack ] = useState(null);
+
   const [dashboardOpen, setDashboardOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   // Loading Screens
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
   const [syncLoading, setSyncLoading] = useState(false);

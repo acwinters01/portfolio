@@ -3,8 +3,8 @@ import Loading from './Loading';
 
 
 // Request User Authorization
-const clientId = "6bc7dfe2ca024756bf79ff934bf15a0d";
-const redirectUri = 'http://localhost:3000'
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private';
 
 // Generate random string for code verifier
@@ -93,6 +93,7 @@ export async function getToken (code) {
             localStorage.setItem('refresh_token', data.refresh_token);
             localStorage.setItem('expires_in', Date.now() + data.expires_in * 1000);
             return data.access_token;
+
         } else {
             console.error('Failed to retrieve access token:', data);
         }
@@ -150,7 +151,7 @@ export function isTokenExpired() {
 };
 
 // Authorization Component
-export default function Authorization({ onLogin, onLogout }) {
+function Authorization({ onLogin, onLogout }) {
     const [accessToken, setAccessToken] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -160,17 +161,22 @@ export default function Authorization({ onLogin, onLogout }) {
         const existingToken = localStorage.getItem('access_token');
         const tokenExpired = isTokenExpired();
 
+        console.log("Existing token on mount:", existingToken);
     
         const handleToken = async (token) => {
             setAccessToken(token);
             setLoading(false);
             onLogin();
+            console.log("onLogin was called with token:", token);
+
+
             // Clear the URL from the code param
             window.history.replaceState({}, document.title, '/');
         };
 
         //Check if there's already an access token.
         if (code && !existingToken) {
+            console.log("No access code")
             getToken(code).then((token) => {
                 if (token) {
                     handleToken(token)
@@ -181,12 +187,17 @@ export default function Authorization({ onLogin, onLogout }) {
     
         // Use existing Token if it isn't expired
         } else if (existingToken && !tokenExpired) {
+            console.log("Using Current Access code")
             setAccessToken(existingToken);
             setLoading(false);
             onLogin();
 
+            console.log("Using existing token from localStorage:", existingToken);
+
+
         // Refresh token if it's expired
         } else if (existingToken && tokenExpired) {
+            console.log("Refresh token")
             refreshToken().then((newToken) => {
                 if (newToken) {
                     handleToken(newToken);
@@ -199,7 +210,7 @@ export default function Authorization({ onLogin, onLogout }) {
             setLoading(false)
         }
         
-    }, [onLogin]);
+    }, [onLogin, accessToken, setAccessToken]);
 
     if(loading) return <Loading />
 
@@ -223,3 +234,4 @@ export default function Authorization({ onLogin, onLogout }) {
 };
 
 
+export default Authorization;

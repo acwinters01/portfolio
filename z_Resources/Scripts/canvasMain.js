@@ -6,7 +6,7 @@ var canvas = document.getElementById('canvas'),
     hue = 217,
     stars = [],
     count = 0,
-    maxStars = 300, // Reduced number of stars
+    maxStars = 300, // Max number of stars in animation
     h,
     w,
     fps = 30, // Frame rate limit
@@ -51,28 +51,30 @@ function Orbit(positionX, positionY) {
 
 // Creating star objects
 var Star = function () {
-    this.orbitRadius = randomNum(Orbit(w, h)); // distance from center
-    this.radius = randomNum(60, this.orbitRadius) / 12; // size
-    this.orbitX = w / 2; // stars center point X
-    this.orbitY = h / 2; // stars center point Y
+    this.orbitRadius = randomNum(Orbit(w, h)); // distance from center aka radius
+    this.radius = randomNum(60, this.orbitRadius) / 12; // size of star
+    this.orbitX = w / 2; // stars center for point X
+    this.orbitY = h / 2; // stars center for point Y
     this.time = randomNum(0, maxStars);  // controls the star in its orbit
-    this.speed = randomNum(this.orbitRadius) / 500000; // speed of star
+    this.speed = randomNum(this.orbitRadius) / 500000; // speed of star orbit
     this.alpha = randomNum(2, 10) / 10; // Luminance of star
-    this.hue = randomNum(160, 345); // Random hue for the star
+    this.hue = randomNum(160, 345); // Random hue for the star (chose purple to cyan)
 
     count++;
-    stars[count] = this; // adds star to the array
+    stars[count] = this; // adds star object to stars array
 }
 
 // Stars will not show up until we draw them on the canvas
 Star.prototype.draw = function () {
     var x = Math.sin(this.time) * this.orbitRadius + this.orbitX,
         y = Math.cos(this.time) * this.orbitRadius + this.orbitY,
-        twinkle = randomNum(10);
+        twinkle = randomNum(10); // Randomize the star lumen
 
+    // If the star too bright reduce the opacity
     if (twinkle === 1 && this.alpha > 0) {
         this.alpha -= 0.05;
 
+    // If the star too faint raise the opacity
     } else if (twinkle === 2 && this.alpha < 1) {
         this.alpha += 0.05;
     }
@@ -98,7 +100,7 @@ Star.prototype.draw = function () {
     this.time += this.speed;
 }
 
-// Creating Stars using a loop
+// Creating Stars Objects using a loop
 const starCreation = () => {
     stars = [];
     count = 0;
@@ -126,6 +128,7 @@ const wrapText = (context, text, x, y, maxWidth, lineHeight) => {
     context.fillText(line, x, y);
 }
 
+// Animating the Text and Stars
 const animation = () => {
     requestAnimationFrame(animation);
 
@@ -145,7 +148,6 @@ const animation = () => {
         let adjustedLineHeight = baseLineHeight;
 
         // Adding Text on top of Canvas
-       
         ctx.font = 'normal 90px "Alex Brush"';
         ctx.fillStyle = 'white';
         ctx.textAlign = "center";
@@ -165,7 +167,7 @@ const animation = () => {
         } else {
             secondTextY = firstTextY + adjustedLineHeight
         }
-        wrapText(ctx, 'Front-End Developer', w / 2, secondTextY, maxTextWidth, adjustedLineHeight);
+        wrapText(ctx, 'Front-End Developer / Graphic Designer', w / 2, secondTextY, maxTextWidth, adjustedLineHeight);
         
         ctx.globalCompositeOperation = 'lighter';
         for (var i = 1, x = stars.length; i < x; i++) {
@@ -178,13 +180,13 @@ const animation = () => {
 starCreation();
 animation();
 
-// Make Canvas Responsive
+// Making Canvas Responsive
 window.addEventListener('resize', () => {
     setCanvasSize();
     starCreation();
 });
 
-// Pause animation when not visible
+// For optimization, pause animation when not visible
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         cancelAnimationFrame(animation);

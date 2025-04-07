@@ -2,6 +2,8 @@
 
 html {
     font-size: 16px;
+    min-width: 22rem;
+
 }
 
 
@@ -10,6 +12,7 @@ body {
     background-image: linear-gradient(to bottom, rgb(0, 0, 0), #1e1028, rgb(0, 0, 0));
     position: relative;
     color: white;
+    overflow-x: hidden
 
 }
 
@@ -56,6 +59,7 @@ nav {
     justify-content: end;
     align-items: center;
     height: 4rem;
+    width: 100%;
     background-color: #192A51;
     border-bottom: 3px solid #8B939C;
     box-shadow: 0px 5px 15px black;
@@ -97,6 +101,11 @@ nav {
 
 /* Projects */
 
+.projects-container {
+    margin: 0 auto;
+    width: 95%;
+}
+
 .project {
     position: relative;
     width: 100%;
@@ -124,6 +133,7 @@ nav {
     width: 100%;
     display: flex;
     flex-direction: column;
+
 }
 
 .project-content {
@@ -307,6 +317,7 @@ img#profile-image {
 .allskills img {
     width: 100px;
 }
+
 
 /* Footer */
 footer p {
